@@ -1,17 +1,3 @@
-<div align = center>
-
----
-
-&nbsp; ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-&nbsp; ![Java](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
-
----
-
-</div>
-
-<div align = center>
-
 # **FantomGames**
 
 </div>
