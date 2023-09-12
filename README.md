@@ -11,7 +11,7 @@
 # :construction: Développeurs
 
 - Corentin RICHARD : corentin.richard@etu.uca.fr
-- Dorian ODIN : dorian.odin@etu.uca.fr
+- Dorian HODIN : dorian.hodin@etu.uca.fr
 - Baptiste MARCEL : baptiste.marcel@etu.uca.fr
 - Jeremy BESSON : jeremy.besson@etu.uca.fr
 - Joan PIERRON : joan.pierron@etu.uca.fr
