@@ -1,6 +1,6 @@
 <div align = center>
 
-<img src="assets/FantomGamesIcon.png" width="1050" height="">
+<img src="assets/FantomGamesIcon.png" width="550" height="">
 
 </div>
 
