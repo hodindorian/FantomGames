@@ -23,6 +23,13 @@ steps:
       - flutter build apk
     depends_on: [ check_readme]
 
+  - name: flutter-test
+    image: ghcr.io/cirruslabs/flutter:3.13.4
+    commands:
+      - cd ./fantom_games
+      - flutter test
+    depends_on: [ app-build ]
+
       # deploy sonar
   - name: sonar_flutter
     image: ghcr.io/cirruslabs/flutter:3.13.4
@@ -40,6 +47,7 @@ steps:
       - export SONAR_SCANNER_OPTS="-server"
       - sonar-scanner -D sonar.projectKey=FantomGames -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
     depends_on: [ app-build ]
+    
   # deploy web app docker image
   - name: flutter_container
     image: plugins/docker
