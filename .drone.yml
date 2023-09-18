@@ -10,14 +10,14 @@ trigger:
 steps:
   # build flutter app
   - name: app-build
-    image: cirrusci/flutter:stable
+    image: cirruslabs/flutter:3.14
     commands:
       - cd ./fantom_games
       - flutter build apk
 
   # deploy sonar
   - name: code-analysis
-    image: cirrusci/flutter:stable
+    image: cirruslabs/flutter:3.14
     environment:
       SONAR_TOKEN:
         from_secret: SONAR_TOKEN
