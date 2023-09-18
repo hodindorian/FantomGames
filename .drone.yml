@@ -1,0 +1,66 @@
+kind: pipeline
+type: docker
+name: FantomGames
+
+trigger:
+  event:
+    - push
+
+steps:
+  - name: check_readme
+    image: alpine/git
+    commands:
+      - if git diff --name-only $DRONE_COMMIT_BEFORE $DRONE_COMMIT_AFTER | grep -q '^README.md$'; then
+          export CI_SKIP=true;
+        fi
+
+
+  # build flutter app
+  - name: app-build
+    image: ghcr.io/cirruslabs/flutter:3.13.4
+    commands:
+      - cd ./fantom_games
+      - flutter build apk
+    depends_on: [ check_readme]
+
+      # deploy sonar
+  - name: sonar_flutter
+    image: ghcr.io/cirruslabs/flutter:3.13.4
+    environment:
+      SONAR_TOKEN:
+        from_secret: SONAR_TOKEN
+    settings:
+      sources: ./fantom_games
+    commands:
+      - export SONAR_SCANNER_VERSION=4.7.0.2747
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
+      - sonar-scanner -D sonar.projectKey=FantomGames -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
+    depends_on: [ app-build ]
+  # deploy web app docker image
+  - name: flutter_container
+    image: plugins/docker
+    settings:
+      dockerfile: ./fantom_games/Dockerfile
+      context: fantom_games
+      registry: hub.codefirst.iut.uca.fr
+      repo: hub.codefirst.iut.uca.fr/dorian.hodin/fantom_games
+      username:
+        from_secret: SECRET_USERNAME
+      password:
+        from_secret: SECRET_PASSWD
+    depends_on: [ app-build ]
+
+  #deploy image
+  - name: deploy-flutter_app
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+    environment:
+      IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/fantom_games:latest
+      CONTAINERNAME: Fantom_Games
+      COMMAND: create
+      OVERWRITE: true
+      ADMINS: dorianhodin,corentinrichard,jeremybesson,joanpierron,baptistemarcel
+    depends_on: [ flutter_container ]
