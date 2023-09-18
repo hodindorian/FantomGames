@@ -12,7 +12,7 @@ steps:
   - name: app-build
     image: cirrusci/flutter:stable
     commands:
-      - cd ./Sources/dafl_project_flutter/
+      - cd ./fantom_games
       - flutter build apk
 
   # deploy sonar
