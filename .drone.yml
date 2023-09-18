@@ -21,8 +21,9 @@ steps:
     commands:
       - cd ./fantom_games
       - flutter build apk
+    depends_on: [ check_readme]
 
-  # deploy sonar
+      # deploy sonar
   - name: sonar_flutter
     image: ghcr.io/cirruslabs/flutter:3.13.4
     environment:
