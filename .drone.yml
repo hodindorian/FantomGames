@@ -32,3 +32,16 @@ steps:
       - export SONAR_SCANNER_OPTS="-server"
       - sonar-scanner -D sonar.projectKey=FantomGames -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
     depends_on: [ app-build ]
+
+  # deploy web app docker image
+  - name: flutter_container
+    image: plugins/docker
+    settings:
+      dockerfile: ./fantom_games/Dockerfile
+      context: fantom_games
+      registry: hub.codefirst.iut.uca.fr
+      repo: hub.codefirst.iut.uca.fr/dorian.hodin/fantom_games
+      username:
+        from_secret: SECRET_USERNAME
+      password:
+        from_secret: SECRET_PASSWD
