@@ -1,7 +1,6 @@
 kind: pipeline
 type: docker
-name: DAFLPipeline
-
+name: FantomGames
 
 trigger:
   event:
