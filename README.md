@@ -60,4 +60,3 @@ Nous avons mis en place des outils de communication et de rapport de l’activit
 
 © IUT - Auvergne
 </div>
-
