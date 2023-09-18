@@ -45,3 +45,4 @@ steps:
         from_secret: SECRET_USERNAME
       password:
         from_secret: SECRET_PASSWD
+    depends_on: [ app-build ]
