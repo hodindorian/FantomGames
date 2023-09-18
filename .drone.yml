@@ -27,6 +27,7 @@ steps:
     image: ghcr.io/cirruslabs/flutter:3.13.4
     commands:
       - cd ./fantom_games
+      - flutter pub get
       - flutter test
     depends_on: [ app-build ]
 
