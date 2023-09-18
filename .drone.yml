@@ -54,5 +54,6 @@ steps:
       CONTAINERNAME: Fantom_Games
       COMMAND: create
       OVERWRITE: true
+      ADMINS: dorianhodin,corentinrichard
     depends_on: [ flutter_container ]
 
