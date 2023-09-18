@@ -15,7 +15,7 @@ steps:
       - flutter build apk
 
   # deploy sonar
-  - name: code-analysis
+  - name: sonar_flutter
     image: ghcr.io/cirruslabs/flutter:3.13.4
     environment:
       SONAR_TOKEN:
@@ -45,3 +45,14 @@ steps:
       password:
         from_secret: SECRET_PASSWD
     depends_on: [ app-build ]
+
+  #deploy image
+  - name: deploy-flutter_app
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+    environment:
+      IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/fantom_games:latest
+      CONTAINERNAME: Fantom_Games
+      COMMAND: create
+      OVERWRITE: true
+    depends_on: [ flutter_container ]
+
