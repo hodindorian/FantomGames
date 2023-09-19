@@ -7,21 +7,13 @@ trigger:
     - push
 
 steps:
-  - name: check_readme
-    image: alpine/git
-    commands:
-      - if git diff --name-only $DRONE_COMMIT_BEFORE $DRONE_COMMIT_AFTER | grep -q '^README.md$'; then
-          export CI_SKIP=true;
-        fi
-
 
   # build flutter app
   - name: app-build
     image: ghcr.io/cirruslabs/flutter:3.13.4
     commands:
       - cd ./fantom_games
-      - flutter build apk
-    depends_on: [ check_readme]
+      - flutter build web
 
   - name: flutter-test
     image: ghcr.io/cirruslabs/flutter:3.13.4
