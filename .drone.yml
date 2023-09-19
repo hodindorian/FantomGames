@@ -22,7 +22,7 @@ steps:
       - cd ./fantom_games
       - flutter pub get
       - flutter test
-    depends_on: [ app-build ]
+    depends_on: [ flutter-web-build ]
 
     # deploy sonar
   - name: sonar_flutter
@@ -40,7 +40,7 @@ steps:
       - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
       - export SONAR_SCANNER_OPTS="-server"
       - sonar-scanner -D sonar.projectKey=FantomGames -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
-    depends_on: [ app-build ]
+    depends_on: [ flutter-test ]
     
   # deploy web app docker image
   - name: flutter_container
@@ -54,7 +54,7 @@ steps:
         from_secret: SECRET_USERNAME
       password:
         from_secret: SECRET_PASSWD
-    depends_on: [ app-build ]
+    depends_on: [ flutter-test ]
 
   #deploy image
   - name: deploy-flutter_app
