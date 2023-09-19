@@ -1,4 +1,4 @@
 FROM ghcr.io/cirruslabs/flutter:3.13.4
-COPY . .
-WORKDIR .
-CMD ["flutter", "build","web"]
+COPY . /var/www/html
+WORKDIR /var/www/html
+RUN flutter run -d chrome --web-port 80

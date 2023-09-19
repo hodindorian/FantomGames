@@ -47,7 +47,7 @@ steps:
     image: plugins/docker
     settings:
       dockerfile: ./fantom_games/Dockerfile
-      context: fantom_games
+      context: ./fantom_games
       registry: hub.codefirst.iut.uca.fr
       repo: hub.codefirst.iut.uca.fr/dorian.hodin/fantom_games
       username:
