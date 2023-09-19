@@ -13,7 +13,7 @@ steps:
     image: ghcr.io/cirruslabs/flutter:3.13.4
     commands:
       - cd ./fantom_games
-      - flutter build web
+      - flutter build web --no-tree-shake-icons
 
   - name: flutter-test
     image: ghcr.io/cirruslabs/flutter:3.13.4
