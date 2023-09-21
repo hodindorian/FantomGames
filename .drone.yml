@@ -44,18 +44,14 @@ steps:
     
   # deploy web app docker image
   - name: flutter_deploy_firebase
-    image: andreysenov/firebase-tools
+    image: ghcr.io/cirruslabs/flutter:3.13.4
     settings:
       firebase_login:
         from_secret: FIREBASE_LOGIN
     commands:
       - cd ./fantom_games
-      - apt-get -y update
-      - apt-get -y install wget tar
-      - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_linux_3.13.4-stable.tar.gz
-      - tar flutter_linux_3.13.4-stable.tar.gz
-      - export PATH=$PATH:$(pwd)/flutter_linux_3.13.4-stable/bin
       - flutter pub get
+      - curl -sL https://firebase.tools | bash
       - firebase experiments:enable webframeworks
       - firebase deploy --token $${PLUGIN_FIREBASE_LOGIN}
-    depends_on: [ flutter-test ]
+    depends_on: [ flutter-web-build ]
