@@ -50,6 +50,7 @@ steps:
         from_secret: FIREBASE_LOGIN
     commands:
       - cd ./fantom_games
+      - apt-get update;apt-get install wget tar
       - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_linux_3.13.4-stable.tar.gz
       - tar flutter_linux_3.13.4-stable.tar.gz
       - export PATH=$PATH:$(pwd)/flutter_linux_3.13.4-stable/bin
