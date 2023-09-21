@@ -50,6 +50,6 @@ steps:
         from_secret: FIREBASE_LOGIN
     commands:
       - cd ./fantom_games
-      - firebase --token $${PLUGIN_FIREBASE_LOGIN}
+      - firebase login --token $${PLUGIN_FIREBASE_LOGIN}
       - firebase deploy
     depends_on: [ flutter-test ]
