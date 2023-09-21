@@ -47,6 +47,5 @@ steps:
     image: andreysenov/firebase-tools
     commands:
       - cd ./fantom_games
-      - flutter pub get
       - firebase deploy
     depends_on: [ flutter-test ]
