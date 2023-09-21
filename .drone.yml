@@ -45,7 +45,11 @@ steps:
   # deploy web app docker image
   - name: flutter_deploy_firebase
     image: andreysenov/firebase-tools
+    settings:
+      firebase_login:
+        from_secret: FIREBASE_LOGIN
     commands:
       - cd ./fantom_games
+      - firebase login --no-localhost | echo $${PLUGIN_FIREBASE_LOGIN}
       - firebase deploy
     depends_on: [ flutter-test ]
