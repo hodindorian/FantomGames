@@ -54,5 +54,6 @@ steps:
       - flutter pub get
       - curl -sL https://firebase.tools | bash
       - firebase experiments:enable webframeworks
+      - firebase use fantom_games
       - firebase deploy
     depends_on: [ flutter-web-build ]
