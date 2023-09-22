@@ -50,8 +50,9 @@ steps:
         from_secret: FIREBASE_LOGIN
     commands:
       - cd ./fantom_games
+      - export GOOGLE_APPLICATION_CREDENTIALS=./lib/config/fantom-games-b26540f25b79.json
       - flutter pub get
       - curl -sL https://firebase.tools | bash
       - firebase experiments:enable webframeworks
-      - firebase deploy --token $${PLUGIN_FIREBASE_LOGIN}
+      - firebase deploy
     depends_on: [ flutter-web-build ]
