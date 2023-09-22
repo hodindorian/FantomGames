@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fantom-games",
+  "private_key_id": "b26540f25b794b6418dc8ca8eec7988f3674b222",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2VKdXYqmMUEBc\nyYPTWszR8mHxf6l6Ow7wwo7sEBumys9OJNK2xa09yWbVHnXZqxPlQ725bgosOXJ+\n2RA1DNXEYp14Kjh8c+M/WivNIrA6M06eggbuQ2v5xPFNfVTWat2k5ZzK9zL5/xjV\nN4eq8b1/ILIYDaD1vgwAzwUFiLEHjMo4gO5J2hqRaAU8OXMHuFKFuBLitVmOyZj3\ncSHFe4g8SFmdwHz3u+U8s8zGKlW3gllgDtMuZOgNo/h60DsN/eG0W5COfsQ1DbQP\n9K8BlvPlH6gb+ohugb0dqpWnQxCu0KmwE7iiQT1CAMzECbjlU9sEYqtfsshGTsvB\nL6NNjTdhAgMBAAECggEASOgJr+YKMMqIKfIELdexbcPTSStIe9EwtLG/T4JTZDrV\ncQRFY4MgtkOZxF81NY/0WSjgrMxk8fEYqMMn+WaD9c6O89VCF/WI6TSnrhOQTv1k\nEvqgRdacztdiu58BdOlvbjfIHdqBvjg0WFGnhIG8SaCrxfVxJsJS72HYOrHBQ+hp\nFBrrWvsyznktBPBkGGKy8ue8DYIheXSkTjG8n6PiU1fM9tVbr/yP31dgvchhtbzC\n+6MJVY8TgFa+rKEK4OPtBhXMwV1fv899Hw3VCGpxxxUll/Yqr/FKi18zfvKImzRz\nrZJdw3E/9cHutuCjwzVftjVDbpokroCped+wxKXqjwKBgQDszp56q0UZAu4XBl9x\nF86pOUdpHJlbVu+MsNL4aHGhMSRAYosyawsVlehfWTTCOrudjGyllCr7/Mq5FQjV\nld29xgsFWFkDwPQtbDNtKw25sRleyBx8VP4A+HV1sGwMOYsL9faMZHLcutO3fuYf\nJ8gfNEtUB+iKv6PM9obvmPwbSwKBgQDFG7uqGNC+x34uGR38AnTJjfumtXxW4peY\n2P7HN1Day8JGNghJFfOeD3nmYhISe4Qx/ihTVYRso/xrq/Ez1Xq+RTOJVtLEtMIM\n9RJw7UJCTSko6weI1VUc4DUDiP9llV4Co9Nf/Ug8XQOv/g/JqxdJ5DwncTaC+hbq\n+ZjdeVnAgwKBgA0qv+0aMNFfNFXbaNsk87y9Dpdtm6lUgCVWf6SISikoTle2Iv8+\nrHMazrzefOx/z4bHFBNw1aMFP1BjNwaJOrcel+ZIL0riI7GS3pknV7AHhN2cStku\n8KClMALHOHrFiFG172uG+kwDp1oAmFMLJzl08utNNUThuv3eh0ozO3FZAoGBAI6k\n11btxoOKU6KAwtZR4LrMacXnqSgnq5YN07PQME9nDh1JlQ1vOXK1uH4lkvaVNMIJ\nMJ2+UatdsZsqP9BHOiDga7+EedupBJXj9YiL61uYA6V9EWLRIFtZVoRMbKfTRMmc\nTag14ETu+3At6LcFfkEXTwEsSUrYOiWqpBoDbBSJAoGAU/iV7f4KiDWPJvb9KSVR\n5FvJL4jj8WxRpkNeWbDP7//ysIXFw41ca6+hZDu/r3HnkhDh+kSHUB9/nHT7ow+6\nPv1uXNC4/tY4UyHQqwd8DYT8uG/KD1yZLu2jhmxQyUBTvcpfUV9Htxe9vHW/URBz\n3e0584IPyB3+sfQRQTDFGEY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-x6np8@fantom-games.iam.gserviceaccount.com",
+  "client_id": "110936356418327187589",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-x6np8%40fantom-games.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
