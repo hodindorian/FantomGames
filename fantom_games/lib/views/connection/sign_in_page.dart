@@ -82,8 +82,7 @@ class SignInScreenState extends State<SignInScreen> {
                               showMessagePopUp(context, "Mot de passe manquant",
                                   "Veuillez rentrer votre mot de passe",
                                   "FFFFFF");
-                            } else
-                            if (_passwordTextController.text.length < 6) {
+                            } else if (_passwordTextController.text.length < 6) {
                               showMessagePopUp(
                                   context, "Mot de passe incorrect",
                                   "Veuillez rentrer correctement votre mot de passe",

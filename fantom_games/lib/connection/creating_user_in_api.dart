@@ -7,10 +7,11 @@ Future<String> creatingUserInApi(String email,String pseudo, String password) as
   String sha256Password = sha256.convert(utf8.encode(password)).toString();
   Uri uri = Uri.https('codefirst.iut.uca.fr',
       '/containers/fantom_games-deploy_api/addUser/$email/$pseudo/$sha256Password');
-  http.Response response = await http.post(uri);
-  print(response.statusCode);
-  print(response.body);
-  print(response.headers);
+  http.Response response = await http.post(uri,
+    headers: <String, String>{
+      'Access-Control-Allow-Origin': '*',
+    },
+  );
   if (response.statusCode != 200) {
     return "error";
   }

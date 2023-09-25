@@ -82,18 +82,19 @@ class SignUpScreenState extends State<SignUpScreen> {
                             showMessagePopUp(context, "Mot de passe non identiques",
                                 "Les deux mots de passe ne sont pas identiques","FFFFFF");
                             }else{
-                              final response = await creatingUserInApi(_emailTextController.text,_pseudoTextController.text,_passwordTextController.text);
+                              String response = await creatingUserInApi(_emailTextController.text,_pseudoTextController.text,_passwordTextController.text);
+                              response=response.replaceAll(' ','');
                               if(response=="OK") {
                                 if (context.mounted) {
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => const MainPage(
                                       title: 'Acceuil')));
                                 }
-                              }else if (response=="pseudo already use"){
+                              }else if (response=="pseudoalreadyuse"){
                                 if(context.mounted){
                                   showMessagePopUp(context, "Erreur", "Ce pseudo est déjà utilisé par un utilisateur", "FFFFFF");
                                 }
-                              }else if (response=="email already use"){
+                              }else if (response=="emailalreadyuse"){
                                 if(context.mounted){
                                   showMessagePopUp(context, "Erreur", "Cet email déjà utilisé par un utilisateur", "FFFFFF");
                                 }
