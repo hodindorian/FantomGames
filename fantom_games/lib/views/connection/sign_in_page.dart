@@ -76,7 +76,7 @@ class SignInScreenState extends State<SignInScreen> {
                           ),
                           onPressed: () async {
                             if (_pseudoTextController.text.isEmpty) {
-                              showMessagePopUp(context, "Email manquant",
+                              showMessagePopUp(context, "Pseudo manquant",
                                   "Veuillez rentrer votre pseudo", "FFFFFF");
                             } else if (_passwordTextController.text.isEmpty) {
                               showMessagePopUp(context, "Mot de passe manquant",
@@ -88,9 +88,7 @@ class SignInScreenState extends State<SignInScreen> {
                                   "Veuillez rentrer correctement votre mot de passe",
                                   "FFFFFF");
                             } else {
-                              final response = await connectingUserToApi(
-                                  _pseudoTextController.text,
-                                  _passwordTextController.text);
+                              final response = await connectingUserToApi(_pseudoTextController.text,_passwordTextController.text);
                               if (response == "OK") {
                                 if (context.mounted) {
                                   Navigator.push(context, MaterialPageRoute(
