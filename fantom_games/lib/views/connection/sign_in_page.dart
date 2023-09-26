@@ -22,8 +22,7 @@ class SignInScreenState extends State<SignInScreen> {
         body: Container(
             color: Colors.blue,
             child: SizedBox(
-                width: MediaQuery
-                    .of(context)
+                width: MediaQuery.of(context)
                     .size
                     .width,
                 height: MediaQuery

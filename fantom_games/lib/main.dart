@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
@@ -11,7 +10,6 @@ void main() {
   );
   runApp(const FantomGames());
 }
-
 
 class FantomGames extends StatelessWidget {
   const FantomGames({super.key});
@@ -28,4 +26,3 @@ class FantomGames extends StatelessWidget {
     );
   }
 }
-
