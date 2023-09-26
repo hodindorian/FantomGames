@@ -93,7 +93,7 @@ class SignInScreenState extends State<SignInScreen> {
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) =>
                                       const MainPage(
-                                          title: 'Acceuil')));
+                                          title: 'Accueil')));
                                 }
                               } else {
                                 if (context.mounted) {

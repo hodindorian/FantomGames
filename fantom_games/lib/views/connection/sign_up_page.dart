@@ -88,7 +88,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                 if (context.mounted) {
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => const MainPage(
-                                      title: 'Acceuil')));
+                                      title: 'Accueil')));
                                 }
                               }else if (response=="pseudoalreadyuse"){
                                 if(context.mounted){
