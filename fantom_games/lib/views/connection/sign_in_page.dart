@@ -22,20 +22,12 @@ class SignInScreenState extends State<SignInScreen> {
         body: Container(
             color: Colors.blue,
             child: SizedBox(
-                width: MediaQuery.of(context)
-                    .size
-                    .width,
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                        20, MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.2, 20, 0),
+                        20, MediaQuery.of(context).size.height * 0.2, 20, 0),
                     child: Column(
                       children: <Widget>[
                         const SizedBox(
@@ -74,32 +66,55 @@ class SignInScreenState extends State<SignInScreen> {
                                   Colors.red)
                           ),
                           onPressed: () async {
-                            if (_pseudoTextController.text.isEmpty) {
-                              showMessagePopUp(context, "Pseudo manquant",
-                                  "Veuillez rentrer votre pseudo", "FFFFFF");
-                            } else if (_passwordTextController.text.isEmpty) {
-                              showMessagePopUp(context, "Mot de passe manquant",
-                                  "Veuillez rentrer votre mot de passe",
-                                  "FFFFFF");
-                            } else if (_passwordTextController.text.length < 6) {
-                              showMessagePopUp(
-                                  context, "Mot de passe incorrect",
-                                  "Veuillez rentrer correctement votre mot de passe",
-                                  "FFFFFF");
-                            } else {
-                              final response = await connectingUserToApi(_pseudoTextController.text,_passwordTextController.text);
-                              if (response == "OK") {
-                                if (context.mounted) {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                      const MainPage(
-                                          title: 'Accueil')));
-                                }
+                            try {
+                              if (_pseudoTextController.text.isEmpty) {
+                                showMessagePopUp(context, "Pseudo manquant",
+                                    "Veuillez rentrer votre pseudo", "FFFFFF");
+                              } else if (_passwordTextController.text.isEmpty) {
+                                showMessagePopUp(
+                                    context, "Mot de passe manquant",
+                                    "Veuillez rentrer votre mot de passe",
+                                    "FFFFFF");
+                              } else if (_passwordTextController.text.length <
+                                  6) {
+                                showMessagePopUp(
+                                    context, "Mot de passe incorrect",
+                                    "Veuillez rentrer correctement votre mot de passe",
+                                    "FFFFFF");
                               } else {
-                                if (context.mounted) {
-                                  showMessagePopUp(
-                                      context, "Erreur", response, "FFFFFF");
+                                final response = await connectingUserToApi(
+                                    _pseudoTextController.text,
+                                    _passwordTextController.text);
+                                if (response == "OK") {
+                                  if (context.mounted) {
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) =>
+                                        const MainPage(
+                                            title: 'Accueil')));
+                                  }
+                                } else if (response == "no user") {
+                                  if (context.mounted) {
+                                    showMessagePopUp(
+                                        context, "Utilisateur inconnu",
+                                        "Ce pseudo n'existe pas", "FFFFFF");
+                                  }
+                                } else if (response == "wrong_password") {
+                                  if (context.mounted) {
+                                    showMessagePopUp(
+                                        context, "Mot de passe incorrect",
+                                        "Votre mot de passe est incorrect", "FFFFFF");
+                                  }
+                                } else {
+                                  if (context.mounted) {
+                                    showMessagePopUp(
+                                        context, "Erreur", response, "FFFFFF");
+                                  }
                                 }
+                              }
+                            }catch(e){
+                              if (context.mounted) {
+                                showMessagePopUp(context, "Erreur",
+                                    e.toString(), "FFFFFF");
                               }
                             }
                           },

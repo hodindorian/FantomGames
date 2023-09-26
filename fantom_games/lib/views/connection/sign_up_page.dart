@@ -60,47 +60,79 @@ class SignUpScreenState extends State<SignUpScreen> {
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
                         ),
                         onPressed: () async {
-                          if (_emailTextController.text.isEmpty) {
-                            showMessagePopUp(context, "Email manquant",
-                                "Veuillez rentrer votre mail", "FFFFFF");
-                          } else if(!EmailValidator.validate(_emailTextController.text)){
-                            showMessagePopUp(context, "Email Incorrect",
-                                "Veuillez rentrer correctement votre mail", "FFFFFF");
-                          } else if(_pseudoTextController.text.isEmpty) {
-                            showMessagePopUp(context, "Pseudo manquant",
-                                "Veuillez rentrer votre pseudo", "FFFFFF");
-                          } else if (_passwordTextController.text.isEmpty) {
-                            showMessagePopUp(context, "Mot de passe manquant",
-                                "Veuillez rentrer votre mot de passe", "FFFFFF");
-                          }else if (_passwordVerifyTextController.text.isEmpty){
-                            showMessagePopUp(context, "Mot de passe manquant",
-                                "Veuillez confirmez votre mot de passe", "FFFFFF");
-                          } else if (_passwordTextController.text.length < 6) {
-                            showMessagePopUp(context, "Mot de passe incorrect",
-                                "Veuillez mettre un de minimum 6 caractères","FFFFFF");
-                          } else if(_passwordVerifyTextController.text != _passwordTextController.text){
-                            showMessagePopUp(context, "Mot de passe non identiques",
-                                "Les deux mots de passe ne sont pas identiques","FFFFFF");
-                            }else{
-                              String response = await creatingUserInApi(_emailTextController.text,_pseudoTextController.text,_passwordTextController.text);
-                              response=response.replaceAll(' ','');
-                              if(response=="OK") {
+                          try {
+                            if (_emailTextController.text.isEmpty) {
+                              showMessagePopUp(context, "Email manquant",
+                                  "Veuillez rentrer votre mail", "FFFFFF");
+                            } else if (!EmailValidator.validate(
+                                _emailTextController.text)) {
+                              showMessagePopUp(context, "Email Incorrect",
+                                  "Veuillez rentrer correctement votre mail",
+                                  "FFFFFF");
+                            } else if (_pseudoTextController.text.isEmpty) {
+                              showMessagePopUp(context, "Pseudo manquant",
+                                  "Veuillez rentrer votre pseudo", "FFFFFF");
+                            } else if (_passwordTextController.text.isEmpty) {
+                              showMessagePopUp(context, "Mot de passe manquant",
+                                  "Veuillez rentrer votre mot de passe",
+                                  "FFFFFF");
+                            } else if (_passwordVerifyTextController.text
+                                .isEmpty) {
+                              showMessagePopUp(context, "Mot de passe manquant",
+                                  "Veuillez confirmez votre mot de passe",
+                                  "FFFFFF");
+                            } else if (_passwordTextController.text.length <
+                                6) {
+                              showMessagePopUp(
+                                  context, "Mot de passe incorrect",
+                                  "Veuillez mettre un de minimum 6 caractères",
+                                  "FFFFFF");
+                            } else if (_passwordVerifyTextController.text !=
+                                _passwordTextController.text) {
+                              showMessagePopUp(
+                                  context, "Mot de passe non identiques",
+                                  "Les deux mots de passe ne sont pas identiques",
+                                  "FFFFFF");
+                            } else {
+                              String response = await creatingUserInApi(
+                                  _emailTextController.text,
+                                  _pseudoTextController.text,
+                                  _passwordTextController.text);
+                              response = response.replaceAll(' ', '');
+                              if (response == "OK") {
                                 if (context.mounted) {
                                   Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => const MainPage(
-                                      title: 'Accueil')));
+                                      builder: (context) =>
+                                      const MainPage(
+                                          title: 'Accueil')));
                                 }
-                              }else if (response=="pseudoalreadyuse"){
-                                if(context.mounted){
-                                  showMessagePopUp(context, "Erreur", "Ce pseudo est déjà utilisé par un utilisateur", "FFFFFF");
+                              } else if (response == "pseudoalreadyuse") {
+                                if (context.mounted) {
+                                  showMessagePopUp(
+                                      context, "Pseudo déjà utilisé",
+                                      "Ce pseudo est déjà utilisé par un utilisateur",
+                                      "FFFFFF");
                                 }
-                              }else if (response=="emailalreadyuse"){
-                                if(context.mounted){
-                                  showMessagePopUp(context, "Erreur", "Cet email déjà utilisé par un utilisateur", "FFFFFF");
+                              } else if (response == "emailalreadyuse") {
+                                if (context.mounted) {
+                                  showMessagePopUp(context, "Mail déjà utilisé",
+                                      "Cet email déjà utilisé par un utilisateur",
+                                      "FFFFFF");
+                                }
+                              } else {
+                                if (context.mounted) {
+                                  showMessagePopUp(
+                                      context, "Erreur", response, "FFFFFF");
                                 }
                               }
                             }
-                          }, child: const Text(
+                          }catch(e){
+                            if (context.mounted) {
+                              showMessagePopUp(
+                                  context, "Erreur", e.toString(), "FFFFFF");
+                            }
+                          }
+                        }, child: const Text(
                               "Créer le compte",
                               style: TextStyle(
                                 color: Colors.white,
