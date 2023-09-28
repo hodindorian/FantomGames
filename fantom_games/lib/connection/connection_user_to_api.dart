@@ -21,9 +21,6 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
       } else if (rep['password'] == sha256Password) {
         if (stayConnected){
           saveCookie("auth", pseudo);
-          saveCookie("pass", sha256Password);
-          print(await getCookie("auth"));
-          print(await getCookie("pass"));
         }
         return "OK";
       } else {

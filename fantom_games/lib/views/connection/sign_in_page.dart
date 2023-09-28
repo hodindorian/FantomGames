@@ -1,3 +1,4 @@
+import 'package:fantom_games/reusable_widget/cookie_managing.dart';
 import 'package:fantom_games/views/connection/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/connection_user_to_api.dart';
@@ -15,7 +16,26 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
+  String result= "";
   bool _isStayLoggedIn = false;
+
+  @override
+  void initState(){
+    super.initState();
+    getCookie("auth").then((result){
+      setState(() {
+        String cookie = result!;
+        if(cookie.isNotEmpty){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+              const MainPage(title: 'Accueil')
+            )
+          );
+        }
+      });
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
