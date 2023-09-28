@@ -15,6 +15,7 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
+  bool _isStayLoggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,8 @@ class SignInScreenState extends State<SignInScreen> {
                               } else {
                                 final response = await connectingUserToApi(
                                     _pseudoTextController.text,
-                                    _passwordTextController.text);
+                                    _passwordTextController.text,
+                                    _isStayLoggedIn);
                                 if (response == "OK") {
                                   if (context.mounted) {
                                     Navigator.push(context, MaterialPageRoute(
@@ -125,6 +127,19 @@ class SignInScreenState extends State<SignInScreen> {
                               fontSize: 40,
                             ),
                           ),
+                        ),
+                        Checkbox(
+                          value: _isStayLoggedIn,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _isStayLoggedIn = newValue!;
+                            });
+                          },
+                          checkColor: Colors.white,
+                          activeColor: Colors.blue,
+                        ),
+                        const Text("Rester connecté",
+                            style: TextStyle(color: Colors.white)
                         ),
                       ],
                     ),
