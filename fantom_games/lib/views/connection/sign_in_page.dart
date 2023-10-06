@@ -1,7 +1,8 @@
-import 'package:fantom_games/reusable_widget/cookie_managing.dart';
+import 'package:fantom_games/reusable_widget/session_managing.dart';
 import 'package:fantom_games/views/connection/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/connection_user_to_api.dart';
+import '../../connection/try_connection_with_id_in_api.dart';
 import '../../reusable_widget/messsage_pop_up.dart';
 import '../../reusable_widget/text_field.dart';
 import '../home/main_page.dart';
@@ -16,21 +17,23 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
-  String result= "";
+  int result = 0;
   bool _isStayLoggedIn = false;
 
   @override
   void initState(){
     super.initState();
-    getCookie("auth").then((result){
-      setState(() {
-        String cookie = result!;
-        if(cookie.isNotEmpty){
-          Navigator.push(context, MaterialPageRoute(
+    getItemSession("id").then((result){
+      setState(() async {
+        int id = result;
+        if(id != 0){
+          if (getItemSession("pseudo")==tryConnectionWithSession(id)){
+            Navigator.push(context, MaterialPageRoute(
               builder: (context) =>
-              const MainPage(title: 'Accueil')
-            )
-          );
+                const MainPage(title: 'Accueil')
+              )
+            );
+          }
         }
       });
     });
