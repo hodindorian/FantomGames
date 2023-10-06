@@ -33,3 +33,4 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
   }
 }
 
+
