@@ -1,6 +1,6 @@
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 
-void setSession(String key, String value) async {
+void setSession(String key, dynamic value) async {
   await SessionManager().set(key, value);
 }
 

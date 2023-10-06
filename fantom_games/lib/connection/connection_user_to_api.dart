@@ -18,9 +18,10 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
       var rep = jsonDecode(response.body);
       if (response.statusCode != 200) {
         return "error";
-      } else if (rep['pseudo'] == pseudo) {
+      } else if (rep[0]['pseudo'] == pseudo) {
         if (stayConnected){
-          setSession("id", rep['id']);
+          print(rep[0]['id']);
+          setSession("id", rep[0]['id']);
           setSession("pseudo", pseudo);
         }
         return "OK";
@@ -28,7 +29,14 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
         return "wrong_password";
       }
     } on Error catch (_) {
-      return response.body;
+      String rep = response.body.replaceAll(' ', '');
+      if (rep=='["OK"]'){
+        return "OK";
+      }else if(rep=='["wrongpassword"]') {
+        return "wrong_password";
+      }else{
+        return "error";
+      }
     }
   }catch(e) {
     return e.toString();

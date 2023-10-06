@@ -17,27 +17,28 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
-  int result = 0;
   bool _isStayLoggedIn = false;
 
   @override
   void initState(){
     super.initState();
-    getItemSession("id").then((result){
-      setState(() async {
-        int id = result;
-        if(id != 0){
-          if (getItemSession("pseudo")==tryConnectionWithSession(id)){
+    getItemSession("id").then((result) async {
+      int id = result;
+      if (id != 0) {
+        String pseudoUser = await getItemSession("pseudo");
+        String user = await tryConnectionWithSession(id);
+        if (user.replaceAll(' ', '') == pseudoUser.replaceAll(' ', '')) {
+          setState(() {
             Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                const MainPage(title: 'Accueil')
-              )
-            );
-          }
+              builder: (context) => const MainPage(title: 'Accueil'),
+            ));
+          });
         }
-      });
+      }
     });
   }
+
+
 
 
   @override
@@ -64,8 +65,8 @@ class SignInScreenState extends State<SignInScreen> {
                           height: 20,
                         ),
                         usableTextField(
-                            "Entrez votre mot de passe", Icons.lock_outline,
-                            true, _passwordTextController),
+                            "Entrez votre mot de passe", Icons.lock_outline,true,
+                            _passwordTextController),
                         const SizedBox(
                           height: 5,
                         ),
