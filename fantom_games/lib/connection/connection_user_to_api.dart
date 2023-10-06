@@ -8,26 +8,25 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
   try {
     String sha256Password = sha256.convert(utf8.encode(password)).toString();
     Uri uri = Uri.https('codefirst.iut.uca.fr',
-        '/containers/fantom_games-deploy_api/getUserPassword/$pseudo');
+        '/containers/fantom_games-deploy_api/userConnection/$pseudo/$sha256Password');
     http.Response response = await http.get(uri,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
       },
     );
-    try {
-      var rep = jsonDecode(response.body);
-      if (response.statusCode != 200) {
-        return "error";
-      } else if (rep['password'] == sha256Password) {
-        if (stayConnected){
-          saveCookie("auth", pseudo);
-        }
-        return "OK";
-      } else {
-        return "wrong_password";
+    var rep = response.body;
+    rep = rep.replaceAll(' ', '');
+    if (response.statusCode != 200) {
+      return "error";
+    } else if (rep == "OK") {
+      if (stayConnected){
+        saveCookie("auth", pseudo);
       }
-    } on Error catch (_) {
+      return "OK";
+    } else if (rep=="nouser"){
       return "no user";
+    } else {
+      return "wrong_password";
     }
   }catch(e) {
     return e.toString();
