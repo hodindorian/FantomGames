@@ -36,22 +36,26 @@ class SignUpScreenState extends State<SignUpScreen> {
                         height: 20,
                       ),
                       usableTextField(
-                          "Entrez votre Mail", Icons.person_outline, false,_emailTextController),
+                          "Entrez votre Mail", Icons.person_outline, false,
+                          _emailTextController),
                       const SizedBox(
                         height: 20,
                       ),
                       usableTextField(
-                          "Entrez votre pseudo", Icons.person_outline, false,_pseudoTextController),
+                          "Entrez votre pseudo", Icons.person_outline, false,
+                          _pseudoTextController),
                       const SizedBox(
                         height: 20,
                       ),
                       usableTextField(
-                          "Entrez votre mot de passe", Icons.lock_outline, true,_passwordTextController),
+                          "Entrez votre mot de passe", Icons.lock_outline, true,
+                          _passwordTextController),
                       const SizedBox(
                         height: 20,
                       ),
                       usableTextField(
-                          "Confirmez votre mot de passe", Icons.lock_outline, true,_passwordVerifyTextController),
+                          "Confirmez votre mot de passe", Icons.lock_outline, true,
+                          _passwordVerifyTextController),
                       const SizedBox(
                         height: 5,
                       ),

@@ -46,6 +46,8 @@ class SignInScreenState extends State<SignInScreen> {
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,8 +72,8 @@ class SignInScreenState extends State<SignInScreen> {
                           height: 20,
                         ),
                         usableTextField(
-                            "Entrez votre mot de passe", Icons.lock_outline,
-                            true, _passwordTextController),
+                            "Entrez votre mot de passe", Icons.lock_outline,true,
+                            _passwordTextController),
                         const SizedBox(
                           height: 5,
                         ),

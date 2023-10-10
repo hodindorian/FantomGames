@@ -25,11 +25,6 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
           setSession("id", rep['id']);
           setSession("pseudo", pseudo);
         }
-        print(rep['email']);
-        print(rep['pseudo']);
-        print(rep['lastname']);
-        print(rep['firstname']);
-        print(rep['phoneNumber']);
 
 
         Account(rep['email'], rep['pseudo'], rep['lastname'], rep['firstname'], rep['phoneNumber'],rep['gameLevel'],rep['cryptoBalance']);
