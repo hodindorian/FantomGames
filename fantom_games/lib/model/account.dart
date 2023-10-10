@@ -1,24 +1,22 @@
 class Account {
   final String _email;
   String _pseudo;
-  String _lastname;
-  String _firstname;
-  String _phoneNumber;
+  String ?_lastname;
+  String ?_firstname;
+  String ?_phoneNumber;
   double _cryptoBalance; 
   int _gameLevel;
   List<String> _transactionHistory; 
 
-  Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber,{double? cryptoBalance,int? gameLevel,List<String>? transactionHistory}) :
-    _cryptoBalance = cryptoBalance ?? 0.0, 
-    _gameLevel = gameLevel ?? 1, 
-    _transactionHistory = transactionHistory ?? []; 
+  Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber, this._gameLevel, this._cryptoBalance,{List<String>? transactionHistory}) :
+    _transactionHistory = transactionHistory ?? [];
   
 
   String get email => _email;
   String get pseudo => _pseudo;
-  String get lastname => _lastname;
-  String get firstname => _firstname;
-  String get phoneNumber => _phoneNumber;
+  String? get lastname => _lastname;
+  String? get firstname => _firstname;
+  String? get phoneNumber => _phoneNumber;
   double get cryptoBalance => _cryptoBalance;
   int get gameLevel => _gameLevel;
   List<String> get transactionHistory => _transactionHistory;
@@ -27,15 +25,15 @@ class Account {
     _pseudo = newPseudo;
   }
 
-  set lastname(String newLastname) {
+  set lastname(String? newLastname) {
     _lastname = newLastname;
   }
 
-  set firstname(String newFirstname) {
+  set firstname(String? newFirstname) {
     _firstname = newFirstname;
   }
 
-  set phoneNumber(String newPhoneNumber) {
+  set phoneNumber(String? newPhoneNumber) {
     _phoneNumber = newPhoneNumber;
   }
 

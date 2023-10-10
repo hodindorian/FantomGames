@@ -17,27 +17,33 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
-  int result = 0;
   bool _isStayLoggedIn = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    getItemSession("id").then((result){
-      setState(() async {
-        int id = result;
-        if(id != 0){
-          if (getItemSession("pseudo")==tryConnectionWithSession(id)){
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                const MainPage(title: 'Accueil')
-              )
-            );
+    getItemSession("id").then((result1) async {
+      int id = result1;
+      getItemSession("pseudo").then((result2) async {
+        String pseudo = result2;
+        if (pseudo.isNotEmpty || id != 0) {
+          if (await tryConnectionWithSession(id, pseudo)) {
+            if (context.mounted) {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainPage(title: 'Accueil'),
+                  ),
+                );
+              });
+            }
           }
         }
-      });
+        });
     });
   }
+
 
 
   @override
