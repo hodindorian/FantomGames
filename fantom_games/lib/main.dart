@@ -1,6 +1,8 @@
+import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -8,7 +10,12 @@ void main() {
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const FantomGames());
+  runApp(
+      ChangeNotifierProvider(
+        create: (context) => AccountGlobal(),
+        child: const FantomGames(),
+      )
+  );
 }
 
 class FantomGames extends StatelessWidget {
@@ -22,7 +29,8 @@ class FantomGames extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const SignInScreen(),
+      home: const SignInScreen(signup: false),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

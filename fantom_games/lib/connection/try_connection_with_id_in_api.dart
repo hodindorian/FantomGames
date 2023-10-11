@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:js';
+import 'package:fantom_games/model/global_account.dart';
 import 'package:http/http.dart' as http;
-import '../model/account.dart';
+import 'package:provider/provider.dart';
 
-Future<bool> tryConnectionWithSession(int id, String pseudo) async {
+Future<List<dynamic>> tryConnectionWithSession(int id, String pseudo) async {
   try {
     Uri uri = Uri.https('codefirst.iut.uca.fr',
         '/containers/fantom_games-deploy_api/userForId/$id');
@@ -14,10 +16,14 @@ Future<bool> tryConnectionWithSession(int id, String pseudo) async {
     try {
       var rep = jsonDecode(response.body);
       rep=rep[0];
+
       if (response.statusCode != 200) {
-        return false;
+        result.add(false);
+        return rep;
       } else if (rep['pseudo'] == pseudo) {
-        Account(rep['email'], rep['pseudo'], rep['lastname'], rep['firstname'], rep['phoneNumber'],rep['gameLevel'],rep['cryptoBalance']);
+        rep.add(true);
+        rep.add(rep['email']);
+        rep.add, rep['pseudo'], rep['lastname'], rep['firstname'], rep['phoneNumber'],rep['gameLevel'],rep['cryptoBalance'])
         return true;
       } else {
         return false;

@@ -1,5 +1,5 @@
 class Account {
-  final String _email;
+  String _email;
   String _pseudo;
   String ?_lastname;
   String ?_firstname;
@@ -17,9 +17,15 @@ class Account {
   String? get lastname => _lastname;
   String? get firstname => _firstname;
   String? get phoneNumber => _phoneNumber;
-  double get cryptoBalance => _cryptoBalance;
   int get gameLevel => _gameLevel;
+  double get cryptoBalance => _cryptoBalance;
   List<String> get transactionHistory => _transactionHistory;
+
+  /*
+  set email(String newEmail){
+    _email = newEmail;
+  }
+  */
 
   set pseudo(String newPseudo) {
     _pseudo = newPseudo;
@@ -36,6 +42,16 @@ class Account {
   set phoneNumber(String? newPhoneNumber) {
     _phoneNumber = newPhoneNumber;
   }
+
+  /*
+  set gameLevel(int newGameLevel) {
+    _gameLevel = newGameLevel;
+  }
+
+  set cryptoBalance(double newCryptoBalance){
+    _cryptoBalance=newCryptoBalance;
+  }
+  */
 
   // Méthode pour afficher les informations du compte
   void displayAccountInfo() {

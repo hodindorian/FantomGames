@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import '../../connection/creating_user_in_api.dart';
 import '../../reusable_widget/messsage_pop_up.dart';
 import '../../reusable_widget/text_field.dart';
-import '../home/main_page.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -107,8 +107,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                                 if (context.mounted) {
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) =>
-                                      const MainPage(
-                                          title: 'Accueil')));
+                                      const SignInScreen(signup: true)
+                                  ));
                                 }
                               } else if (response == "pseudoalreadyuse") {
                                 if (context.mounted) {

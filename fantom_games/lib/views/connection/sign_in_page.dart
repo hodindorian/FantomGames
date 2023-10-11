@@ -1,20 +1,26 @@
 import 'package:fantom_games/reusable_widget/session_managing.dart';
 import 'package:fantom_games/views/connection/sign_up_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/connection_user_to_api.dart';
+import 'package:provider/provider.dart';
 import '../../connection/try_connection_with_id_in_api.dart';
+import '../../model/global_account.dart';
 import '../../reusable_widget/messsage_pop_up.dart';
 import '../../reusable_widget/text_field.dart';
 import '../home/main_page.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key, required this.signup});
+
+  final bool signup;
 
   @override
   SignInScreenState createState() => SignInScreenState();
 }
 
 class SignInScreenState extends State<SignInScreen> {
+
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
   bool _isStayLoggedIn = false;
@@ -22,31 +28,48 @@ class SignInScreenState extends State<SignInScreen> {
   @override
   void initState() {
     super.initState();
-    getItemSession("id").then((result1) async {
-      int id = result1;
-      getItemSession("pseudo").then((result2) async {
-        String pseudo = result2;
-        if (pseudo.isNotEmpty || id != 0) {
-          if (await tryConnectionWithSession(id, pseudo)) {
-            if (context.mounted) {
-              setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MainPage(title: 'Accueil'),
-                  ),
-                );
-              });
+    /*
+    if(signup){
+      showMessagePopUp(
+          context, "Compte bien créé !",
+          "Veuillez maintenant vous connectez grâce à la page de connection",
+          "00FF00"
+      );
+    }
+    */
+    try {
+      getItemSession("id").then((result1) async {
+        if (result1 != null) {
+          int id = result1;
+          getItemSession("pseudo").then((result2) async {
+            if(result2 != null) {
+              String ?pseudo = result2;
+              if (pseudo!.isNotEmpty) {
+                if (await tryConnectionWithSession(id, pseudo)) {
+                  if (context.mounted) {
+                    setState(() {
+                      var user = Provider.of<AccountGlobal>(context,listen: false);
+                      user.updateAccount();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainPage(title: 'Accueil'),
+                        ),
+                      );
+                    });
+                  }
+                }
+              }
             }
-          }
+          });
         }
-        });
-    });
+      });
+    }catch (e) {
+      if (kDebugMode){
+        print(e.toString());
+      }
+    }
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

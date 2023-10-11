@@ -17,6 +17,7 @@ dependencies:
   crypto: ^3.0.3
   shared_preferences: ^2.0.7
   flutter_session_manager: ^1.0.3
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +26,5 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
 
