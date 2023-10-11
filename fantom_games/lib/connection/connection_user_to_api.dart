@@ -1,11 +1,13 @@
 import 'package:crypto/crypto.dart';
-import 'package:fantom_games/model/account.dart';
 import 'package:fantom_games/reusable_widget/session_managing.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-Future<String> connectingUserToApi(String pseudo, String password, bool stayConnected) async {
+Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool stayConnected) async {
+
+  List<dynamic> result = [];
+
   try {
     String sha256Password = sha256.convert(utf8.encode(password)).toString();
     Uri uri = Uri.https('codefirst.iut.uca.fr',
@@ -19,24 +21,33 @@ Future<String> connectingUserToApi(String pseudo, String password, bool stayConn
       var rep = jsonDecode(response.body);
       rep=rep[0];
       if (response.statusCode != 200) {
-        return "error";
+        result.add("error");
+        return result;
       } else if (rep['pseudo'] == pseudo) {
         if (stayConnected){
           setSession("id", rep['id']);
           setSession("pseudo", pseudo);
         }
-
-
-        Account(rep['email'], rep['pseudo'], rep['lastname'], rep['firstname'], rep['phoneNumber'],rep['gameLevel'],rep['cryptoBalance']);
-        return "OK";
+        result.add("OK");
+        result.add(rep['email']);
+        result.add(rep['pseudo']);
+        result.add(rep['lastname']);
+        result.add(rep['firstname']);
+        result.add(rep['phoneNumber']);
+        result.add(rep['gameLevel']);
+        result.add(rep['cryptoBalance']);
+        return result;
       } else {
-        return "wrong_password";
+        result.add("wrong_password");
+        return result;
       }
     } on Error catch (e) {
-      return e.toString();
+      result.add(e.toString());
+      return result;
     }
   }catch(e) {
-    return e.toString();
+    result.add(e.toString());
+    return result;
   }
 }
 

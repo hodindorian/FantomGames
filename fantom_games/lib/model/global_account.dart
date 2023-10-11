@@ -5,7 +5,7 @@ class AccountGlobal extends ChangeNotifier {
   Account _account = Account("tmp@mail.com", "tmp", "tmp", "tmp", "000",0,0);
   Account get account => _account;
 
-  void updateAccount(String email, String pseudo, String lastname, String firstname, String phoneNumber, int gameLevel, double cryptoBalance) {
+  void updateAccount(String email, String pseudo, String ?lastname, String ?firstname, String ?phoneNumber, int gameLevel, double cryptoBalance) {
     _account = Account(email, pseudo, lastname, firstname, phoneNumber, gameLevel,cryptoBalance);
     notifyListeners();
   }
@@ -34,4 +34,8 @@ class AccountGlobal extends ChangeNotifier {
   int get gameLevel => _account.gameLevel;
   double get cryptoBalance => _account.cryptoBalance;
   List<String> get transactionHistory => _account.transactionHistory;
+
+  void displayInfoUser(){
+    _account.displayAccountInfo();
+  }
 }

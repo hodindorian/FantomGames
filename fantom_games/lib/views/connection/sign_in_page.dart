@@ -45,20 +45,24 @@ class SignInScreenState extends State<SignInScreen> {
             if(result2 != null) {
               String ?pseudo = result2;
               if (pseudo!.isNotEmpty) {
-                if (await tryConnectionWithSession(id, pseudo)) {
-                  if (context.mounted) {
-                    setState(() {
-                      var user = Provider.of<AccountGlobal>(context,listen: false);
-                      user.updateAccount();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainPage(title: 'Accueil'),
-                        ),
-                      );
-                    });
+                tryConnectionWithSession(id, pseudo).then((List<dynamic> myList) {
+                  if (myList[0]) {
+                    if (context.mounted) {
+                      setState(() {
+                        var user = Provider.of<AccountGlobal>(
+                            context, listen: false);
+                        user.updateAccount(myList[1],myList[2],myList[3],myList[4],myList[5],myList[6],myList[7]);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const MainPage(title: 'Accueil'),
+                          ),
+                        );
+                      });
+                    }
                   }
-                }
+                });
               }
             }
           });
@@ -137,35 +141,37 @@ class SignInScreenState extends State<SignInScreen> {
                                     "Veuillez rentrer correctement votre mot de passe",
                                     "FFFFFF");
                               } else {
-                                final response = await connectingUserToApi(
-                                    _pseudoTextController.text,
-                                    _passwordTextController.text,
-                                    _isStayLoggedIn);
-                                if (response == "OK") {
-                                  if (context.mounted) {
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) =>
-                                        const MainPage(
-                                            title: 'Accueil')));
-                                  }
-                                } else if (response == "no user") {
-                                  if (context.mounted) {
-                                    showMessagePopUp(
-                                        context, "Utilisateur inconnu",
-                                        "Ce pseudo n'existe pas", "FFFFFF");
-                                  }
-                                } else if (response == "wrong_password") {
-                                  if (context.mounted) {
-                                    showMessagePopUp(
-                                        context, "Mot de passe incorrect",
-                                        "Votre mot de passe est incorrect", "FFFFFF");
-                                  }
-                                } else {
-                                  if (context.mounted) {
-                                    showMessagePopUp(
-                                        context, "Erreur", response, "FFFFFF");
-                                  }
-                                }
+                                connectingUserToApi(_pseudoTextController.text,_passwordTextController.text,_isStayLoggedIn)
+                                .then((List<dynamic> myList) {
+                                    if (myList[0] == "OK") {
+                                      if (context.mounted) {
+                                        var user = Provider.of<AccountGlobal>(
+                                            context, listen: false);
+                                        user.updateAccount(myList[1],myList[2],myList[3],myList[4],myList[5],myList[6],myList[7]);
+                                        Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) =>
+                                            const MainPage(
+                                                title: 'Accueil')));
+                                      }
+                                    } else if (myList[0] == "no user") {
+                                      if (context.mounted) {
+                                        showMessagePopUp(
+                                            context, "Utilisateur inconnu",
+                                            "Ce pseudo n'existe pas", "FFFFFF");
+                                      }
+                                    } else if (myList[0] == "wrong_password") {
+                                      if (context.mounted) {
+                                        showMessagePopUp(
+                                            context, "Mot de passe incorrect",
+                                            "Votre mot de passe est incorrect", "FFFFFF");
+                                      }
+                                    } else {
+                                      if (context.mounted) {
+                                        showMessagePopUp(
+                                            context, "Erreur", myList[0], "FFFFFF");
+                                      }
+                                    }
+                                });
                               }
                             }catch(e){
                               if (context.mounted) {

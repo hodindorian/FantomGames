@@ -6,13 +6,13 @@ class MainPage extends StatefulWidget {
   final String title;
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainPage> createState() => MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class MainPageState extends State<MainPage> {
   @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
+  void initState() {
+    super.initState();
   }
 
   @override

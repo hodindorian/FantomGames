@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:js';
-import 'package:fantom_games/model/global_account.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 Future<List<dynamic>> tryConnectionWithSession(int id, String pseudo) async {
+
+  List<dynamic> result = [];
   try {
     Uri uri = Uri.https('codefirst.iut.uca.fr',
         '/containers/fantom_games-deploy_api/userForId/$id');
@@ -16,22 +15,29 @@ Future<List<dynamic>> tryConnectionWithSession(int id, String pseudo) async {
     try {
       var rep = jsonDecode(response.body);
       rep=rep[0];
-
       if (response.statusCode != 200) {
         result.add(false);
-        return rep;
+        return result;
       } else if (rep['pseudo'] == pseudo) {
-        rep.add(true);
-        rep.add(rep['email']);
-        rep.add, rep['pseudo'], rep['lastname'], rep['firstname'], rep['phoneNumber'],rep['gameLevel'],rep['cryptoBalance'])
-        return true;
+        result.add(true);
+        result.add(rep['email']);
+        result.add(rep['pseudo']);
+        result.add(rep['lastname']);
+        result.add(rep['firstname']);
+        result.add(rep['phoneNumber']);
+        result.add(rep['gameLevel']);
+        result.add(rep['cryptoBalance']);
+        return result;
       } else {
-        return false;
+        result.add(false);
+        return result;
       }
     } on Error catch (_) {
-      return false;
+      result.add(false);
+      return result;
     }
   }catch(e) {
-    return false;
+    result.add(false);
+    return result;
   }
 }
