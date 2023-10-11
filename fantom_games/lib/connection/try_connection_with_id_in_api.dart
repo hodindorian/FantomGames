@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<List<dynamic>> tryConnectionWithSession(int id, String pseudo) async {
+Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo) async {
 
   List<dynamic> result = [];
   try {

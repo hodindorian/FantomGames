@@ -40,7 +40,7 @@ class SignInScreenState extends State<SignInScreen> {
     try {
       getItemSession("id").then((result1) async {
         if (result1 != null) {
-          int id = result1;
+          String id = result1;
           getItemSession("pseudo").then((result2) async {
             if(result2 != null) {
               String ?pseudo = result2;
