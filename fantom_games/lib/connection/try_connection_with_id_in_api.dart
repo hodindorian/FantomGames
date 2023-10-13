@@ -6,7 +6,7 @@ Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo) async {
   List<dynamic> result = [];
   try {
     Uri uri = Uri.https('codefirst.iut.uca.fr',
-        '/containers/fantom_games-deploy_api/userForId/$id');
+        '/containers/fantom_games-deploy_api/userForId/$id/$pseudo');
     http.Response response = await http.get(uri,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
@@ -15,7 +15,10 @@ Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo) async {
     try {
       var rep = jsonDecode(response.body);
       rep=rep[0];
-      if (response.statusCode != 200) {
+      if (rep == "wrong id/pseudo couple"){
+        result.add(false);
+        return result;
+      } else if (response.statusCode != 200) {
         result.add(false);
         return result;
       } else if (rep['pseudo'] == pseudo) {

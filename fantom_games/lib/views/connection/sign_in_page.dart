@@ -143,7 +143,7 @@ class SignInScreenState extends State<SignInScreen> {
                               } else {
                                 connectingUserToApi(_pseudoTextController.text,_passwordTextController.text,_isStayLoggedIn)
                                 .then((List<dynamic> myList) {
-                                    if (myList[0] == "OK") {
+                                  if (myList[0] == "OK") {
                                       if (context.mounted) {
                                         var user = Provider.of<AccountGlobal>(
                                             context, listen: false);

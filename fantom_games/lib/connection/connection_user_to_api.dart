@@ -18,10 +18,18 @@ Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool s
       },
     );
     try {
+      if(response.statusCode != 200){
+        result.add("error");
+        result.add(response.toString());
+        return result;
+      }
       var rep = jsonDecode(response.body);
       rep=rep[0];
-      if (response.statusCode != 200) {
-        result.add("error");
+      if (rep == "no user") {
+        result.add("no user");
+        return result;
+      } else if (rep == "wrong password"){
+        result.add("wrong_password");
         return result;
       } else if (rep['pseudo'] == pseudo) {
         if (stayConnected){
@@ -37,8 +45,8 @@ Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool s
         result.add(rep['gameLevel']);
         result.add(rep['cryptoBalance']);
         return result;
-      } else {
-        result.add("wrong_password");
+      } else{
+        result.add("error unknown");
         return result;
       }
     } on Error catch (e) {
