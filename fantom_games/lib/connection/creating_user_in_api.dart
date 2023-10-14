@@ -1,13 +1,12 @@
-import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:async';
+import '../reusable_widget/salt_hash_password.dart';
 
 Future<String> creatingUserInApi(String email,String pseudo, String password) async {
   try {
-    String sha256Password = sha256.convert(utf8.encode(password)).toString();
+    String hashSaltPassword = hashPassword(password);
     Uri uri = Uri.https('codefirst.iut.uca.fr',
-        '/containers/fantom_games-deploy_api/addUser/$email/$pseudo/$sha256Password');
+        '/containers/fantom_games-deploy_api/addUser/$email/$pseudo/$hashSaltPassword');
     http.Response response = await http.post(uri,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',

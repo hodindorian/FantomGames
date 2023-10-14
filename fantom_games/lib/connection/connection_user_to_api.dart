@@ -7,7 +7,6 @@ import 'dart:async';
 Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool stayConnected) async {
 
   List<dynamic> result = [];
-
   try {
     String sha256Password = sha256.convert(utf8.encode(password)).toString();
     Uri uri = Uri.https('codefirst.iut.uca.fr',
