@@ -12,7 +12,6 @@ import '../home/main_page.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key, required this.signup});
-
   final bool signup;
 
   @override
@@ -24,19 +23,23 @@ class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _pseudoTextController = TextEditingController();
   bool _isStayLoggedIn = false;
+  String text = "";
+
 
   @override
   void initState() {
-    super.initState();
-    /*
-    if(signup){
-      showMessagePopUp(
-          context, "Compte bien créé !",
-          "Veuillez maintenant vous connectez grâce à la page de connection",
-          "00FF00"
-      );
+    try {
+      if(widget.signup){
+        text = "Vous avez bien été inscrit ! Veuillez maintenant vous connectez.";
+      }else{
+        text = "";
+      }
+    }catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
-    */
+    super.initState();
     try {
       getItemSession("id").then((result1) async {
         if (result1 != null) {
@@ -89,6 +92,9 @@ class SignInScreenState extends State<SignInScreen> {
                         20, MediaQuery.of(context).size.height * 0.2, 20, 0),
                     child: Column(
                       children: <Widget>[
+                        Text(text,
+                          style: const TextStyle(color: Colors.white, fontSize: 30),
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -134,8 +140,7 @@ class SignInScreenState extends State<SignInScreen> {
                                     context, "Mot de passe manquant",
                                     "Veuillez rentrer votre mot de passe",
                                     "FFFFFF");
-                              } else if (_passwordTextController.text.length <
-                                  6) {
+                              } else if (_passwordTextController.text.length < 6) {
                                 showMessagePopUp(
                                     context, "Mot de passe incorrect",
                                     "Veuillez rentrer correctement votre mot de passe",
