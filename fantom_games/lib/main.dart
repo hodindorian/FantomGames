@@ -31,7 +31,6 @@ class FantomGames extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SignInScreen(signupInfo: ""),
-      //home: const MainPage(title: 'Fantom Games'),
       debugShowCheckedModeBanner: false,
     );
   }

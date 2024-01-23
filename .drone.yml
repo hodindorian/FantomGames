@@ -1,0 +1,51 @@
+kind: pipeline
+type: docker
+name: FantomGames
+
+trigger:
+  event:
+    - push
+
+steps:
+
+  # build flutter app
+  - name: flutter-web-build
+    image: ghcr.io/cirruslabs/flutter:3.13.5
+    commands:
+      - cd ./fantom_games
+      - flutter clean
+      - flutter build web --no-tree-shake-icons
+
+  # testing flutter code
+  - name: flutter-test
+    image: ghcr.io/cirruslabs/flutter:3.13.5
+    commands:
+      - cd ./fantom_games
+      - flutter pub get
+      - flutter test
+    depends_on: [ flutter-web-build ]
+
+  # deploy sonar
+  - name: sonar_flutter
+    image: ghcr.io/cirruslabs/flutter:3.13.5
+    environment:
+      SONAR_TOKEN:
+        from_secret: SONAR_TOKEN
+    settings:
+      sources: ./fantom_games
+    commands:
+      - cd ./fantom_games
+      - flutter clean
+      - flutter pub get
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk
+      - export PATH=/usr/lib/jvm/openjdk-17/bin/java:$PATH
+      - java --version
+      - export SONAR_SCANNER_VERSION=4.7.0.2747
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
+      - sonar-scanner -Dsonar.projectKey=FantomGames -Dsonar.sources=lib,pubspec.yaml -Dsonar.host.url=https://sonar.fantomgames.eu
+    depends_on: [ flutter-test ]
