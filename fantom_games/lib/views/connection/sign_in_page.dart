@@ -157,30 +157,20 @@ class SignInScreenState extends State<SignInScreen> {
                               child : Column(
                                   children: <Widget>[
                                     Padding(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: EdgeInsets.all(screenWidth*0.01),
                                         child : Column(
                                         //Champs texte du formulaire
                                         children: <Widget>[
                                           Text(widget.signupInfo,
-                                            style: const TextStyle(color: Colors.blue, fontSize: 30),
-                                          ),
-                                          Text(
-                                              'Connexion : ',
-                                              style: TextStyle(color: Colors.white, fontSize: screenWidth*0.02),
+                                            style: TextStyle(color: Colors.white, fontSize: screenWidth*0.017),
                                           ),
                                           usableTextField(
                                             "Entrez votre pseudo", Icons.person_outline, false,
-                                            _pseudoTextController,false,Colors.lightBlueAccent),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
+                                            _pseudoTextController,false,Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
+
                                           usableTextField(
                                             "Entrez votre mot de passe", Icons.lock_outline,true,
-                                            _passwordTextController,false,Colors.lightBlueAccent),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-
+                                            _passwordTextController,false,Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
                                           //Checkbox pour rester connecté
                                           Row(
                                             children: <Widget>[
@@ -195,8 +185,10 @@ class SignInScreenState extends State<SignInScreen> {
                                                 activeColor: Colors.blue,
                                               ),
 
-                                              const Text("Rester connecté",
-                                                  style: TextStyle(color: Colors.white)
+                                              Text("Rester connecté",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: screenWidth*0.01)
                                               ),
                                             ],
                                           ),
@@ -204,8 +196,7 @@ class SignInScreenState extends State<SignInScreen> {
                                           //Bouton "Mot de passe oublié"
                                           TextButton(
                                             style: ButtonStyle(
-                                                foregroundColor: MaterialStateProperty.all<Color>(
-                                                    Colors.red)
+                                                foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
                                             ),
                                             onPressed: () async {
                                               Navigator.push(context,
@@ -213,17 +204,21 @@ class SignInScreenState extends State<SignInScreen> {
                                                       context) => const ForgotPasswordScreen())
                                               );
                                             },
-                                            child: const Text(
+                                            child: Text(
                                               "Mot de passe oublié ?",
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 15,
+                                                fontSize: screenWidth*0.01,
                                               ),
                                             ),
                                           ),
 
-                                          const Text("\nVous n'avez pas de compte ?",
-                                              style: TextStyle(color: Colors.white)),
+                                          Text("\nVous n'avez pas de compte ?",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: screenWidth*0.01
+                                              )
+                                          ),
 
                                           //Bouton "Inscription"
                                           TextButton(
@@ -234,36 +229,30 @@ class SignInScreenState extends State<SignInScreen> {
                                               );
                                             },
                                             style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all<Color>(
-                                                Colors.lightBlueAccent,
-                                              ),
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent,),
+                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.08, screenHeight*0.05)),
                                               side: MaterialStateProperty.all(
                                                 const BorderSide(
                                                   color: Colors.black,
-                                                  width: 2.0,
                                                 ),
                                               ),
                                             ),
-                                            child: const Text(
+                                            child: Text(
                                               " Inscription",
                                               style: TextStyle(color: Colors.white,
-                                                  fontSize: 20),
+                                                  fontSize: screenWidth*0.015),
                                             ),
                                           ),
-
-                                          const SizedBox(height: 20,
-                                          ),
-
+                                          SizedBox(height: screenHeight*0.01),
                                           //Bouton de connexion
                                           TextButton(
                                             style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all<Color>(
-                                                Colors.lightBlueAccent,
-                                              ),
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
+                                              maximumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
                                               side: MaterialStateProperty.all(
-                                                const BorderSide(
-                                                  color: Colors.black,
-                                                  width: 2.0,
+                                              const BorderSide(
+                                                color: Colors.black,
                                                 )
                                               )
                                             ),
@@ -379,15 +368,14 @@ class SignInScreenState extends State<SignInScreen> {
                                                 }
                                               }
                                             },
-                                            child: const Text(
+                                            child: Text(
                                               "Se connecter",
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 40,
+                                                fontSize: screenWidth*0.022,
                                               ),
                                             ),
                                           ),
-                                        const SizedBox(height: 20,)
                                       ],
                                     ),
                                   ),

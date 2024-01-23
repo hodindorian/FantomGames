@@ -91,25 +91,25 @@ class SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 usableTextField(
                                     "Entrez votre Mail", Icons.person_outline, false,
-                                    _emailTextController,false, Colors.lightBlueAccent),
+                                    _emailTextController,false, Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 usableTextField(
                                     "Entrez votre pseudo", Icons.person_outline, false,
-                                    _pseudoTextController,false, Colors.lightBlueAccent),
+                                    _pseudoTextController,false, Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 usableTextField(
                                     "Entrez votre mot de passe", Icons.lock_outline, true,
-                                    _passwordTextController,false, Colors.lightBlueAccent),
+                                    _passwordTextController,false, Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 usableTextField(
                                     "Confirmez votre mot de passe", Icons.lock_outline, true,
-                                    _passwordVerifyTextController,false, Colors.lightBlueAccent),
+                                    _passwordVerifyTextController,false, Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
                                 const SizedBox(
                                   height: 30,
                                 ),
