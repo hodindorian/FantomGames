@@ -1,10 +1,11 @@
 import 'package:fantom_games/connection/adding_info_in_api.dart';
+import 'package:file_picker/_internal/file_picker_web.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/reusable_widget/menu.dart';
 import 'package:fantom_games/reusable_widget/table_success.dart';
 import 'package:provider/provider.dart';
-
 import '../../model/global_account.dart';
 import '../../reusable_widget/hex_string_to_color.dart';
 import '../../reusable_widget/messsage_pop_up.dart';
@@ -28,8 +29,23 @@ class ProfilState extends State<Profil> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+  String profilPictureBase64 = '';
 
+  void _openFilePicker() async {
 
+    FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    );
+
+    if (result != null) {
+      String fileName = result.files.single.name;
+
+      print("Nom du fichier : $fileName");
+    } else {
+      print("Sélection annulée");
+    }
+  }
 
   @override
   void initState() {
@@ -219,9 +235,7 @@ class ProfilState extends State<Profil> {
                   top: screenHeight * 0.58,
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Logique pour changer d'image ici
-                    },
+                    onPressed: _openFilePicker,
                     child: const Text('Changer d\'image'),
                   ),
                 ),
@@ -278,8 +292,8 @@ class ProfilState extends State<Profil> {
                                   TextButton(
                                     onPressed: () {
                                       changeLastNameInApi(user.pseudo,_lastNameController.text).then((List<dynamic> myList) async {
+                                        Navigator.of(context).pop();
                                         if(myList[0] == "Unexpected error"){
-                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                               context,
                                               "Erreur Innatendue",
@@ -290,14 +304,15 @@ class ProfilState extends State<Profil> {
                                           if (context.mounted) {
                                             setState(() {
                                               user.updateAccount(
-                                                  myList[5],
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
                                                   myList[4],
-                                                  myList[7],
-                                                  myList[6]
+                                                  myList[5],
+                                                  myList[6],
+                                                  myList[7]
                                               );
+                                              lastname = user.lastname!;
                                             });
                                           }
                                           showMessagePopUp(
@@ -383,8 +398,8 @@ class ProfilState extends State<Profil> {
                                   TextButton(
                                     onPressed: () {
                                       changeFirstNameInApi(user.pseudo,_firstNameController.text).then((List<dynamic> myList) async {
+                                        Navigator.of(context).pop();
                                         if(myList[0] == "Unexpected error"){
-                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                               context,
                                               "Erreur Innatendue",
@@ -395,14 +410,15 @@ class ProfilState extends State<Profil> {
                                           if (context.mounted) {
                                             setState(() {
                                               user.updateAccount(
-                                                  myList[5],
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
                                                   myList[4],
-                                                  myList[7],
-                                                  myList[6]
+                                                  myList[5],
+                                                  myList[6],
+                                                  myList[7]
                                               );
+                                              firstname = user.firstname!;
                                             });
                                           }
                                           showMessagePopUp(
@@ -488,8 +504,8 @@ class ProfilState extends State<Profil> {
                                   TextButton(
                                     onPressed: () {
                                       changePhoneInApi(user.pseudo,_phoneNumberController.text).then((List<dynamic> myList) async {
+                                        Navigator.of(context).pop();
                                         if(myList[0] == "Unexpected error"){
-                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                               context,
                                               "Erreur Innatendue",
@@ -500,14 +516,15 @@ class ProfilState extends State<Profil> {
                                           if (context.mounted) {
                                             setState(() {
                                               user.updateAccount(
-                                                  myList[5],
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
                                                   myList[4],
-                                                  myList[7],
-                                                  myList[6]
+                                                  myList[5],
+                                                  myList[6],
+                                                  myList[7]
                                               );
+                                              phoneNumber = user.phoneNumber!;
                                             });
                                           }
                                           showMessagePopUp(
