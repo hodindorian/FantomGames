@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:fantom_games/connection/adding_info_in_api.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/reusable_widget/menu.dart';
@@ -26,6 +28,7 @@ class ProfilState extends State<Profil> {
   late String lastname;
   late String firstname;
   late String phoneNumber;
+  late String image;
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -39,11 +42,12 @@ class ProfilState extends State<Profil> {
     );
 
     if (result != null) {
-      String fileName = result.files.single.name;
-
-      print("Nom du fichier : $fileName");
+      Uint8List? file = result.files.single.bytes;
+      image = base64Encode(file!);
     } else {
-      print("Sélection annulée");
+      if (kDebugMode) {
+        print("Sélection annulée");
+      }
     }
   }
 
@@ -235,7 +239,40 @@ class ProfilState extends State<Profil> {
                   top: screenHeight * 0.58,
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
-                    onPressed: _openFilePicker,
+                    onPressed: () {
+                      _openFilePicker;
+                      changeImageInApi(user.pseudo,image).then((List<dynamic> myList) async {
+                        if(myList[0] == "Unexpected error"){
+                          showMessagePopUp(
+                              context,
+                              "Erreur Innatendue",
+                              "Votre prénom n'as pas pu être changé.",
+                              "FFFFFF"
+                          );
+                        }else {
+                          if (context.mounted) {
+                            setState(() {
+                              user.updateAccount(
+                                  myList[1],
+                                  myList[2],
+                                  myList[3],
+                                  myList[4],
+                                  myList[5],
+                                  myList[6],
+                                  myList[7],
+                                  myList[8]
+                              );
+                              image= user.image!;
+                            });
+                          }
+                          showMessagePopUp(
+                              context, "Changement réussi !",
+                              "Votre prénom a bien été changé !",
+                              "FFFFFF"
+                          );
+                        }
+                      });
+                    },
                     child: const Text('Changer d\'image'),
                   ),
                 ),
@@ -310,7 +347,8 @@ class ProfilState extends State<Profil> {
                                                   myList[4],
                                                   myList[5],
                                                   myList[6],
-                                                  myList[7]
+                                                  myList[7],
+                                                  myList[8]
                                               );
                                               lastname = user.lastname!;
                                             });
@@ -416,7 +454,8 @@ class ProfilState extends State<Profil> {
                                                   myList[4],
                                                   myList[5],
                                                   myList[6],
-                                                  myList[7]
+                                                  myList[7],
+                                                  myList[8]
                                               );
                                               firstname = user.firstname!;
                                             });
@@ -522,7 +561,8 @@ class ProfilState extends State<Profil> {
                                                   myList[4],
                                                   myList[5],
                                                   myList[6],
-                                                  myList[7]
+                                                  myList[7],
+                                                  myList[8],
                                               );
                                               phoneNumber = user.phoneNumber!;
                                             });
