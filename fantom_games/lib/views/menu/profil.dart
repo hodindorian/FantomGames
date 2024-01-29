@@ -28,27 +28,28 @@ class ProfilState extends State<Profil> {
   late String lastname;
   late String firstname;
   late String phoneNumber;
-  late String image;
+  String image = '';
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  String profilPictureBase64 = '';
 
-  void _openFilePicker() async {
+  Future<String> _openFilePicker() async {
 
     FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png'],
     );
-
     if (result != null) {
       Uint8List? file = result.files.single.bytes;
       image = base64Encode(file!);
+      return image;
     } else {
       if (kDebugMode) {
         print("Sélection annulée");
       }
+      return "";
     }
+
   }
 
   @override
@@ -240,38 +241,44 @@ class ProfilState extends State<Profil> {
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
                     onPressed: () {
-                      _openFilePicker;
-                      changeImageInApi(user.pseudo,image).then((List<dynamic> myList) async {
-                        if(myList[0] == "Unexpected error"){
-                          showMessagePopUp(
-                              context,
-                              "Erreur Innatendue",
-                              "Votre prénom n'as pas pu être changé.",
-                              "FFFFFF"
-                          );
-                        }else {
-                          if (context.mounted) {
-                            setState(() {
-                              user.updateAccount(
-                                  myList[1],
-                                  myList[2],
-                                  myList[3],
-                                  myList[4],
-                                  myList[5],
-                                  myList[6],
-                                  myList[7],
-                                  myList[8]
+                      _openFilePicker().then((String res) async {
+                        print(res);
+                        if(res!="") {
+                          changeImageInApi(user.pseudo, res).then((
+                              List<dynamic> myList) async {
+                            if (myList[0] == "Unexpected error") {
+                              showMessagePopUp(
+                                  context,
+                                  "Erreur Innatendue",
+                                  "Votre photo de profil n'as pas pu être changé.",
+                                  "FFFFFF"
                               );
-                              image= user.image!;
-                            });
-                          }
-                          showMessagePopUp(
-                              context, "Changement réussi !",
-                              "Votre prénom a bien été changé !",
-                              "FFFFFF"
-                          );
+                            } else {
+                              if (context.mounted) {
+                                setState(() {
+                                  user.updateAccount(
+                                      myList[1],
+                                      myList[2],
+                                      myList[3],
+                                      myList[4],
+                                      myList[5],
+                                      myList[6],
+                                      myList[7],
+                                      myList[8]
+                                  );
+                                  image = user.image!;
+                                });
+                              }
+                              showMessagePopUp(
+                                  context, "Changement réussi !",
+                                  "Votre photo de profil a bien été changé !",
+                                  "FFFFFF"
+                              );
+                            }
+                          });
                         }
                       });
+
                     },
                     child: const Text('Changer d\'image'),
                   ),

@@ -141,9 +141,10 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
 
 Future<List<dynamic>> changeImageInApi(String pseudo, String image) async {
   try {
+    String encodedImage = Uri.encodeComponent(image);
     List<dynamic> result = [];
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changeLastName/$pseudo/$image'
+        '/changeImage/$pseudo/$encodedImage'
     );
     http.Response response = await http.post(uri,
       headers: <String, String>{
