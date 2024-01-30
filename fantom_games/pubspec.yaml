@@ -53,5 +53,17 @@ flutter:
         - asset: fonts/design.graffiti.mistral.ttf
         - asset: fonts/MIST____.TTF
         - asset: fonts/MISTRAL.TTF
+    - family: Pacifico
+      fonts:
+        - asset: fonts/Pacifico-Regular.ttf
+    - family: Bubble
+      fonts:
+        - asset: fonts/RubikBubbles-Regular.ttf
+    - family: Marker
+      fonts:
+        - asset: fonts/PermanentMarker-Regular.ttf
+    - family: Boog
+      fonts:
+        - asset: fonts/Boogaloo-Regular.ttf
 
 

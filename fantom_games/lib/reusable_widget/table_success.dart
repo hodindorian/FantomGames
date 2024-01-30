@@ -12,8 +12,8 @@ class ReusableSuccessNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.27,
-      right: 0,
+      top: MediaQuery.of(context).size.height * 0.06,
+      right: MediaQuery.of(context).size.width * 0,
       child: InkWell(
         onTap: toggleSuccess,
         child: Padding(

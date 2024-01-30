@@ -155,8 +155,8 @@ class ProfilState extends State<Profil> {
                     ),
                   ),
                 ),
-                Menu(),
-                TableSuccess(),
+                const Menu(),
+                 const TableSuccess(),
                 Positioned(
                   top: screenHeight * 0.35,
                   left: screenWidth * 0.2,
@@ -242,7 +242,6 @@ class ProfilState extends State<Profil> {
                   child: ElevatedButton(
                     onPressed: () {
                       _openFilePicker().then((String res) async {
-                        print(res);
                         if(res!="") {
                           changeImageInApi(user.pseudo, res).then((
                               List<dynamic> myList) async {
