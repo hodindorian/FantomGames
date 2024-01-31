@@ -4,9 +4,15 @@ import 'package:http/http.dart' as http;
 Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo, String idComputer) async {
 
   List<dynamic> result = [];
+  Map<String, String> requestBody = {
+    'id': id,
+    'pseudo': pseudo,
+    'idComputer': idComputer
+  };
   try {
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/userForId/$id/$pseudo/$idComputer'
+        '/userForId',
+        requestBody
     );
     http.Response response = await http.get(uri,
       headers: <String, String>{

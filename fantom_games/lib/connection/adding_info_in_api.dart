@@ -6,10 +6,16 @@ import 'dart:async';
 Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
   try {
     List<dynamic> result = [];
+    Map<String, String> requestBody = {
+      'pseudo': pseudo,
+      'phone': phone,
+    };
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changePhone/$pseudo/$phone'
+        '/changePhone'
     );
-    http.Response response = await http.post(uri,
+    http.Response response = await http.post(
+      uri,
+      body: requestBody,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
       },
@@ -51,10 +57,16 @@ Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
 Future<List<dynamic>> changeFirstNameInApi(String pseudo, String firstName) async {
   try {
     List<dynamic> result = [];
+    Map<String, String> requestBody = {
+      'pseudo': pseudo,
+      'firstName': firstName,
+    };
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changeFirstName/$pseudo/$firstName'
+        '/changeFirstName'
     );
-    http.Response response = await http.post(uri,
+    http.Response response = await http.post(
+      uri,
+      body: requestBody,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
       },
@@ -96,10 +108,16 @@ Future<List<dynamic>> changeFirstNameInApi(String pseudo, String firstName) asyn
 Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async {
   try {
     List<dynamic> result = [];
+    Map<String, String> requestBody = {
+      'pseudo': pseudo,
+      'lastName': lastName,
+    };
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changeLastName/$pseudo/$lastName'
+        '/changeLastName'
     );
-    http.Response response = await http.post(uri,
+    http.Response response = await http.post(
+      uri,
+      body: requestBody,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
       },
@@ -141,12 +159,17 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
 
 Future<List<dynamic>> changeImageInApi(String pseudo, String image) async {
   try {
-    String encodedImage = Uri.encodeComponent(image);
+    Map<String, String> requestBody = {
+      'pseudo': pseudo,
+      'image': image,
+    };
     List<dynamic> result = [];
     Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changeImage/$pseudo/$encodedImage'
+        '/changeImage'
     );
-    http.Response response = await http.post(uri,
+    http.Response response = await http.post(
+      uri,
+      body: requestBody,
       headers: <String, String>{
         'Access-Control-Allow-Origin': '*',
       },

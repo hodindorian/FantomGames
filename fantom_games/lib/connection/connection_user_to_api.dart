@@ -12,21 +12,29 @@ import 'package:provider/provider.dart';
 
 Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool stayConnected, BuildContext context) async {
   List<dynamic> result = [];
-  late Uri uri;
-
+  late Map<String, String> requestBody;
   try {
     String sha256Password = sha256.convert(utf8.encode(password)).toString();
     String idComputer = (Random().nextInt(900000) + 100000).toString();
     if(stayConnected){
-      uri = Uri.https('apiuser.fantomgames.eu',
-          '/userConnection/$pseudo/$sha256Password/$idComputer'
-      );
+      requestBody = {
+        'pseudo': pseudo,
+        'password': sha256Password,
+        'idComputer': idComputer,
+      };
     }else{
-      uri = Uri.https('apiuser.fantomgames.eu',
-          '/userConnection/$pseudo/$sha256Password/none'
-      );
+      requestBody = {
+        'pseudo': pseudo,
+        'password': sha256Password,
+        'idComputer': 'none',
+      };
     }
-    http.Response response = await http.get(uri,
+    Uri uri = Uri.https('apiuser.fantomgames.eu',
+        '/userConnection',
+        requestBody
+    );
+    http.Response response = await http.get(
+      uri,
       headers: {
         'Access-Control-Allow-Origin':'*'
       }
