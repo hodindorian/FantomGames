@@ -37,7 +37,6 @@ class SignInScreenState extends State<SignInScreen> {
     super.initState();
     user = Provider.of<AccountGlobal>(context, listen: false);
     object = Provider.of<GlobalObject>(context, listen: false);
-
     try {
       getItemSession("id").then((result1) async {
         if (result1 != null) {
@@ -95,212 +94,300 @@ class SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Container(
-            color: Colors.blue,
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        20, MediaQuery.of(context).size.height * 0.2, 20, 0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(widget.signupInfo,
-                          style: const TextStyle(color: Colors.white, fontSize: 30),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        usableTextField(
-                            "Entrez votre pseudo", Icons.person_outline, false,
-                            _pseudoTextController,false,Colors.lightBlueAccent, 200.0,100),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        usableTextField(
-                            "Entrez votre mot de passe", Icons.lock_outline,true,
-                            _passwordTextController,false,Colors.lightBlueAccent,200.0,100),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        TextButton(
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.red)
-                          ),
-                          onPressed: () async {
-                            try {
-                              if (_pseudoTextController.text.isEmpty) {
-                                showMessagePopUp(context, "Pseudo manquant",
-                                    "Veuillez rentrer votre pseudo", "FFFFFF");
-                              } else if (_passwordTextController.text.isEmpty) {
-                                showMessagePopUp(
-                                    context, "Mot de passe manquant",
-                                    "Veuillez rentrer votre mot de passe",
-                                    "FFFFFF");
-                              } else if (_passwordTextController.text.length < 6) {
-                                showMessagePopUp(
-                                    context, "Mot de passe incorrect",
-                                    "Veuillez rentrer correctement votre mot de passe",
-                                    "FFFFFF");
-                              } else {
-                                connectingUserToApi(_pseudoTextController.text,_passwordTextController.text,_isStayLoggedIn, context)
-                                .then((List<dynamic> myList) {
-                                  if (myList[0] == "OK") {
-                                      if (context.mounted) {
-                                        user.updateAccount(myList[1],myList[2],myList[3],myList[4],myList[5],myList[6],myList[7],myList[8]);
-                                        Navigator.push(context, MaterialPageRoute(
-                                            builder: (context) =>
-                                            const MainPage(
-                                                title: 'Accueil'))
-                                        );
-                                      }
-                                    } else if (myList[0] == "no user") {
-                                      if (context.mounted) {
-                                        showMessagePopUp(
-                                            context, "Utilisateur inconnu",
-                                            "Ce pseudo n'existe pas", "FFFFFF");
-                                      }
-                                    } else if (myList[0] == "wrong_password") {
-                                      if (context.mounted) {
-                                        showMessagePopUp(
-                                            context, "Mot de passe incorrect",
-                                            "Votre mot de passe est incorrect", "FFFFFF");
-                                      }
-                                    } else if (myList[0] == "already connected"){
-                                    if (context.mounted) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context)
-                                      {
-                                        return AlertDialog(
-                                            title: const Text("Déjà Connecté"),
-                                            content: const Text(
-                                                "Vous êtes déjà connecté autre part, cliquez sur le bouton 'Se Déconnecter' vous vous déconnectez de votre ancien appareil."),
-                                            backgroundColor: hexStringToColor(
-                                                "FFFFFF"),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  disconnectInApi(
-                                                      _pseudoTextController
-                                                          .text).then((
-                                                      res) async {
-                                                    String result = res;
-                                                    if (result == "") {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      showMessagePopUp(
-                                                          context,
-                                                          "Déconnexion réussie",
-                                                          "Vous pouvez vous connecter",
-                                                          "FFFFFF"
-                                                      );
-                                                      object.alreadyConnected =
-                                                      false;
-                                                    } else {
-                                                      showMessagePopUp(
-                                                          context, "Erreur",
-                                                          result, "FFFFFF"
-                                                      );
-                                                    }
+            decoration: BoxDecoration(
+              color: const Color(0xFF1B438F),
+              image: DecorationImage(
+                image: const AssetImage('../assets/fantom_background_2.png'),
+                fit: BoxFit.fill,
+                colorFilter: ColorFilter.mode(
+                  Colors.blue.withOpacity(0.3),
+                  BlendMode.dstATop
+                ),
+              ),
+            ),
+            child: OverflowBox(
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        top: 20,
+                        left: 20,
+                        child: Row(
+                          children: [
+                            Image(
+                              image: const AssetImage(
+                                '../assets/FantomGamesIcon.png',
+                              ),
+                              width: screenWidth * 0.2,
+                              height: screenHeight * 0.2,
+                            ),
+
+                            Text(
+                              "Fantom Games",
+                              style: TextStyle(
+                                fontFamily: 'Mistral',
+                                color: Colors.white,
+                                fontSize: screenWidth * 0.1,
+                              ),
+                            ),
+                          ],
+                        )
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: screenHeight * 0.3,
+                            ),
+                            Container(
+                              width: screenWidth * 0.5,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10), // Bords arrondis
+                                border: Border.all(
+                                  color: Colors.black, // Couleur des bordures noires
+                                  width: 2.0, // Épaisseur des bordures
+                                ),
+                                color: const Color(0xFF1B438F),
+                              ),
+                              child : Column(
+                                  children: <Widget>[
+                                    Padding(
+                                        padding: EdgeInsets.all(screenWidth*0.01),
+                                        child : Column(
+                                        //Champs texte du formulaire
+                                        children: <Widget>[
+                                          Text(widget.signupInfo,
+                                            style: TextStyle(color: Colors.white, fontSize: screenWidth*0.017),
+                                          ),
+                                          usableTextField(
+                                            "Entrez votre pseudo", Icons.person_outline, false,
+                                            _pseudoTextController,false,Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
+
+                                          usableTextField(
+                                            "Entrez votre mot de passe", Icons.lock_outline,true,
+                                            _passwordTextController,false,Colors.lightBlueAccent, screenWidth*0.4, screenHeight*0.07),
+                                          //Checkbox pour rester connecté
+                                          Row(
+                                            children: <Widget>[
+                                              Checkbox(
+                                                value: _isStayLoggedIn,
+                                                onChanged: (newValue) {
+                                                  setState(() {
+                                                    _isStayLoggedIn = newValue!;
                                                   });
                                                 },
-                                                child: const Text(
-                                                    'Se déconnecter',
-                                                    style: TextStyle(
-                                                        color: Colors.black)),
+                                                checkColor: Colors.white,
+                                                activeColor: Colors.blue,
                                               ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text('Fermer',
-                                                    style: TextStyle(
-                                                        color: Colors.black)),
+
+                                              Text("Rester connecté",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: screenWidth*0.01)
                                               ),
-                                            ]
-                                        );
-                                      });
-                                    }
-                                    } else {
-                                      if (context.mounted) {
-                                        showMessagePopUp(
-                                            context, "Erreur",
-                                            myList[0], "FFFFFF"
-                                        );
-                                      }
-                                    }
-                                });
-                              }
-                            }catch(e){
-                              if (context.mounted) {
-                                showMessagePopUp(context, "Erreur",
-                                    e.toString(), "FFFFFF");
-                              }
-                            }
-                          },
-                          child: const Text(
-                            "Se connecter",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
+                                            ],
+                                          ),
+
+                                          //Bouton "Mot de passe oublié"
+                                          TextButton(
+                                            style: ButtonStyle(
+                                                foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
+                                            ),
+                                            onPressed: () async {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(builder: (
+                                                      context) => const ForgotPasswordScreen())
+                                              );
+                                            },
+                                            child: Text(
+                                              "Mot de passe oublié ?",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: screenWidth*0.01,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Text("\nVous n'avez pas de compte ?",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: screenWidth*0.01
+                                              )
+                                          ),
+
+                                          //Bouton "Inscription"
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(builder: (
+                                                      context) => const SignUpScreen())
+                                              );
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent,),
+                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.08, screenHeight*0.05)),
+                                              side: MaterialStateProperty.all(
+                                                const BorderSide(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              " Inscription",
+                                              style: TextStyle(color: Colors.white,
+                                                  fontSize: screenWidth*0.015),
+                                            ),
+                                          ),
+                                          SizedBox(height: screenHeight*0.01),
+                                          //Bouton de connexion
+                                          TextButton(
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
+                                              maximumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
+                                              side: MaterialStateProperty.all(
+                                              const BorderSide(
+                                                color: Colors.black,
+                                                )
+                                              )
+                                            ),
+                                            onPressed: () async {
+                                              try {
+                                                if (_pseudoTextController.text.isEmpty) {
+                                                  showMessagePopUp(context, "Pseudo manquant",
+                                                      "Veuillez rentrer votre pseudo", "FFFFFF");
+                                                } else if (_passwordTextController.text.isEmpty) {
+                                                  showMessagePopUp(
+                                                      context, "Mot de passe manquant",
+                                                      "Veuillez rentrer votre mot de passe",
+                                                      "FFFFFF");
+                                                } else if (_passwordTextController.text.length < 6) {
+                                                  showMessagePopUp(
+                                                      context, "Mot de passe incorrect",
+                                                      "Veuillez rentrer correctement votre mot de passe",
+                                                      "FFFFFF");
+                                                } else {
+                                                  connectingUserToApi(_pseudoTextController.text,_passwordTextController.text,_isStayLoggedIn, context)
+                                                      .then((List<dynamic> myList) {
+                                                    if (myList[0] == "OK") {
+                                                      if (context.mounted) {
+                                                        user.updateAccount(myList[1],myList[2],myList[3],myList[4],myList[5],myList[6],myList[7],myList[8]);
+                                                        Navigator.push(context, MaterialPageRoute(
+                                                            builder: (context) =>
+                                                            const MainPage(
+                                                                title: 'Accueil'))
+                                                        );
+                                                      }
+                                                    } else if (myList[0] == "no user") {
+                                                      if (context.mounted) {
+                                                        showMessagePopUp(
+                                                            context, "Utilisateur inconnu",
+                                                            "Ce pseudo n'existe pas", "FFFFFF");
+                                                      }
+                                                    } else if (myList[0] == "wrong_password") {
+                                                      if (context.mounted) {
+                                                        showMessagePopUp(
+                                                            context, "Mot de passe incorrect",
+                                                            "Votre mot de passe est incorrect", "FFFFFF");
+                                                      }
+                                                    } else if (myList[0] == "already connected"){
+                                                      if (context.mounted) {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext context)
+                                                            {
+                                                              return AlertDialog(
+                                                                  title: const Text("Déjà Connecté"),
+                                                                  content: const Text(
+                                                                      "Vous êtes déjà connecté autre part, cliquez sur le bouton 'Se Déconnecter' vous vous déconnectez de votre ancien appareil."),
+                                                                  backgroundColor: hexStringToColor(
+                                                                      "FFFFFF"),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        disconnectInApi(
+                                                                            _pseudoTextController
+                                                                                .text).then((
+                                                                            res) async {
+                                                                          String result = res;
+                                                                          if (result == "") {
+                                                                            Navigator.of(context)
+                                                                                .pop();
+                                                                            showMessagePopUp(
+                                                                                context,
+                                                                                "Déconnexion réussie",
+                                                                                "Vous pouvez vous connecter",
+                                                                                "FFFFFF"
+                                                                            );
+                                                                            object.alreadyConnected =
+                                                                            false;
+                                                                          } else {
+                                                                            showMessagePopUp(
+                                                                                context, "Erreur",
+                                                                                result, "FFFFFF"
+                                                                            );
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child: const Text(
+                                                                          'Se déconnecter',
+                                                                          style: TextStyle(
+                                                                              color: Colors.black)),
+                                                                    ),
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        Navigator.of(context).pop();
+                                                                      },
+                                                                      child: const Text('Fermer',
+                                                                          style: TextStyle(
+                                                                              color: Colors.black)),
+                                                                    ),
+                                                                  ]
+                                                              );
+                                                            });
+                                                      }
+                                                    } else {
+                                                      if (context.mounted) {
+                                                        showMessagePopUp(
+                                                            context, "Erreur",
+                                                            myList[0], "FFFFFF"
+                                                        );
+                                                      }
+                                                    }
+                                                  });
+                                                }
+                                              }catch(e){
+                                                if (context.mounted) {
+                                                  showMessagePopUp(context, "Erreur",
+                                                      e.toString(), "FFFFFF");
+                                                }
+                                              }
+                                            },
+                                            child: Text(
+                                              "Se connecter",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: screenWidth*0.022,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        TextButton(
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.red)
-                          ),
-                          onPressed: () async {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (
-                                    context) => const ForgotPasswordScreen())
-                            );
-                          },
-                          child: const Text(
-                            "Mot de passe oublié ?",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        const Text("Rester connecté",
-                            style: TextStyle(color: Colors.white)
-                        ),
-                        Checkbox(
-                          value: _isStayLoggedIn,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _isStayLoggedIn = newValue!;
-                            });
-                          },
-                          checkColor: Colors.white,
-                          activeColor: Colors.blue,
-                        ),
-                        const SizedBox(height: 5,),
-                        const Text("\nVous n'avez pas de compte ?",
-                            style: TextStyle(color: Colors.white)),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (
-                                    context) => const SignUpScreen())
-                            );
-                          },
-                          child: const Text(
-                            " Inscription",
-                            style: TextStyle(color: Colors.white,
-                                fontSize: 20),
-                          ),
-                        ),
-                        const SizedBox(height: 20,)
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 )
             )

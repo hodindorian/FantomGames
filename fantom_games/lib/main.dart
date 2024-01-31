@@ -4,7 +4,6 @@ import 'package:fantom_games/model/tic-tac-toe/global_room.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fantom_games/views/home/main_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,8 +30,7 @@ class FantomGames extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      //home: const MainPage(title: ''),
-      home: const SignInScreen(signupInfo: ''),
+      home: const SignInScreen(signupInfo: "Connexion :"),
       debugShowCheckedModeBanner: false,
     );
   }
