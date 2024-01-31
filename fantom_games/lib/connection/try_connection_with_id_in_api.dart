@@ -12,10 +12,13 @@ Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo, String 
   try {
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/userForId',
-        requestBody
     );
-    http.Response response = await http.get(uri,
+    String requestBodyJson = jsonEncode(requestBody);
+    http.Response response = await http.post(
+      uri,
+      body: requestBodyJson,
       headers: <String, String>{
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );

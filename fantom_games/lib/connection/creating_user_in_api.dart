@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import '../reusable_widget/salt_hash_password.dart';
@@ -11,12 +13,14 @@ Future<String> creatingUserInApi(String email,String pseudo, String password) as
       'pseudo': pseudo,
       'password': hashSaltPassword
     };
+    String requestBodyJson = jsonEncode(requestBody);
     Uri uri = Uri.https('apiuser.fantomgames.eu',
       'addUser');
     http.Response response = await http.post(
       uri,
-      body: requestBody,
+      body: requestBodyJson,
       headers: {
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );

@@ -10,13 +10,15 @@ Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
       'pseudo': pseudo,
       'phone': phone,
     };
+    String requestBodyJson = jsonEncode(requestBody);
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/changePhone'
     );
     http.Response response = await http.post(
       uri,
-      body: requestBody,
+      body: requestBodyJson,
       headers: <String, String>{
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );
@@ -61,13 +63,15 @@ Future<List<dynamic>> changeFirstNameInApi(String pseudo, String firstName) asyn
       'pseudo': pseudo,
       'firstName': firstName,
     };
+    String requestBodyJson = jsonEncode(requestBody);
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/changeFirstName'
     );
     http.Response response = await http.post(
       uri,
-      body: requestBody,
+      body: requestBodyJson,
       headers: <String, String>{
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );
@@ -112,13 +116,15 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
       'pseudo': pseudo,
       'lastName': lastName,
     };
+    String requestBodyJson = jsonEncode(requestBody);
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/changeLastName'
     );
     http.Response response = await http.post(
       uri,
-      body: requestBody,
+      body: requestBodyJson,
       headers: <String, String>{
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );
@@ -163,14 +169,16 @@ Future<List<dynamic>> changeImageInApi(String pseudo, String image) async {
       'pseudo': pseudo,
       'image': image,
     };
+    String requestBodyJson = jsonEncode(requestBody);
     List<dynamic> result = [];
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/changeImage'
     );
     http.Response response = await http.post(
       uri,
-      body: requestBody,
+      body: requestBodyJson,
       headers: <String, String>{
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     );

@@ -29,13 +29,15 @@ Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool s
         'idComputer': 'none',
       };
     }
+    String requestBodyJson = jsonEncode(requestBody);
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/userConnection',
-        requestBody
     );
-    http.Response response = await http.get(
+    http.Response response = await http.post(
       uri,
+      body: requestBodyJson,
       headers: {
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin':'*'
       }
     );
