@@ -40,7 +40,6 @@ Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
       result.add(rep['phoneNumber']);
       result.add(rep['gameLevel']);
       result.add(rep['cryptoBalance']);
-      result.add(rep['image']);
       return result;
     } else {
       result.add('Unexpected error');
@@ -93,7 +92,6 @@ Future<List<dynamic>> changeFirstNameInApi(String pseudo, String firstName) asyn
       result.add(rep['phoneNumber']);
       result.add(rep['gameLevel']);
       result.add(rep['cryptoBalance']);
-      result.add(rep['image']);
       return result;
     } else {
       result.add('Unexpected error');
@@ -146,7 +144,6 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
       result.add(rep['phoneNumber']);
       result.add(rep['gameLevel']);
       result.add(rep['cryptoBalance']);
-      result.add(rep['image']);
       return result;
     } else {
       result.add('Unexpected error');
@@ -180,7 +177,10 @@ Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async
     request.headers['Access-Control-Allow-Origin'] = '*';
     http.Response response = await http.Response.fromStream(await request.send());
     if (response.statusCode != 200) {
-      result.add(response.statusCode.toString());
+      result.add('CantChangeImage');
+      if (kDebugMode) {
+        print(response.statusCode.toString());
+      }
       return result;
     }
     var rep = jsonDecode(response.body);
@@ -197,7 +197,6 @@ Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async
       result.add(rep['phoneNumber']);
       result.add(rep['gameLevel']);
       result.add(rep['cryptoBalance']);
-      result.add(rep['image']);
       return result;
     } else {
       result.add('Unexpected error');

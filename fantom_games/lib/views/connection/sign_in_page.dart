@@ -53,9 +53,8 @@ class SignInScreenState extends State<SignInScreen> {
                         dynamic> myList) {
                       if (myList[0]) {
                         if (context.mounted) {
-                          getImageInApi(user.pseudo).then((Uint8List newImage) async {
+                          getImageInApi(result2).then((Uint8List newImage) async {
                             setState(() {
-                              print(newImage);
                               user.updateAccount(
                                 myList[1],
                                 myList[2],
@@ -66,14 +65,14 @@ class SignInScreenState extends State<SignInScreen> {
                                 myList[7],
                                 newImage,
                               );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                  const MainPage(title: 'Accueil'),
+                                ),
+                              );
                             });
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                const MainPage(title: 'Accueil'),
-                              ),
-                            );
                           });
                         }
                       }else{
@@ -273,12 +272,25 @@ class SignInScreenState extends State<SignInScreen> {
                                                       .then((List<dynamic> myList) {
                                                     if (myList[0] == "OK") {
                                                       if (context.mounted) {
-                                                        user.updateAccount(myList[1],myList[2],myList[3],myList[4],myList[5],myList[6],myList[7],myList[8]);
-                                                        Navigator.push(context, MaterialPageRoute(
-                                                            builder: (context) =>
-                                                            const MainPage(
-                                                                title: 'Accueil'))
-                                                        );
+                                                        getImageInApi(_pseudoTextController.text).then((Uint8List newImage) async {
+                                                          user.updateAccount(
+                                                            myList[1],
+                                                            myList[2],
+                                                            myList[3],
+                                                            myList[4],
+                                                            myList[5],
+                                                            myList[6],
+                                                            myList[7],
+                                                            newImage,
+                                                          );
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                const MainPage(title: 'Accueil')
+                                                            )
+                                                          );
+                                                        });
                                                       }
                                                     } else if (myList[0] == "no user") {
                                                       if (context.mounted) {

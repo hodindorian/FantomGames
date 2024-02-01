@@ -1,5 +1,6 @@
 import 'package:fantom_games/connection/adding_info_in_api.dart';
 import 'package:fantom_games/connection/get_image_in_api.dart';
+import 'package:fantom_games/reusable_widget/profil_icon.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../model/global_account.dart';
 import '../../reusable_widget/hex_string_to_color.dart';
 import '../../reusable_widget/messsage_pop_up.dart';
+import '../../reusable_widget/navigation_bar_on_top.dart';
 
 class Profil extends StatefulWidget {
   static String routeName = '/profil';
@@ -118,58 +120,9 @@ class ProfilState extends State<Profil> {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: screenHeight * 0,
-                  left: screenWidth * 0,
-                  child: Container(
-                    width: screenWidth,
-                    height: screenHeight * 0.06,
-                    color: const Color(0xFF003366),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Page de profil",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight * 0.03,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: screenWidth*0,
-                  right: screenHeight*0.01,
-                  child: Row(
-                    children: [
-                      Text(user.pseudo, // profil.name
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Container(
-                        width: screenHeight * 0.06,
-                        height: screenHeight * 0.06,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blue, // remplacer par profil.image
-                        ),
-                        child: ClipOval(
-                          child: SizedBox(
-                            width: screenHeight * 0.06,
-                            height: screenHeight * 0.06,
-                            child: Image.memory(user.image, fit: BoxFit.cover),
-                          ),
-                        )
-                      ),
-                    ],
-                  ),
-                ),
-                const Menu(),
+                const NavigationBarOnTop(title : 'Page de profil'),
+                ProfilIcon(pseudo: user.pseudo, userImage: user.image),
+                const ReusableMenu(color:Color(0xFF003366)),
                 const TableSuccess(),
                 Positioned(
                   top: screenHeight * 0.35,
@@ -231,19 +184,19 @@ class ProfilState extends State<Profil> {
                         ),
                       ),
                       Container(
-                        width: screenWidth * 0.2,
-                        height: screenHeight * 0.05,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(16.0),
+                        width: screenHeight * 0.15,
+                        height: screenHeight * 0.15,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0, left: 16.0),
-                          child: Text(
-                            'Lien de l\'image ici',
-                            style: TextStyle(fontSize: screenHeight * 0.03),
-                            textAlign: TextAlign.start,
+                        child: ClipOval(
+                          child: SizedBox(
+                            width: screenHeight * 0.15,
+                            height: screenHeight * 0.15,
+                            child: user.image.isNotEmpty
+                                ? Image.memory(user.image, fit: BoxFit.cover)
+                                : const CircularProgressIndicator(),
                           ),
                         ),
                       ),
@@ -251,21 +204,26 @@ class ProfilState extends State<Profil> {
                   ),
                 ),
                 Positioned(
-                  top: screenHeight * 0.58,
+                  top: screenHeight * 0.68,
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
                     onPressed: () {
                       _openFilePicker().then((Object res) async {
                         if(res is Uint8List) {
-                          changeImageInApi(user.pseudo, res).then((
-                              List<dynamic> myList) async {
-
+                          changeImageInApi(user.pseudo, res).then((List<dynamic> myList) async {
                             if (myList[0] == "Unexpected error") {
                               showMessagePopUp(
                                   context,
                                   "Erreur Innatendue",
                                   "Votre photo de profil n'as pas pu être changé.",
                                   "FFFFFF"
+                              );
+                            }else if(myList[0] == "CantChangeImage") {
+                              showMessagePopUp(
+                                context,
+                                "Photo incorrecte",
+                                "Votre photo de profil n'as pas pu être changé, l'image n'est pas pris en charge",
+                                "FFFFFF"
                               );
                             } else {
                               if (context.mounted) {

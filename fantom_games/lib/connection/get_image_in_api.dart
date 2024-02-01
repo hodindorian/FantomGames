@@ -12,5 +12,10 @@ Future<Uint8List> getImageInApi(String pseudo) async {
       'Access-Control-Allow-Origin': '*',
     },
   );
+  /*
+  print("ici?");
+  print(response.bodyBytes);
+  print("ici?");
+  */
   return response.bodyBytes.sublist(2);
 }

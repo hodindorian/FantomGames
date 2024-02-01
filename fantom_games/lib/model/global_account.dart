@@ -12,6 +12,10 @@ class AccountGlobal extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateImage(Uint8List image) {
+    _account.image = image;
+  }
+
   set pseudo(String newPseudo) {
     _account.pseudo = newPseudo;
   }
