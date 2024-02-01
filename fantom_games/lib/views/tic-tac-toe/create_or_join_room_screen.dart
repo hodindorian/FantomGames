@@ -23,7 +23,8 @@ class CreateOrJoinRoomScreen extends StatefulWidget {
 class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
   final TextEditingController _gameIdController = TextEditingController();
   final SocketMethods _socketMethods = SocketMethods();
-  late final String _name;
+  late AccountGlobal user;
+
   void createRoom(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => const Loading()
@@ -54,7 +55,8 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
     _socketMethods.joinRoomSuccessListener(context);
     _socketMethods.errorOccuredListener(context);
     _socketMethods.updatePlayersStateListener(context);
-    _name = Provider.of<AccountGlobal>(context, listen: false).pseudo;
+    user = Provider.of<AccountGlobal>(context, listen: false);
+
   }
 
   @override
@@ -72,36 +74,73 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
         color: const Color(0xFF1B438F),
         child: Stack(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage('assets/fantom_background_2.png'),
-                  fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(
-                    Colors.blue.withOpacity(0.3),
-                    BlendMode.dstATop,
+            Positioned(
+                right: screenWidth*0.68,
+                top : screenHeight*0.02,
+                child:
+                Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.21, top: screenHeight*0.025),
+                child: Text(
+                  "Fantom games",
+                  style: TextStyle(
+                    fontFamily: 'Boog',
+                    color: Colors.white,
+                    fontSize: screenHeight * 0.24,
                   ),
                 ),
               ),
             ),
             Positioned(
-              top: 0,
-              left: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/FantomGamesIcon.png',
-                    width: screenWidth * 0.2,
-                    height: screenHeight * 0.2,
-                  ),
-                  Text(
-                    "Fantom games",
-                    style: TextStyle(
-                      fontFamily: 'Mistral',
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.1,
+              top: screenHeight * 0,
+              left: screenWidth * 0,
+              child: Container(
+                width: screenWidth,
+                height: screenHeight * 0.06,
+                color: const Color(0xFF003366),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Jeu du Morpion",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenHeight * 0.03,
+                      ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: screenWidth*0,
+              right: screenHeight*0.01,
+              child: Row(
+                children: [
+                  Text(user.pseudo, // profil.name
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                      width: screenHeight * 0.06,
+                      height: screenHeight * 0.06,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue, // remplacer par profil.image
+                      ),
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: screenHeight * 0.06,
+                          height: screenHeight * 0.06,
+                          child: Image.memory(user.image, fit: BoxFit.cover),
+                        ),
+                      )
                   ),
                 ],
               ),
@@ -126,26 +165,6 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
                         image: AssetImage('assets/games/tictactoe_logo.png'),
                         fit: BoxFit.fill,
                       ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: screenHeight * 0.27,
-                 child: Container(
-                    width: screenWidth,
-                    height: screenHeight * 0.06,
-                    color: const Color(0xFF003366),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Jeu du Morpion",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight * 0.03,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
@@ -199,7 +218,7 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
                               ),
                               SizedBox(height: screenHeight * 0.01),
                               ElevatedButton(
-                                onPressed: () => _socketMethods.joinRoom(_name, _gameIdController.text.toUpperCase().replaceAll('-', '')),
+                                onPressed: () => _socketMethods.joinRoom(user.pseudo, _gameIdController.text.toUpperCase().replaceAll('-', '')),
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: Size(screenWidth * 0.18, screenHeight * 0.08),
                                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -251,113 +270,6 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
               ],
             ),
             const TableSuccess(),
-                /*Positioned(
-                  top: screenHeight * 0.27,
-                  right: 0,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        isSuccessOpened = !isSuccessOpened;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            isSuccessOpened ? Icons.cancel : Icons.inventory_sharp,
-                            color: Colors.white,
-                            size: screenHeight * 0.05,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                if (isSuccessOpened)
-                  Positioned(
-                  top: screenHeight * 0.33,
-                  right: 0,
-                  child: Container(
-                    height: screenHeight * 0.35,
-                    width: screenWidth * 0.15,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 3.0,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        bottomLeft: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.005, left: screenWidth * 0.002),
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              double iconSize = constraints.maxHeight * 0.1;
-                              return Icon(
-                                Icons.star,
-                                color: Colors.black,
-                                size: iconSize,
-                              );
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              LayoutBuilder(
-                                builder: (context, constraints) {
-                                  double fontsize = constraints.maxHeight * 0.1;
-                                  return Text(
-                                    "Le succès",
-                                    style: TextStyle(
-                                      fontSize: fontsize,
-                                      color: Colors.black,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            LayoutBuilder(
-                              builder: (context, constraints) {
-                                double fontSize = constraints.maxHeight * 0.1;
-                                double iconSize = constraints.maxHeight * 0.1;
-                                return Row(
-                                  children: [
-                                    Text(
-                                      "1",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Image.asset(
-                                      "assets/FantomGamesIcon.png",
-                                      height: iconSize,
-                                      width: iconSize,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),*/
           ],
         ),
       ),

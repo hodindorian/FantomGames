@@ -163,25 +163,22 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
 }
 
 
-Future<List<dynamic>> changeImageInApi(String pseudo, String image) async {
+Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async {
   try {
-    Map<String, String> requestBody = {
-      'pseudo': pseudo,
-      'image': image,
-    };
-    String requestBodyJson = jsonEncode(requestBody);
+    String image = base64Encode(imageUint);
     List<dynamic> result = [];
     Uri uri = Uri.https('apiuser.fantomgames.eu',
         '/changeImage'
     );
-    http.Response response = await http.post(
-      uri,
-      body: requestBodyJson,
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    );
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['pseudo'] = pseudo
+      ..files.add(http.MultipartFile.fromBytes(
+        'image',
+        base64Decode(image),
+        filename: 'image.jpg',
+      ));
+    request.headers['Access-Control-Allow-Origin'] = '*';
+    http.Response response = await http.Response.fromStream(await request.send());
     if (response.statusCode != 200) {
       result.add(response.statusCode.toString());
       return result;

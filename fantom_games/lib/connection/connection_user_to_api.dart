@@ -76,7 +76,6 @@ Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool s
         result.add(rep['phoneNumber']);
         result.add(rep['gameLevel']);
         result.add(rep['cryptoBalance']);
-        result.add(rep['image']);
         return result;
       } else{
         result.add("error unknown");

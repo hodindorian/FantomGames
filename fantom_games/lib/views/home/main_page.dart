@@ -98,7 +98,6 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Container(
         color: const Color(0xFF1B438F),
-        //color: Colors.red,
         child : OrientationBuilder(
           builder: (context, orientation) {
             return Stack(
@@ -165,12 +164,19 @@ class _MainPageState extends State<MainPage> {
                       ),
                       const SizedBox(width: 10),
                       Container(
-                        width: screenWidth * 0.03,
-                        height: screenHeight * 0.06,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blue, // remplacer par profil.image
-                        ),
+                          width: screenHeight * 0.06,
+                          height: screenHeight * 0.06,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue, // remplacer par profil.image
+                          ),
+                          child: ClipOval(
+                            child: SizedBox(
+                              width: screenHeight * 0.06,
+                              height: screenHeight * 0.06,
+                              child: Image.memory(user.image, fit: BoxFit.cover),
+                            ),
+                          )
                       ),
                     ],
                   ),
@@ -195,113 +201,6 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                 ),
-                /*Positioned(
-                  top: screenHeight * 0.27,
-                  right: 0,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        isSuccessOpened = !isSuccessOpened;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            isSuccessOpened ? Icons.cancel : Icons.inventory_sharp,
-                            color: Colors.white,
-                            size: screenHeight * 0.05,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                if (isSuccessOpened)
-                  Positioned(
-                  top: screenHeight * 0.33,
-                  right: 0,
-                  child: Container(
-                    height: screenHeight * 0.35,
-                    width: screenWidth * 0.15,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 3.0,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        bottomLeft: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.005, left: screenWidth * 0.002),
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              double iconSize = constraints.maxHeight * 0.1;
-                              return Icon(
-                                Icons.star,
-                                color: Colors.black,
-                                size: iconSize,
-                              );
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              LayoutBuilder(
-                                builder: (context, constraints) {
-                                  double fontsize = constraints.maxHeight * 0.1;
-                                  return Text(
-                                    "Le succès",
-                                    style: TextStyle(
-                                      fontSize: fontsize,
-                                      color: Colors.black,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            LayoutBuilder(
-                              builder: (context, constraints) {
-                                double fontSize = constraints.maxHeight * 0.1;
-                                double iconSize = constraints.maxHeight * 0.1;
-                                return Row(
-                                  children: [
-                                    Text(
-                                      "1",
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Image.asset(
-                                      "assets/FantomGamesIcon.png",
-                                      height: iconSize,
-                                      width: iconSize,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),*/
               ],
             );
           },

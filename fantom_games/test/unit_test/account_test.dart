@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fantom_games/model/account.dart';
 
@@ -14,7 +16,7 @@ void main() {
         '123-456-7890',
         1,
         1,
-        ""
+        Uint8List(1)
       );
     });
 

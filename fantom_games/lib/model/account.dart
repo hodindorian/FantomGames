@@ -8,7 +8,7 @@ class Account {
   final String ?_phoneNumber;
   final double _cryptoBalance; 
   final int _gameLevel;
-  final String ?_image;
+  final Uint8List _image;
   final List<String> _transactionHistory;
 
   Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber, this._gameLevel, this._cryptoBalance, this._image,{List<String>? transactionHistory}) :
@@ -22,7 +22,7 @@ class Account {
   String? get phoneNumber => _phoneNumber;
   int get gameLevel => _gameLevel;
   double get cryptoBalance => _cryptoBalance;
-  String? get image => _image;
+  Uint8List get image => _image;
   List<String> get transactionHistory => _transactionHistory;
 
   /*
@@ -47,7 +47,7 @@ class Account {
     phoneNumber = newPhoneNumber;
   }
 
-  set image(String? newImage) {
+  set image(Uint8List newImage) {
     image = newImage;
   }
 
@@ -61,7 +61,6 @@ class Account {
   }
   */
 
-  // Méthode pour afficher les informations du compte
   void displayAccountInfo() {
     if (kDebugMode) {
       print('Email: $_email');

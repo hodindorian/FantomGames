@@ -45,7 +45,6 @@ Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo, String 
         result.add(rep['phoneNumber']);
         result.add(rep['gameLevel']);
         result.add(rep['cryptoBalance']);
-        result.add(rep['image']);
         return result;
       } else {
         result.add(false);

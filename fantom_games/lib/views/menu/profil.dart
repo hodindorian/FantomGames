@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:fantom_games/connection/adding_info_in_api.dart';
+import 'package:fantom_games/connection/get_image_in_api.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -28,26 +28,25 @@ class ProfilState extends State<Profil> {
   late String lastname;
   late String firstname;
   late String phoneNumber;
-  String image = '';
+  late Uint8List image;
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
 
-  Future<String> _openFilePicker() async {
+  Future<Object> _openFilePicker() async {
 
     FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png'],
     );
     if (result != null) {
-      Uint8List? file = result.files.single.bytes;
-      image = base64Encode(file!);
+      image = result.files.single.bytes!;
       return image;
     } else {
       if (kDebugMode) {
         print("Sélection annulée");
       }
-      return "";
+      return false;
     }
 
   }
@@ -72,6 +71,7 @@ class ProfilState extends State<Profil> {
     }else{
       phoneNumber = user.phoneNumber!;
     }
+    image = user.image;
   }
 
 
@@ -94,48 +94,32 @@ class ProfilState extends State<Profil> {
     return Scaffold(
       body: Container(
         color: const Color(0xFF1B438F),
-        //color: Colors.red,
         child : OrientationBuilder(
           builder: (context, orientation) {
             return Stack(
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: const AssetImage('assets/fantom_background_2.png'),
-                      fit: BoxFit.fill,
-                      colorFilter: ColorFilter.mode(
-                        Colors.blue.withOpacity(0.3),
-                        BlendMode.dstATop,
+                Positioned(
+                    right: screenWidth*0.68,
+                    top : screenHeight*0.02,
+                    child:
+                      Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: screenWidth * 0.21, top: screenHeight*0.025),
+                    child: Text(
+                      "Fantom games",
+                      style: TextStyle(
+                        fontFamily: 'Boog',
+                        color: Colors.white,
+                        fontSize: screenHeight * 0.24,
                       ),
                     ),
                   ),
-
                 ),
                 Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/FantomGamesIcon.png',
-                        width: screenWidth * 0.2,
-                        height: screenHeight * 0.2,
-                      ),
-                      Text(
-                        "Fantom games",
-                        style: TextStyle(
-                          fontFamily: 'Mistral',
-                          color: Colors.white,
-                          fontSize: screenHeight * 0.2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: screenHeight * 0.27,
+                  top: screenHeight * 0,
                   left: screenWidth * 0,
                   child: Container(
                     width: screenWidth,
@@ -155,8 +139,38 @@ class ProfilState extends State<Profil> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: screenWidth*0,
+                  right: screenHeight*0.01,
+                  child: Row(
+                    children: [
+                      Text(user.pseudo, // profil.name
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: screenHeight * 0.06,
+                        height: screenHeight * 0.06,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue, // remplacer par profil.image
+                        ),
+                        child: ClipOval(
+                          child: SizedBox(
+                            width: screenHeight * 0.06,
+                            height: screenHeight * 0.06,
+                            child: Image.memory(user.image, fit: BoxFit.cover),
+                          ),
+                        )
+                      ),
+                    ],
+                  ),
+                ),
                 const Menu(),
-                 const TableSuccess(),
+                const TableSuccess(),
                 Positioned(
                   top: screenHeight * 0.35,
                   left: screenWidth * 0.2,
@@ -241,10 +255,11 @@ class ProfilState extends State<Profil> {
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
                     onPressed: () {
-                      _openFilePicker().then((String res) async {
-                        if(res!="") {
+                      _openFilePicker().then((Object res) async {
+                        if(res is Uint8List) {
                           changeImageInApi(user.pseudo, res).then((
                               List<dynamic> myList) async {
+
                             if (myList[0] == "Unexpected error") {
                               showMessagePopUp(
                                   context,
@@ -254,8 +269,9 @@ class ProfilState extends State<Profil> {
                               );
                             } else {
                               if (context.mounted) {
-                                setState(() {
-                                  user.updateAccount(
+                                getImageInApi(user.pseudo).then((Uint8List newImage) async {
+                                  setState(() {
+                                    user.updateAccount(
                                       myList[1],
                                       myList[2],
                                       myList[3],
@@ -263,16 +279,17 @@ class ProfilState extends State<Profil> {
                                       myList[5],
                                       myList[6],
                                       myList[7],
-                                      myList[8]
+                                      newImage,
+                                    );
+                                    image = user.image;
+                                  });
+                                  showMessagePopUp(
+                                      context, "Changement réussi !",
+                                      "Votre photo de profil a bien été changé !",
+                                      "FFFFFF"
                                   );
-                                  image = user.image!;
                                 });
                               }
-                              showMessagePopUp(
-                                  context, "Changement réussi !",
-                                  "Votre photo de profil a bien été changé !",
-                                  "FFFFFF"
-                              );
                             }
                           });
                         }

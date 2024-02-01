@@ -26,19 +26,40 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child : const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-              "Veuillez patientez...",
-            style: TextStyle(
-              color: Colors.white
-            ),
-          ),
-        ],
-      ),
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Container(
+        color: const Color(0xFF1B438F),
+        child : OrientationBuilder(
+          builder: (context, orientation) {
+            return Stack(
+              children: <Widget>[
+                Positioned(
+                  right: screenWidth*0.68,
+                  top : screenHeight*0.02,
+                  child:
+                    Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: screenWidth * 0.21, top: screenHeight*0.025),
+                    child: Text(
+                      "Veuillez Patientez...",
+                      style: TextStyle(
+                        fontFamily: 'Boog',
+                        color: Colors.white,
+                        fontSize: screenHeight * 0.24,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      )
     );
   }
 }

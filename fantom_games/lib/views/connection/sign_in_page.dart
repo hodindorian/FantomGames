@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/connection_user_to_api.dart';
 import 'package:provider/provider.dart';
+import '../../connection/get_image_in_api.dart';
 import '../../connection/try_connection_with_id_in_api.dart';
 import '../../model/global_account.dart';
 import '../../model/global_object.dart';
@@ -52,8 +53,10 @@ class SignInScreenState extends State<SignInScreen> {
                         dynamic> myList) {
                       if (myList[0]) {
                         if (context.mounted) {
-                          setState(() {
-                            user.updateAccount(
+                          getImageInApi(user.pseudo).then((Uint8List newImage) async {
+                            setState(() {
+                              print(newImage);
+                              user.updateAccount(
                                 myList[1],
                                 myList[2],
                                 myList[3],
@@ -61,8 +64,9 @@ class SignInScreenState extends State<SignInScreen> {
                                 myList[5],
                                 myList[6],
                                 myList[7],
-                                myList[8],
-                            );
+                                newImage,
+                              );
+                            });
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -98,42 +102,33 @@ class SignInScreenState extends State<SignInScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF1B438F),
-              image: DecorationImage(
-                image: const AssetImage('../assets/fantom_background_2.png'),
-                fit: BoxFit.fill,
-                colorFilter: ColorFilter.mode(
-                  Colors.blue.withOpacity(0.3),
-                  BlendMode.dstATop
-                ),
-              ),
+          color: const Color(0xFF1B438F),
+          child: Stack(
+          children: [
+            Positioned(
+              right: screenWidth*0.67,
+              top : screenHeight*0.02,
+              child:
+                Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
             ),
-            child: OverflowBox(
+            OverflowBox(
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        top: 20,
-                        left: 20,
+                        top: screenHeight*0,
+                        left: screenWidth*0.20,
                         child: Row(
                           children: [
-                            Image(
-                              image: const AssetImage(
-                                '../assets/FantomGamesIcon.png',
-                              ),
-                              width: screenWidth * 0.2,
-                              height: screenHeight * 0.2,
-                            ),
-
                             Text(
                               "Fantom Games",
                               style: TextStyle(
-                                fontFamily: 'Mistral',
+                                fontFamily: 'Boog',
                                 color: Colors.white,
-                                fontSize: screenWidth * 0.1,
+                                fontSize: screenWidth * 0.13,
                               ),
                             ),
                           ],
@@ -144,7 +139,7 @@ class SignInScreenState extends State<SignInScreen> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: screenHeight * 0.3,
+                              height: screenHeight * 0.35,
                             ),
                             Container(
                               width: screenWidth * 0.5,
@@ -159,7 +154,7 @@ class SignInScreenState extends State<SignInScreen> {
                               child : Column(
                                   children: <Widget>[
                                     Padding(
-                                        padding: EdgeInsets.all(screenWidth*0.01),
+                                        padding: EdgeInsets.all(screenWidth*0.02),
                                         child : Column(
                                         //Champs texte du formulaire
                                         children: <Widget>[
@@ -390,8 +385,11 @@ class SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                 )
-            )
+            ),
+            ),
+          ],
         )
+      ),
     );
   }
 }
