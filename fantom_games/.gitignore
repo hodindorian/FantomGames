@@ -46,7 +46,6 @@ app.*.map.json
 
 /flutter
 /windows/
-/web/
 /macos/
 /linux/
 /ios/
