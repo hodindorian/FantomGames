@@ -6,8 +6,8 @@ import 'package:fantom_games/views/tic-tac-toe/lobby.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import '../../reusable_widget/Method/message_bar.dart';
-import '../../reusable_widget/Method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/message_bar.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 import 'game_methods.dart';
 
 class SocketMethods {
@@ -108,17 +108,13 @@ class SocketMethods {
 
   void pointIncreaseListener(BuildContext context) {
     _socketClient.on('pointIncrease', (playerData) {
+      print(playerData.toString());
+
       var roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
       if (playerData['socketID'] == roomGlobal.player1.socketID) {
         roomGlobal.updatePlayer1(playerData);
-        if(roomGlobal.nbRound == 1){
-          roomGlobal.setPoints(1,1);
-        }
-      } else {
+      }else if(playerData['socketID'] == roomGlobal.player2.socketID){
         roomGlobal.updatePlayer2(playerData);
-        if(roomGlobal.nbRound == 1){
-          roomGlobal.setPoints(1,2);
-        }
       }
       roomGlobal.nbRound = roomGlobal.nbRound+1;
     });

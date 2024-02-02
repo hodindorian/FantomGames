@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
+import 'package:fantom_games/model/global_account.dart';
 import 'hex_string_to_color.dart';
 import 'package:image/image.dart' as img;
 import 'messsage_pop_up.dart';

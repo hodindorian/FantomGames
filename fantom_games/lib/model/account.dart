@@ -8,7 +8,7 @@ class Account {
   final String ?_phoneNumber;
   final double _cryptoBalance; 
   final int _gameLevel;
-  final Uint8List _image;
+  final Uint8List? _image;
   final List<String> _transactionHistory;
 
   Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber, this._gameLevel, this._cryptoBalance, this._image,{List<String>? transactionHistory}) :
@@ -22,7 +22,7 @@ class Account {
   String? get phoneNumber => _phoneNumber;
   int get gameLevel => _gameLevel;
   double get cryptoBalance => _cryptoBalance;
-  Uint8List get image => _image;
+  Uint8List? get image => _image;
   List<String> get transactionHistory => _transactionHistory;
 
   /*
@@ -47,7 +47,7 @@ class Account {
     phoneNumber = newPhoneNumber;
   }
 
-  set image(Uint8List newImage) {
+  set image(Uint8List? newImage) {
     image = newImage;
   }
 

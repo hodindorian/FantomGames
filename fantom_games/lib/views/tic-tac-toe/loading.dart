@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
-import '../../resources/tic-tac-toe/socket_methods.dart';
+import 'package:fantom_games/model/global_account.dart';
+import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});

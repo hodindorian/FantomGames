@@ -2,9 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:fantom_games/connection/change_password_in_api.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
-
-import '../../reusable_widget/Method/messsage_pop_up.dart';
-import '../../reusable_widget/Widget/text_field.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});

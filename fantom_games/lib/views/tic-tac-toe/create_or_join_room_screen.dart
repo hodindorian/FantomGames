@@ -1,17 +1,16 @@
-import 'package:fantom_games/reusable_widget/Widget/profil_icon.dart';
+import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/tic-tac-toe/loading.dart';
 import 'package:fantom_games/views/tic-tac-toe/join_room_screen.dart';
-import 'package:fantom_games/reusable_widget/Widget/text_field.dart';
-import 'package:fantom_games/reusable_widget/Widget/menu.dart';
-import 'package:fantom_games/reusable_widget/Widget/table_success.dart';
-import '../../resources/tic-tac-toe/socket_methods.dart';
+import 'package:fantom_games/reusable_widget/widget/text_field.dart';
+import 'package:fantom_games/reusable_widget/widget/menu.dart';
+import 'package:fantom_games/reusable_widget/widget/table_success.dart';
+import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
+import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/views/menu/profil.dart';
-
-import '../../reusable_widget/Widget/navigation_bar_on_top.dart';
+import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
 
 class CreateOrJoinRoomScreen extends StatefulWidget {
   static String routeName = '/main-menu';

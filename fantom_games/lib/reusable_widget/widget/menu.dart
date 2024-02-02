@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../views/home/main_page.dart';
-import '../../views/menu/profil.dart';
+import 'package:fantom_games/views/home/main_page.dart';
+import 'package:fantom_games/views/menu/profil.dart';
 
 class ReusableMenu extends StatefulWidget {
 

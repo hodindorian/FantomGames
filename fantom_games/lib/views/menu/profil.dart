@@ -1,19 +1,19 @@
 import 'package:fantom_games/connection/adding_info_in_api.dart';
 import 'package:fantom_games/connection/get_image_in_api.dart';
-import 'package:fantom_games/reusable_widget/Method/verify_identity.dart';
-import 'package:fantom_games/reusable_widget/Widget/profil_icon.dart';
+import 'package:fantom_games/reusable_widget/method/verify_identity.dart';
+import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
-import 'package:fantom_games/reusable_widget/Widget/menu.dart';
-import 'package:fantom_games/reusable_widget/Widget/table_success.dart';
+import 'package:fantom_games/reusable_widget/widget/menu.dart';
+import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
-import '../../reusable_widget/Method/hex_string_to_color.dart';
-import '../../reusable_widget/Method/messsage_pop_up.dart';
-import '../../reusable_widget/Widget/navigation_bar_on_top.dart';
+import 'package:fantom_games/model/global_account.dart';
+import 'package:fantom_games/reusable_widget/method/hex_string_to_color.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
 
 class Profil extends StatefulWidget {
   static String routeName = '/profil';
@@ -36,7 +36,7 @@ class ProfilState extends State<Profil> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
 
-  Future<Object> _openFilePicker() async {
+  Future<Object?> _openFilePicker() async {
 
     FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
       type: FileType.custom,
@@ -74,7 +74,9 @@ class ProfilState extends State<Profil> {
     }else{
       phoneNumber = user.phoneNumber!;
     }
-    image = user.image;
+    if(user.image != null){
+      image = user.image!;
+    }
   }
 
 
@@ -195,8 +197,8 @@ class ProfilState extends State<Profil> {
                           child: SizedBox(
                             width: screenHeight * 0.15,
                             height: screenHeight * 0.15,
-                            child: user.image.isNotEmpty
-                                ? Image.memory(user.image, fit: BoxFit.cover)
+                            child: user.image != null
+                                ? Image.memory(image, fit: BoxFit.cover)
                                 : const CircularProgressIndicator(),
                           ),
                         ),
@@ -209,7 +211,7 @@ class ProfilState extends State<Profil> {
                   left: screenWidth * 0.22,
                   child: ElevatedButton(
                     onPressed: () {
-                      _openFilePicker().then((Object res) async {
+                      _openFilePicker().then((Object? res) async {
                         if(res is Uint8List) {
                           changeImageInApi(user.pseudo, res).then((List<dynamic> myList) async {
                             if (myList[0] == "Unexpected error") {
@@ -228,7 +230,7 @@ class ProfilState extends State<Profil> {
                               );
                             } else {
                               if (context.mounted) {
-                                getImageInApi(user.pseudo).then((Uint8List newImage) async {
+                                getImageInApi(user.pseudo).then((Uint8List? newImage) async {
                                   setState(() {
                                     user.updateAccount(
                                       myList[1],
@@ -240,7 +242,7 @@ class ProfilState extends State<Profil> {
                                       myList[7],
                                       newImage,
                                     );
-                                    image = user.image;
+                                    image = user.image!;
                                   });
                                   showMessagePopUp(
                                       context, "Changement réussi !",

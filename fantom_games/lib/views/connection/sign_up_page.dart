@@ -1,9 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
-import '../../connection/creating_user_in_api.dart';
-import '../../reusable_widget/Method/messsage_pop_up.dart';
-import '../../reusable_widget/Widget/text_field.dart';
+import 'package:fantom_games/connection/creating_user_in_api.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

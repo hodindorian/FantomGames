@@ -1,7 +1,7 @@
 import 'package:fantom_games/model/tic-tac-toe/global_room.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../resources/tic-tac-toe/socket_methods.dart';
+import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 
 class GameView extends StatefulWidget {
   const GameView({super.key});
@@ -149,7 +149,9 @@ class _GameViewState extends State<GameView> {
               visible: roomGlobal.endRound,
               child: TextButton(
                 onPressed: () {
-                  _socketMethods.nextRound(context);
+                  setState(() {
+                    _socketMethods.nextRound(context);
+                  });
                 },
                 child: const Text('Recommencer la partie'),
               ),

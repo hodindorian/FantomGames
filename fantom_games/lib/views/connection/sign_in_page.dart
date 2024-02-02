@@ -1,19 +1,19 @@
 import 'package:fantom_games/connection/disconnect_in_api.dart';
-import 'package:fantom_games/reusable_widget/Method/hex_string_to_color.dart';
-import 'package:fantom_games/reusable_widget/Method/session_managing.dart';
+import 'package:fantom_games/reusable_widget/method/hex_string_to_color.dart';
+import 'package:fantom_games/reusable_widget/method/session_managing.dart';
 import 'package:fantom_games/views/connection/forgot_password_page.dart';
 import 'package:fantom_games/views/connection/sign_up_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/connection_user_to_api.dart';
 import 'package:provider/provider.dart';
-import '../../connection/get_image_in_api.dart';
-import '../../connection/try_connection_with_id_in_api.dart';
-import '../../model/global_account.dart';
-import '../../model/global_object.dart';
-import '../../reusable_widget/Method/messsage_pop_up.dart';
-import '../../reusable_widget/Widget/text_field.dart';
-import '../home/main_page.dart';
+import 'package:fantom_games/connection/get_image_in_api.dart';
+import 'package:fantom_games/connection/try_connection_with_id_in_api.dart';
+import 'package:fantom_games/model/global_account.dart';
+import 'package:fantom_games/model/global_object.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/widget/text_field.dart';
+import 'package:fantom_games/views/home/main_page.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key, required this.signupInfo});
@@ -53,7 +53,7 @@ class SignInScreenState extends State<SignInScreen> {
                         dynamic> myList) {
                       if (myList[0]) {
                         if (context.mounted) {
-                          getImageInApi(result2).then((Uint8List newImage) async {
+                          getImageInApi(result2).then((Uint8List? newImage) async {
                             setState(() {
                               user.updateAccount(
                                 myList[1],
@@ -272,7 +272,7 @@ class SignInScreenState extends State<SignInScreen> {
                                                       .then((List<dynamic> myList) {
                                                     if (myList[0] == "OK") {
                                                       if (context.mounted) {
-                                                        getImageInApi(_pseudoTextController.text).then((Uint8List newImage) async {
+                                                        getImageInApi(_pseudoTextController.text).then((Uint8List? newImage) async {
                                                           user.updateAccount(
                                                             myList[1],
                                                             myList[2],

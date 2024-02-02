@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 
 class ProfilIcon extends StatelessWidget {
@@ -37,7 +36,7 @@ class ProfilIcon extends StatelessWidget {
               child: SizedBox(
                 width: screenHeight * 0.06,
                 height: screenHeight * 0.06,
-                child: userImage!.isNotEmpty
+                child: userImage!=null
                     ? Image.memory(userImage!, fit: BoxFit.cover)
                     : const CircularProgressIndicator(),
               ),

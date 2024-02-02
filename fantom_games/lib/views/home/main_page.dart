@@ -1,12 +1,12 @@
 import 'package:fantom_games/views/tic-tac-toe/create_or_join_room_screen.dart';
 import 'package:fantom_games/views/menu/profil.dart';
-import 'package:fantom_games/reusable_widget/Widget/menu.dart';
-import 'package:fantom_games/reusable_widget/Widget/table_success.dart';
+import 'package:fantom_games/reusable_widget/widget/menu.dart';
+import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
-import '../../reusable_widget/Widget/main_page_games.dart';
-import '../../reusable_widget/Widget/profil_icon.dart';
+import 'package:fantom_games/model/global_account.dart';
+import 'package:fantom_games/reusable_widget/widget/main_page_games.dart';
+import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});

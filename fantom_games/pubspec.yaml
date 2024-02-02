@@ -32,13 +32,13 @@ dev_dependencies:
 flutter_launcher_icons:
   web:
     generate: true
-    image_path:  "../assets/FantomGamesIcon.png"
+    image_path:  "assets/FantomGamesIcon.png"
   windows:
     generate: true
-    image_path:  "../assets/FantomGamesIcon.png"
+    image_path:  "assets/FantomGamesIcon.png"
   macos:
     generate: true
-    image_path:  "../assets/FantomGamesIcon.png"
+    image_path:  "assets/FantomGamesIcon.png"
 
 flutter:
   assets:

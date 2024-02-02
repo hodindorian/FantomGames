@@ -1,13 +1,11 @@
- import 'dart:math';
-
+import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:fantom_games/model/global_object.dart';
-import 'package:fantom_games/reusable_widget/Method/session_managing.dart';
+import 'package:fantom_games/reusable_widget/method/session_managing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:provider/provider.dart';
 
 Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool stayConnected, BuildContext context) async {

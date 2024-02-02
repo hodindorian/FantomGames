@@ -1,9 +1,9 @@
-import 'package:fantom_games/reusable_widget/Widget/text_field.dart';
+import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../model/global_account.dart';
-import '../../resources/tic-tac-toe/socket_methods.dart';
-import '../../reusable_widget/Widget/button.dart';
+import 'package:fantom_games/model/global_account.dart';
+import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
+import 'package:fantom_games/reusable_widget/widget/button.dart';
 
 class JoinRoomScreen extends StatefulWidget {
   static String routeName = '/join-room';

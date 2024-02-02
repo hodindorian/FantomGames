@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:fantom_games/model/account.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ class AccountGlobal extends ChangeNotifier {
   Account _account = Account("tmp@mail.com", "tmp", "tmp", "tmp", "000",0,0,Uint8List(1));
   Account get account => _account;
 
-  void updateAccount(String email, String pseudo, String ?lastname, String ?firstname, String ?phoneNumber, int gameLevel, double cryptoBalance, Uint8List image) {
+  void updateAccount(String email, String pseudo, String ?lastname, String ?firstname, String ?phoneNumber, int gameLevel, double cryptoBalance, Uint8List? image) {
     _account = Account(email, pseudo, lastname, firstname, phoneNumber, gameLevel,cryptoBalance, image);
     notifyListeners();
   }
@@ -32,7 +31,7 @@ class AccountGlobal extends ChangeNotifier {
     _account.phoneNumber = newPhoneNumber;
   }
 
-  set image(Uint8List newImage){
+  set image(Uint8List? newImage){
     _account.image = newImage;
   }
 
@@ -43,7 +42,7 @@ class AccountGlobal extends ChangeNotifier {
   String? get phoneNumber => _account.phoneNumber;
   int get gameLevel => _account.gameLevel;
   double get cryptoBalance => _account.cryptoBalance;
-  Uint8List get image => _account.image;
+  Uint8List? get image => _account.image;
   List<String> get transactionHistory => _account.transactionHistory;
 
   void displayInfoUser(){

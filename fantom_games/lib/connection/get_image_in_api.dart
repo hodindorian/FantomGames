@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
-Future<Uint8List> getImageInApi(String pseudo) async {
+Future<Uint8List?> getImageInApi(String pseudo) async {
   Uri uri = Uri.https('apiuser.fantomgames.eu',
       '/getImage/$pseudo'
   );
@@ -12,10 +12,9 @@ Future<Uint8List> getImageInApi(String pseudo) async {
       'Access-Control-Allow-Origin': '*',
     },
   );
-  /*
-  print("ici?");
-  print(response.bodyBytes);
-  print("ici?");
-  */
-  return response.bodyBytes.sublist(2);
+  Uint8List result = response.bodyBytes.sublist(2);
+  if(result.isEmpty){
+    return null;
+  }
+  return result;
 }
