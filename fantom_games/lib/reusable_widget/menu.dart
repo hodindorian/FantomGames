@@ -91,65 +91,69 @@ class _ReusableMenuState extends State<ReusableMenu> with SingleTickerProviderSt
             ),
             if(menuOpen)
               Positioned(
-              top: MediaQuery.of(context).size.height * 0.06,
-              left: MediaQuery.of(context).size.width * 0.02,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: MediaQuery.of(context).size.height * 0),
-                  TextButton(
-                    onPressed:(){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainPage(title: 'Accueil'),
-                        ),
-                      );
-
-                    },
-                    child: const Text(
-                      'Accueil',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black,
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 3.0,
+                top: MediaQuery.of(context).size.height * 0.06,
+                left: MediaQuery.of(context).size.width * 0.02,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(-1.0, 0.0),
+                    end: const Offset(0.0, 0.0),
+                  ).animate(controller),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height * 0),
+                      TextButton(
+                        onPressed:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainPage(title: 'Accueil'),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Accueil',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black,
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Profil(),
                         ),
-                      );
-
-                    },
-                    child: const Text(
-                      'Profil',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black,
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 3.0,
-                          ),
-                        ],
                       ),
-                    ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Profil(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Profil',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black,
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
           ],
         ),
     );
