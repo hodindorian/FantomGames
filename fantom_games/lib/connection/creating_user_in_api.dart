@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import '../reusable_widget/salt_hash_password.dart';
+import '../reusable_widget/Method/salt_hash_password.dart';
 
 Future<String> creatingUserInApi(String email,String pseudo, String password) async {
   try {

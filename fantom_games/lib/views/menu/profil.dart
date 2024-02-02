@@ -1,18 +1,19 @@
 import 'package:fantom_games/connection/adding_info_in_api.dart';
 import 'package:fantom_games/connection/get_image_in_api.dart';
-import 'package:fantom_games/reusable_widget/profil_icon.dart';
+import 'package:fantom_games/reusable_widget/Method/verify_identity.dart';
+import 'package:fantom_games/reusable_widget/Widget/profil_icon.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
-import 'package:fantom_games/reusable_widget/menu.dart';
-import 'package:fantom_games/reusable_widget/table_success.dart';
+import 'package:fantom_games/reusable_widget/Widget/menu.dart';
+import 'package:fantom_games/reusable_widget/Widget/table_success.dart';
 import 'package:provider/provider.dart';
 import '../../model/global_account.dart';
-import '../../reusable_widget/hex_string_to_color.dart';
-import '../../reusable_widget/messsage_pop_up.dart';
-import '../../reusable_widget/navigation_bar_on_top.dart';
+import '../../reusable_widget/Method/hex_string_to_color.dart';
+import '../../reusable_widget/Method/messsage_pop_up.dart';
+import '../../reusable_widget/Widget/navigation_bar_on_top.dart';
 
 class Profil extends StatefulWidget {
   static String routeName = '/profil';
@@ -578,39 +579,7 @@ class ProfilState extends State<Profil> {
                     child: const Text('Modifier'),
                   ),
                 ),
-                Positioned(
-                  top: screenHeight * 0.75,
-                  left: screenWidth * 0.52,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0, left: 16.0),
-                        child: Text(
-                          'Carte d\'identité :',
-                          style: TextStyle(fontSize: screenHeight * 0.02),
-                        ),
-                      ),
-                      Container(
-                        width: screenWidth * 0.2,
-                        height: screenHeight * 0.05,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0, left: 16.0),
-                          child: Text(
-                            'Carte d\'identité déjà validé !',
-                            style: TextStyle(fontSize: screenHeight * 0.03),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const VerifyingIdentity(),
               ],
             );
           },

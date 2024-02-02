@@ -1,6 +1,6 @@
 import 'package:fantom_games/connection/disconnect_in_api.dart';
-import 'package:fantom_games/reusable_widget/hex_string_to_color.dart';
-import 'package:fantom_games/reusable_widget/session_managing.dart';
+import 'package:fantom_games/reusable_widget/Method/hex_string_to_color.dart';
+import 'package:fantom_games/reusable_widget/Method/session_managing.dart';
 import 'package:fantom_games/views/connection/forgot_password_page.dart';
 import 'package:fantom_games/views/connection/sign_up_page.dart';
 import 'package:flutter/foundation.dart';
@@ -11,8 +11,8 @@ import '../../connection/get_image_in_api.dart';
 import '../../connection/try_connection_with_id_in_api.dart';
 import '../../model/global_account.dart';
 import '../../model/global_object.dart';
-import '../../reusable_widget/messsage_pop_up.dart';
-import '../../reusable_widget/text_field.dart';
+import '../../reusable_widget/Method/messsage_pop_up.dart';
+import '../../reusable_widget/Widget/text_field.dart';
 import '../home/main_page.dart';
 
 class SignInScreen extends StatefulWidget {

@@ -43,7 +43,6 @@ flutter:
   assets:
     - assets/
     - assets/games/
-    - web/
   uses-material-design: true
   fonts:
     - family: PorterSans
