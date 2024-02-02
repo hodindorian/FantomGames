@@ -121,6 +121,27 @@
             </list>
           </value>
         </entry>
+        <entry key="firebase_core">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-1.24.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="firebase_core_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.8.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="firebase_core_web">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_web-1.7.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter">
           <value>
             <list>
@@ -167,6 +188,104 @@
           <value>
             <list>
               <option value="$USER_HOME$/snap/flutter/common/flutter/packages/flutter_web_plugins/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_ml_kit">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_ml_kit-0.12.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_barcode_scanning">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_barcode_scanning-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_commons">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_commons-0.2.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_digital_ink_recognition">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_digital_ink_recognition-0.5.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_entity_extraction">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_entity_extraction-0.5.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_face_detection">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_face_detection-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_image_labeling">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_image_labeling-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_language_id">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_language_id-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_object_detection">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_object_detection-0.5.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_pose_detection">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_pose_detection-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_selfie_segmentation">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_selfie_segmentation-0.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_smart_reply">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_smart_reply-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_text_recognition">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_text_recognition-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_mlkit_translation">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_translation-0.4.0/lib" />
             </list>
           </value>
         </entry>
@@ -512,10 +631,27 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file-7.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file_picker-6.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core-1.24.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.8.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_core_web-1.7.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_launcher_icons-0.13.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-3.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_session_manager-1.0.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_ml_kit-0.12.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_barcode_scanning-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_commons-0.2.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_digital_ink_recognition-0.5.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_entity_extraction-0.5.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_face_detection-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_image_labeling-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_language_id-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_object_detection-0.5.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_pose_detection-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_selfie_segmentation-0.1.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_smart_reply-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_text_recognition-0.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_translation-0.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/image-4.1.4/lib" />

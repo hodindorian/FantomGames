@@ -22,6 +22,7 @@ dependencies:
   mailer: ^6.0.1
   file_picker: ^6.1.1
   image: ^4.1.4
+  google_ml_kit: ^0.16.3
 
 dev_dependencies:
   flutter_test:

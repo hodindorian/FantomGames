@@ -579,7 +579,7 @@ class ProfilState extends State<Profil> {
                     child: const Text('Modifier'),
                   ),
                 ),
-                const VerifyingIdentity(),
+                const VerifyingIdentity(isAlreadyVerified: false),
               ],
             );
           },
