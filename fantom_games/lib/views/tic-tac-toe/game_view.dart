@@ -20,6 +20,7 @@ class _GameViewState extends State<GameView> {
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.pointIncreaseListener(context);
+    _socketMethods.endGameListener(context);
   }
 
   void tapped(int index, RoomGlobal roomGlobal) {
@@ -142,29 +143,10 @@ class _GameViewState extends State<GameView> {
                 ),
               ),
             ),
-            Text(
-                'Au tour de ${roomGlobal.roomData['turn']['nickname']}'
-            ),
-            Visibility(
-              visible: roomGlobal.endRound,
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    _socketMethods.nextRound(context);
-                  });
-                },
-                child: const Text('Recommencer la partie'),
+            if(roomGlobal.endRound==false && roomGlobal.endGame==false)
+              Text(
+                  'Au tour de ${roomGlobal.roomData['turn']['nickname']}'
               ),
-            ),
-            Visibility(
-              visible: roomGlobal.endGame,
-              child: TextButton(
-                onPressed: () {
-                  _socketMethods.endGame(context);
-                },
-                child: const Text('Retourner à la page d\'accueil'),
-              ),
-            ),
           ],
         ),
       ),

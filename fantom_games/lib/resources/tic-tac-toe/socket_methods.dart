@@ -116,12 +116,22 @@ class SocketMethods {
     });
   }
 
+  void endGameListener(BuildContext context) {
+    _socketClient.on('endgame', (playerData) {
+      var roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
+      if (playerData['socketID'] == roomGlobal.player1.socketID) {
+        roomGlobal.updatePlayer1(playerData);
+      }else if(playerData['socketID'] == roomGlobal.player2.socketID){
+        roomGlobal.updatePlayer2(playerData);
+      }
+    });
+  }
+
   void nextRound(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
     _socketClient.emit('nextRound', {
       'roomId': roomGlobal.roomData['id'],
     });
-
     _socketClient.on('nextRound',(room) {
     GameMethods().clearBoard(context, socketClient);
     });
