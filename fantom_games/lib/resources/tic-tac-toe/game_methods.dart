@@ -1,9 +1,8 @@
 import 'package:fantom_games/model/tic-tac-toe/global_room.dart';
-import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import '../../reusable_widget/method/hex_string_to_color.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
 class GameMethods {
   void checkWinner(BuildContext context, Socket socketClient) {
@@ -52,41 +51,11 @@ class GameMethods {
       } else if (roomGlobal.filledBoxes == 18) {
         winner = '';
         roomGlobal.endRound = true;
-        showDialog(
-            context: context,
-            builder: (BuildContext context)
-            {
-              return AlertDialog(
-                  title: const Text("Résultat :"),
-                  content: const Text(
-                    "Égalité ! C'était serré !",
-                  ),
-                  backgroundColor: hexStringToColor("FFFFFF"),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        SocketMethods().nextRound(context);
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text(
-                          'Recommencer la partie',
-                          style: TextStyle(
-                              color: Colors.black)),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        SocketMethods().endGame(context);
-                      },
-                      child: const Text(
-                          'Retourner à la page d\'accueil',
-                          style: TextStyle(
-                              color: Colors.black
-                          )
-                      ),
-                    ),
-                  ]
-              );
-            });
+        showMessagePopUp(
+            context, "Résultat :",
+            "Égalité ! C'était serré !",
+            "FFFFFF"
+        );
       }
 
       if (winner != '') {
@@ -97,68 +66,18 @@ class GameMethods {
           });
           if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
             roomGlobal.endRound = true;
-            showDialog(
-                context: context,
-                builder: (BuildContext context)
-                {
-                  return AlertDialog(
-                      title: const Text("Résultat :"),
-                      content: Text(
-                          '${roomGlobal.player1.nickname} a gagné !'
-                      ),
-                      backgroundColor: hexStringToColor("FFFFFF"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().nextRound(context);
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                              'Recommencer la partie',
-                              style: TextStyle(
-                                  color: Colors.black)),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().endGame(context);
-                          },
-                          child: const Text(
-                              'Retourner à la page d\'accueil',
-                              style: TextStyle(
-                                  color: Colors.black
-                              )
-                          ),
-                        ),
-                      ]
-                  );
-                });
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player1.nickname} a gagné !',
+                "FFFFFF"
+            );
           }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
-            showDialog(
-                context: context,
-                builder: (BuildContext context)
-                {
-                  return AlertDialog(
-                      title: const Text("Résultat :"),
-                      content: Text(
-                        '${roomGlobal.player1.nickname} a gagné la partie!'
-                      ),
-                      backgroundColor: hexStringToColor("FFFFFF"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().endGame(context);
-                          },
-                          child: const Text(
-                              'Retourner à la page d\'accueil',
-                              style: TextStyle(
-                                  color: Colors.black
-                              )
-                          ),
-                        ),
-                      ]
-                  );
-                });
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player1.nickname} a gagné la partie!',
+                "FFFFFF"
+            );
           }
         } else if(roomGlobal.player2.playerType == winner) {
           socketClient.emit('winner', {
@@ -167,68 +86,18 @@ class GameMethods {
           });
           if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
             roomGlobal.endRound = true;
-            showDialog(
-                context: context,
-                builder: (BuildContext context)
-                {
-                  return AlertDialog(
-                      title: const Text("Résultat :"),
-                      content: Text(
-                          '${roomGlobal.player2.nickname} a gagné !'
-                      ),
-                      backgroundColor: hexStringToColor("FFFFFF"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().nextRound(context);
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                              'Recommencer la partie',
-                              style: TextStyle(
-                                  color: Colors.black)),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().endGame(context);
-                          },
-                          child: const Text(
-                              'Retourner à la page d\'accueil',
-                              style: TextStyle(
-                                  color: Colors.black
-                              )
-                          ),
-                        ),
-                      ]
-                  );
-                });
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player2.nickname} a gagné !',
+                "FFFFFF"
+            );
           }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
-            showDialog(
-                context: context,
-                builder: (BuildContext context)
-                {
-                  return AlertDialog(
-                      title: const Text("Résultat :"),
-                      content: Text(
-                          '${roomGlobal.player2.nickname} a gagné la partie!'
-                      ),
-                      backgroundColor: hexStringToColor("FFFFFF"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            SocketMethods().endGame(context);
-                          },
-                          child: const Text(
-                              'Retourner à la page d\'accueil',
-                              style: TextStyle(
-                                  color: Colors.black
-                              )
-                          ),
-                        ),
-                      ]
-                  );
-                });
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player2.nickname} a gagné la partie!',
+                "FFFFFF"
+            );
           }
         }
       }

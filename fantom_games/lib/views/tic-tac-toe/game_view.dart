@@ -147,6 +147,39 @@ class _GameViewState extends State<GameView> {
               Text(
                   'Au tour de ${roomGlobal.roomData['turn']['nickname']}'
               ),
+            Visibility(
+              visible: roomGlobal.endRound,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    _socketMethods.nextRound(context);
+                  });
+                },
+                child: const Text('Recommencer la partie'),
+              ),
+            ),
+            Visibility(
+              visible: roomGlobal.endRound,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    _socketMethods.endGame(context);
+                  });
+                },
+                child: const Text('Retourner à la page d\'accueil'),
+              ),
+            ),
+            Visibility(
+              visible: roomGlobal.endGame,
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    _socketMethods.endGame(context);
+                  });
+                },
+                child: const Text('Retourner à la page d\'accueil'),
+              ),
+            ),
           ],
         ),
       ),
