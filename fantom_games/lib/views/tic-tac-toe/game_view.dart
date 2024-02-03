@@ -20,7 +20,6 @@ class _GameViewState extends State<GameView> {
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.pointIncreaseListener(context);
-    _socketMethods.endGameListener(context);
   }
 
   void tapped(int index, RoomGlobal roomGlobal) {
@@ -58,7 +57,7 @@ class _GameViewState extends State<GameView> {
                         ),
                       ),
                       Text(
-                        roomGlobal.player1.points.toInt().toString(),
+                        (roomGlobal.player1.points~/2).toString(),
                         style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -66,6 +65,7 @@ class _GameViewState extends State<GameView> {
                       ),
                     ],
                   ),
+
                 ),
                 Padding(
                   padding: const EdgeInsets.all(30),
@@ -80,7 +80,7 @@ class _GameViewState extends State<GameView> {
                         ),
                       ),
                       Text(
-                        roomGlobal.player2.points.toInt().toString(),
+                        (roomGlobal.player2.points~/2).toString(),
                         style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,

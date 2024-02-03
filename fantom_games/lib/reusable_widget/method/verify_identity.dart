@@ -66,6 +66,7 @@ class VerifyingIdentityState extends State<VerifyingIdentity> {
 
   Future<bool> verifyIdentity(img.Image cardRectInfo) async {
     try {
+      /*
       final recognizedText = await _textRecognizer.processImage(InputImage.fromBytes(
             bytes: cardRecto,
             inputImageData:
@@ -74,9 +75,11 @@ class VerifyingIdentityState extends State<VerifyingIdentity> {
                 imageRotation: InputImageRotation.rotation0deg,
                 inputImageFormat: InputImageFormat.nv21,
                 planeData: [],
-              )
+              ), metadata: null
         )
       );
+
+       */
       return true;
     } catch (e) {
       return false;

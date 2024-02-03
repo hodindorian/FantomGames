@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
-import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 import 'game_methods.dart';
 
 class SocketMethods {
@@ -102,21 +101,18 @@ class SocketMethods {
         data['choice'],
       );
       roomGlobal.updateRoomData(data['room']);
-      GameMethods().checkWinner(context, _socketClient, roomGlobal.nbRound);
+      GameMethods().checkWinner(context, _socketClient);
     });
   }
 
   void pointIncreaseListener(BuildContext context) {
     _socketClient.on('pointIncrease', (playerData) {
-      print(playerData.toString());
-
       var roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
       if (playerData['socketID'] == roomGlobal.player1.socketID) {
         roomGlobal.updatePlayer1(playerData);
       }else if(playerData['socketID'] == roomGlobal.player2.socketID){
         roomGlobal.updatePlayer2(playerData);
       }
-      roomGlobal.nbRound = roomGlobal.nbRound+1;
     });
   }
 
@@ -138,15 +134,5 @@ class SocketMethods {
           context) => const MainPage(title: "Fin du jeu")
       ),
     );
-  }
-
-  void endGameListener(BuildContext context) {
-    _socketClient.on('endGame', (playerData) {
-      showMessagePopUp(
-          context, "Résultat :",
-          '${playerData['nickname']} a gagné la partie!',
-          "FFFFFF"
-      );
-    });
   }
 }

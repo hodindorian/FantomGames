@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class GameMethods {
-  void checkWinner(BuildContext context, Socket socketClient, int nbRound) {
+  void checkWinner(BuildContext context, Socket socketClient) {
     RoomGlobal roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
     String winner = '';
 
-    if(!roomGlobal.endRound){
+    if(roomGlobal.endRound==false || roomGlobal.endGame==false){
       // Lignes
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[1] &&
           roomGlobal.displayElements[0] == roomGlobal.displayElements[2] &&
@@ -61,35 +61,44 @@ class GameMethods {
 
       if (winner != '') {
         if (roomGlobal.player1.playerType == winner) {
-          if(nbRound <= 3){
+          socketClient.emit('winner', {
+            'winnerSocketId': roomGlobal.player1.socketID,
+            'roomId':roomGlobal.roomData['id'],
+          });
+          if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
             roomGlobal.endRound = true;
             showMessagePopUp(
                 context, "Résultat :",
                 '${roomGlobal.player1.nickname} a gagné !',
                 "FFFFFF"
             );
-            print("la?");
-            socketClient.emit('winner', {
-              'winnerSocketId': roomGlobal.player1.socketID,
-              'roomId':roomGlobal.roomData['id'],
-            });
-          }else{
+          }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player1.nickname} a gagné la partie!',
+                "FFFFFF"
+            );
           }
-        } else {
-          if(nbRound <= 3){
+        } else if(roomGlobal.player2.playerType == winner) {
+          socketClient.emit('winner', {
+            'winnerSocketId': roomGlobal.player2.socketID,
+            'roomId':roomGlobal.roomData['id'],
+          });
+          if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
             roomGlobal.endRound = true;
             showMessagePopUp(
                 context, "Résultat :",
                 '${roomGlobal.player2.nickname} a gagné !',
                 "FFFFFF"
             );
-            socketClient.emit('winner', {
-              'winnerSocketId': roomGlobal.player2.socketID,
-              'roomId':roomGlobal.roomData['id'],
-            });
-          }else{
+          }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
+            showMessagePopUp(
+                context, "Résultat :",
+                '${roomGlobal.player2.nickname} a gagné la partie!',
+                "FFFFFF"
+            );
           }
         }
       }
