@@ -13,43 +13,68 @@ class GameMethods {
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[1] &&
           roomGlobal.displayElements[0] == roomGlobal.displayElements[2] &&
           roomGlobal.displayElements[0] != '') {
+
         winner = roomGlobal.displayElements[0];
+        roomGlobal.winner = roomGlobal.displayElements[0];
+
       }else if (roomGlobal.displayElements[3] == roomGlobal.displayElements[4] &&
           roomGlobal.displayElements[3] == roomGlobal.displayElements[5] &&
           roomGlobal.displayElements[3] != '') {
+
         winner = roomGlobal.displayElements[3];
+        roomGlobal.winner = roomGlobal.displayElements[3];
+
       }else if (roomGlobal.displayElements[6] == roomGlobal.displayElements[7] &&
           roomGlobal.displayElements[6] == roomGlobal.displayElements[8] &&
           roomGlobal.displayElements[6] != '') {
+
         winner = roomGlobal.displayElements[6];
+        roomGlobal.winner = roomGlobal.displayElements[6];
+
       }else
 
         // Colones
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[3] &&
           roomGlobal.displayElements[0] == roomGlobal.displayElements[6] &&
           roomGlobal.displayElements[0] != '') {
+
         winner = roomGlobal.displayElements[0];
+        roomGlobal.winner = roomGlobal.displayElements[0];
+
       }else if (roomGlobal.displayElements[1] == roomGlobal.displayElements[4] &&
           roomGlobal.displayElements[1] == roomGlobal.displayElements[7] &&
           roomGlobal.displayElements[1] != '') {
+
         winner = roomGlobal.displayElements[1];
+        roomGlobal.winner = roomGlobal.displayElements[1];
+
       }else if (roomGlobal.displayElements[2] == roomGlobal.displayElements[5] &&
           roomGlobal.displayElements[2] == roomGlobal.displayElements[8] &&
           roomGlobal.displayElements[2] != '') {
+
         winner = roomGlobal.displayElements[2];
+        roomGlobal.winner = roomGlobal.displayElements[2];
+
       }else
 
         // Diagonales
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[4] &&
           roomGlobal.displayElements[0] == roomGlobal.displayElements[8] &&
           roomGlobal.displayElements[0] != '') {
+
         winner = roomGlobal.displayElements[0];
+        roomGlobal.winner = roomGlobal.displayElements[0];
+
       }else if (roomGlobal.displayElements[2] == roomGlobal.displayElements[4] &&
           roomGlobal.displayElements[2] == roomGlobal.displayElements[6] &&
           roomGlobal.displayElements[2] != '') {
+
         winner =roomGlobal.displayElements[2];
+        roomGlobal.winner = roomGlobal.displayElements[2];
+
       } else if (roomGlobal.filledBoxes == 18) {
         winner = '';
+        roomGlobal.animation = true;
         roomGlobal.endRound = true;
         showMessagePopUp(
             context, "Résultat :",
@@ -59,6 +84,7 @@ class GameMethods {
       }
 
       if (winner != '') {
+        roomGlobal.animation = true;
         if (roomGlobal.player1.playerType == winner) {
           socketClient.emit('winner', {
             'winnerSocketId': roomGlobal.player1.socketID,

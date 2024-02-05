@@ -23,6 +23,8 @@ dependencies:
   file_picker: ^6.1.1
   image: ^4.1.4
   google_ml_kit: ^0.16.3
+  confetti: ^0.7.0
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,9 @@ class RoomGlobal extends ChangeNotifier {
   bool endRound = false;
   bool endGame = false;
   int nbRound = 1;
+  String winner = '';
+  bool animation = false;
+  String actuelPlayer = '';
   PlayerTicTacToe _player1 = PlayerTicTacToe(
     nickname: '',
     socketID: '',
