@@ -21,7 +21,6 @@ void main() {
 
 class FantomGames extends StatelessWidget {
   const FantomGames({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
