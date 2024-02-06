@@ -21,6 +21,7 @@ class _GameViewState extends State<GameView> {
   late AccountGlobal user;
   late ConfettiController _controllerTopCenterLeft;
   late ConfettiController _controllerTopCenterRight;
+  late Widget res;
 
   @override
   void initState() {
@@ -30,8 +31,8 @@ class _GameViewState extends State<GameView> {
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
-    _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 1));
-    _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 1));
+    _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
+    _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
   }
 
@@ -56,22 +57,7 @@ class _GameViewState extends State<GameView> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    if(roomGlobal.player1.nickname == user.pseudo){
-      roomGlobal.actuelPlayer = roomGlobal.player1.playerType;
-      if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.player1.playerType && roomGlobal.animation) {
-        _controllerTopCenterLeft.play();
-        _controllerTopCenterRight.play();
-        roomGlobal.animation = false;
-      }
-    }
-    if(roomGlobal.player2.nickname == user.pseudo){
-      roomGlobal.actuelPlayer = roomGlobal.player2.playerType;
-      if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.player2.playerType && roomGlobal.animation) {
-        _controllerTopCenterLeft.play();
-        _controllerTopCenterRight.play();
-        roomGlobal.animation = false;
-      }
-    }
+
 
     return Scaffold(
       body: Container(
@@ -179,77 +165,127 @@ class _GameViewState extends State<GameView> {
                   ),
                 ],
               ),
-              if(roomGlobal.endGame && roomGlobal.winner == roomGlobal.actuelPlayer)
-                Positioned(
-                  top : (screenWidth+screenHeight)*0.01,
-                  child: Text(
-                    'Vous avez gagné la partie !',
-                    style: TextStyle(
-                        fontSize: (screenWidth+screenHeight)*0.06,
-                        color: Colors.white
-                    ),
-                  ),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: screenHeight * 0.6,
+                  maxWidth: screenWidth * 0.28,
+                  minHeight: screenHeight * 0.6,
+                  minWidth: screenWidth * 0.28,
                 ),
-              if(roomGlobal.endGame && roomGlobal.winner != roomGlobal.actuelPlayer)
-                Positioned(
-                  top : (screenWidth+screenHeight)*0.01,
-                  child: Text(
-                    'Vous avez perdu... Dommage !',
-                    style: TextStyle(
-                        fontSize: (screenWidth+screenHeight)*0.06,
-                        color: Colors.white
-                    ),
-                  ),
-                ),
-              Visibility(
-                visible: !roomGlobal.endGame,
-                child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxHeight: screenHeight * 0.6,
-                        maxWidth: screenWidth * 0.28,
-                        minHeight: screenHeight * 0.6,
-                        minWidth: screenWidth * 0.28
-                    ),
-                    child: AbsorbPointer(
-                      absorbing: roomGlobal.roomData['turn']['socketID'] !=
-                          _socketMethods.socketClient.id,
-                      child: GridView.builder(
-                        itemCount: 9,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTapDown: (_) => tapped(index, roomGlobal),
-                            child: Container(
-                              margin: EdgeInsets.all(screenWidth*0.001),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: screenWidth*0.0035,
+                child: Stack(
+                  children: [
+                    ValueListenableBuilder<bool>(
+                      valueListenable: ValueNotifier(roomGlobal.endGame),
+                      builder: (context, value, child) {
+                        if (value) {
+                          if(roomGlobal.player1.nickname == user.pseudo){
+                            roomGlobal.actualPlayer = roomGlobal.player1.playerType;
+                            print(roomGlobal.winner+roomGlobal.player1.playerType+roomGlobal.animation.toString());
+                            if (roomGlobal.winner == roomGlobal.player1.playerType && roomGlobal.animation) {
+                              print("ici?");
+                              _controllerTopCenterLeft.play();
+                              _controllerTopCenterRight.play();
+                              roomGlobal.animation = false;
+                            }
+                          }
+                          if(roomGlobal.player2.nickname == user.pseudo){
+                            roomGlobal.actualPlayer = roomGlobal.player2.playerType;
+                            if (roomGlobal.winner == roomGlobal.player2.playerType && roomGlobal.animation) {
+                              _controllerTopCenterLeft.play();
+                              _controllerTopCenterRight.play();
+                              roomGlobal.animation = false;
+                            }
+                          }
+
+                          if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer){
+                            res = Align(
+                              alignment: Alignment.topCenter,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: (screenWidth + screenHeight) * 0.01),
+                                child: Text(
+                                  'Vous avez gagné la partie !',
+                                  style: TextStyle(
+                                    fontSize: (screenWidth + screenHeight) * 0.03,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
                                 ),
                               ),
-                              child: Center(
-                                child: AnimatedSize(
-                                  duration: const Duration(milliseconds: 200),
-                                  child: Text(
-                                    roomGlobal.displayElements[index],
-                                    style: TextStyle(
-                                      color: roomGlobal.displayElements[index].replaceAll(' ', '') == 'O'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: (screenWidth+screenHeight)*0.04,
-                                    ),
+                            );
+                          }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer){
+                            res = Align(
+                              alignment: Alignment.topCenter,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: (screenWidth + screenHeight) * 0.01),
+                                child: Text(
+                                  'Vous avez perdu... Dommage !',
+                                  style: TextStyle(
+                                    fontSize: (screenWidth + screenHeight) * 0.03,
+                                    color: Colors.white,
                                   ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
                                 ),
+                              ),
+                            );
+                          }
+                        }else{
+                          res = ConstrainedBox(
+                            constraints: BoxConstraints(
+                                maxHeight: screenHeight * 0.6,
+                                maxWidth: screenWidth * 0.28,
+                                minHeight: screenHeight * 0.6,
+                                minWidth: screenWidth * 0.28
+                            ),
+                            child: AbsorbPointer(
+                              absorbing: roomGlobal.roomData['turn']['socketID'] !=
+                                  _socketMethods.socketClient.id,
+                              child: GridView.builder(
+                                itemCount: 9,
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                ),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTapDown: (_) => tapped(index, roomGlobal),
+                                    child: Container(
+                                      margin: EdgeInsets.all(screenWidth*0.001),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.white,
+                                          width: screenWidth*0.0035,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: AnimatedSize(
+                                          duration: const Duration(milliseconds: 200),
+                                          child: Text(
+                                            roomGlobal.displayElements[index],
+                                            style: TextStyle(
+                                              color: roomGlobal.displayElements[index].replaceAll(' ', '') == 'O'
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: (screenWidth+screenHeight)*0.04,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           );
-                        },
-                      ),
+                        }
+                        return res;
+                      },
                     ),
-                  ),
+                  ],
+                ),
               ),
               if(roomGlobal.endRound==false && roomGlobal.endGame==false)
                 Text(
