@@ -1,3 +1,4 @@
+import 'package:fantom_games/views/battleship/create_or_join_room_screen.dart';
 import 'package:fantom_games/views/tic-tac-toe/create_or_join_room_screen.dart';
 import 'package:fantom_games/views/menu/profil.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
@@ -59,7 +60,7 @@ class _MainPageState extends State<MainPage> {
                       Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
                 ),
 
-                ...generatePositionedWidgets(3,['assets/games/tictactoe_logo.png', '', ''],[const CreateOrJoinRoomScreen(), const MainPage(title: ''), const MainPage(title: ''), const MainPage(title: '')],['Morpion', 'Texte 2', 'Texte 3'],context),
+                ...generatePositionedWidgets(3,['games/tictactoe_logo.png', 'games/battleship.png', ''],[const CreateOrJoinRoomScreen(), const CreateOrJoinRoomScreenBattleShip(), const MainPage(title: ''), const MainPage(title: '')],['Morpion', 'Bataille Navale', 'Texte 3'],context),
                 Positioned(
                   top: screenHeight*0.04,
                   left: screenWidth*0.20,

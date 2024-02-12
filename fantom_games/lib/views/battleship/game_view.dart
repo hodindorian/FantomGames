@@ -1,23 +1,23 @@
 import 'dart:math';
 import 'package:confetti/confetti.dart';
+import 'package:fantom_games/model/battleship/global_room_battleship.dart';
 import 'package:fantom_games/model/global_account.dart';
-import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
+import 'package:fantom_games/resources/battleship/socket_methods.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
 import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
 import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 
-class GameView extends StatefulWidget {
-  const GameView({super.key});
+class GameViewBattleShip extends StatefulWidget {
+  const GameViewBattleShip({super.key});
 
   @override
-  State<GameView> createState() => _GameViewState();
+  State<GameViewBattleShip> createState() => _GameViewStateBattleShip();
 }
 
-class _GameViewState extends State<GameView> {
-  final SocketMethods _socketMethods = SocketMethods();
+class _GameViewStateBattleShip extends State<GameViewBattleShip> {
+  final SocketMethodsBattleShip _socketMethods = SocketMethodsBattleShip();
   late AccountGlobal user;
   late ConfettiController _controllerTopCenterLeft;
   late ConfettiController _controllerTopCenterRight;
@@ -31,12 +31,13 @@ class _GameViewState extends State<GameView> {
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
+    _socketMethods.getBoatsListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
   }
 
-  void tapped(int index, RoomGlobalTicTacToe roomGlobal) {
+  void tapped(int index, RoomGlobalBattleShip roomGlobal) {
     _socketMethods.tapGrid(
       index,
       roomGlobal.roomData['id'],
@@ -53,23 +54,16 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context);
+    RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
-    if(roomGlobal.player1.nickname == user.pseudo){
-      roomGlobal.actualPlayer = roomGlobal.player1.playerType;
-    }
-    if(roomGlobal.player2.nickname == user.pseudo){
-      roomGlobal.actualPlayer = roomGlobal.player2.playerType;
-    }
 
     return Scaffold(
       body: Container(
         color: const Color(0xFF1B438F),
         child: Stack(
           children: [
-            const NavigationBarOnTop(title: 'Jeu du morpion'),
+            const NavigationBarOnTop(title: 'Bataille Navale'),
             const ReusableMenu(color: Color(0xFF003366)),
             ProfilIcon(pseudo: user.pseudo, userImage: user.image),
             Positioned(
@@ -184,20 +178,26 @@ class _GameViewState extends State<GameView> {
                       builder: (context, value, child) {
                         if (value) {
                           if(roomGlobal.player1.nickname == user.pseudo){
+                            /*
                             roomGlobal.actualPlayer = roomGlobal.player1.playerType;
                             if (roomGlobal.winner == roomGlobal.player1.playerType && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
                               roomGlobal.animation = false;
                             }
+
+                             */
                           }
                           if(roomGlobal.player2.nickname == user.pseudo){
+                            /*
                             roomGlobal.actualPlayer = roomGlobal.player2.playerType;
                             if (roomGlobal.winner == roomGlobal.player2.playerType && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
                               roomGlobal.animation = false;
                             }
+
+                             */
                           }
 
                           if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer){
@@ -247,9 +247,9 @@ class _GameViewState extends State<GameView> {
                               absorbing: roomGlobal.roomData['turn']['socketID'] !=
                                   _socketMethods.socketClient.id,
                               child: GridView.builder(
-                                itemCount: 9,
+                                itemCount: 100,
                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
+                                  crossAxisCount: 10,
                                 ),
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(

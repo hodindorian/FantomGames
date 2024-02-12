@@ -1,5 +1,5 @@
-import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
-import 'package:fantom_games/resources/tic-tac-toe/socket_client.dart';
+import 'package:fantom_games/model/battleship/global_room_battleship.dart';
+import 'package:fantom_games/resources/battleship/socket_client.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/views/tic-tac-toe/game_view.dart';
 import 'package:fantom_games/views/tic-tac-toe/lobby.dart';
@@ -9,8 +9,8 @@ import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'game_methods.dart';
 
-class SocketMethods {
-  final _socketClient = SocketClient.instance.socket!;
+class SocketMethodsBattleShip {
+  final _socketClient = SocketClientBattleShip.instance.socket!;
 
   Socket get socketClient => _socketClient;
 
@@ -44,7 +44,7 @@ class SocketMethods {
   // LISTENERS
   void createRoomSuccessListener(BuildContext context) {
     _socketClient.on('createRoomSuccess', (room) {
-      Provider.of<RoomGlobalTicTacToe>(context, listen: false).updateRoomData(room);
+      Provider.of<RoomGlobalBattleShip>(context, listen: false).updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
               context) => Lobby(roomID: room['id'])
@@ -57,13 +57,12 @@ class SocketMethods {
             )
         );
       });
-      //Navigator.pushNamed(context, GameScreen.routeName);
     });
   }
 
   void joinRoomSuccessListener(BuildContext context) {
     _socketClient.on('joinRoomSuccess', (room) {
-      Provider.of<RoomGlobalTicTacToe>(context, listen: false)
+      Provider.of<RoomGlobalBattleShip>(context, listen: false)
           .updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
@@ -81,33 +80,33 @@ class SocketMethods {
 
   void updatePlayersStateListener(BuildContext context) {
     _socketClient.on('updatePlayers', (playerData) {
-      Provider.of<RoomGlobalTicTacToe>(context, listen: false).updatePlayer1(playerData[0]);
-      Provider.of<RoomGlobalTicTacToe>(context, listen: false).updatePlayer2(playerData[1]);
+      Provider.of<RoomGlobalBattleShip>(context, listen: false).updatePlayer1(playerData[0]);
+      Provider.of<RoomGlobalBattleShip>(context, listen: false).updatePlayer2(playerData[1]);
     });
   }
 
   void updateRoomListener(BuildContext context) {
     _socketClient.on('updateRoom', (data) {
-      Provider.of<RoomGlobalTicTacToe>(context, listen: false)
+      Provider.of<RoomGlobalBattleShip>(context, listen: false)
           .updateRoomData(data);
     });
   }
 
   void tappedListener(BuildContext context) {
     _socketClient.on('tapped', (data) {
-      RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+      RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
       roomGlobal.updateDisplayElements(
         data['index'],
         data['choice'],
       );
       roomGlobal.updateRoomData(data['room']);
-      GameMethods().checkWinner(context, _socketClient);
+      //GameMethods().checkWinner(context, _socketClient);
     });
   }
 
   void pointIncreaseListener(BuildContext context) {
     _socketClient.on('pointIncrease', (playerData) {
-      var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
       if (playerData['socketID'] == roomGlobal.player1.socketID) {
         roomGlobal.updatePlayer1(playerData);
       }else if(playerData['socketID'] == roomGlobal.player2.socketID){
@@ -118,7 +117,7 @@ class SocketMethods {
 
   void endGameListener(BuildContext context) {
     _socketClient.on('endgame', (playerData) {
-      var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
       if (playerData['socketID'] == roomGlobal.player1.socketID) {
         roomGlobal.updatePlayer1(playerData);
       }else if(playerData['socketID'] == roomGlobal.player2.socketID){
@@ -128,21 +127,41 @@ class SocketMethods {
   }
 
   void nextRound(BuildContext context){
-    var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     _socketClient.emit('nextRound', {
       'roomId': roomGlobal.roomData['id'],
     });
     _socketClient.on('nextRound',(room) {
-      GameMethods().clearBoard(context, socketClient);
+    GameMethodsBattleShip().clearBoard(context, socketClient);
     });
   }
 
   void endGame(BuildContext context){
-    GameMethods().clearGame(context, socketClient);
+    GameMethodsBattleShip().clearGame(context, socketClient);
     Navigator.push(context,
       MaterialPageRoute(builder: (
           context) => const MainPage(title: "Fin du jeu")
       ),
     );
+  }
+
+
+  void getBoatsListener(BuildContext context) {
+    _socketClient.on('getBoats', (boats) {
+      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+      if (boats['playerID'] == roomGlobal.player1.socketID) {
+        roomGlobal.updatePlayer1Boats(boats['boats']);
+      }else if(boats['playerID'] == roomGlobal.player2.socketID){
+        roomGlobal.updatePlayer2Boats(boats['boats']);
+      }
+    });
+  }
+
+  void getBoats(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.emit('getBoats', {
+      'playerID': roomGlobal.player1.socketID,
+      'roomId': roomGlobal.roomData['id'],
+    });
   }
 }

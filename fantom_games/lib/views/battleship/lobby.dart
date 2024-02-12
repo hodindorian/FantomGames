@@ -1,27 +1,27 @@
-import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
+import 'package:fantom_games/model/battleship/global_room_battleship.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Lobby extends StatefulWidget {
-  const Lobby({super.key, required this.roomID});
+class LobbyBattleShip  extends StatefulWidget {
+  const LobbyBattleShip ({super.key, required this.roomID});
   final String roomID;
 
   @override
-  State<Lobby> createState() => _LobbyState();
+  State<LobbyBattleShip > createState() => _LobbyStateBattleShip ();
 }
 
-class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin{
+class _LobbyStateBattleShip extends State<LobbyBattleShip > with SingleTickerProviderStateMixin{
   late AnimationController _animationController;
   late TextEditingController roomIdController;
-  late String roomId1;
-  late String roomId2;
+  late String roomIdPartie1;
+  late String roomIdPartie2;
 
   @override
   void initState() {
     super.initState();
-    roomIdController = TextEditingController(text: Provider.of<RoomGlobalTicTacToe>(context, listen: false).roomData['id']);
-    roomId1 = widget.roomID.substring(0, 4);
-    roomId2 = widget.roomID.substring(4, 8);
+    roomIdController = TextEditingController(text: Provider.of<RoomGlobalBattleShip>(context, listen: false).roomData['id']);
+    roomIdPartie1 = widget.roomID.substring(0, 4);
+    roomIdPartie2 = widget.roomID.substring(4, 8);
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -75,7 +75,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin{
               child: Padding(
               padding: EdgeInsets.only(top: screenHeight*0.025),
                       child: SelectableText(
-                        "Votre numéro de room est : $roomId1-$roomId2 ",
+                        "Votre numéro de room est : $roomIdPartie1-$roomIdPartie2 ",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: screenHeight *0.05

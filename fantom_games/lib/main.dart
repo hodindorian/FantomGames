@@ -1,9 +1,11 @@
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/model/global_object.dart';
-import 'package:fantom_games/model/tic-tac-toe/global_room.dart';
+import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'model/battleship/global_room_battleship.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +13,8 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AccountGlobal()),
-          ChangeNotifierProvider(create: (_) => RoomGlobal()),
+          ChangeNotifierProvider(create: (_) => RoomGlobalTicTacToe()),
+          ChangeNotifierProvider(create: (_) => RoomGlobalBattleShip()),
           ChangeNotifierProvider(create: (_) => GlobalObject()),
         ],
         child: const FantomGames(),

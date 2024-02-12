@@ -1,35 +1,34 @@
-import 'package:fantom_games/model/tic-tac-toe/player_tic_tac_toe.dart';
+import 'package:fantom_games/model/battleship/player_battleship.dart';
 import 'package:flutter/material.dart';
 
-class RoomGlobal extends ChangeNotifier {
+class RoomGlobalBattleShip extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
   final List<String> _displayElement = ['', '', '', '', '', '', '', '', ''];
   int _filledBoxes = 0;
   bool endRound = false;
   bool endGame = false;
-  int nbRound = 1;
   String winner = '';
   bool animation = false;
   String actualPlayer = '';
-  PlayerTicTacToe _player1 = PlayerTicTacToe(
+  PlayerBattleShip _player1 = PlayerBattleShip(
     nickname: '',
     socketID: '',
     points: 0,
-    playerType: 'X',
+    boats: [],
   );
 
-  PlayerTicTacToe _player2 = PlayerTicTacToe(
+  PlayerBattleShip _player2 = PlayerBattleShip(
     nickname: '',
     socketID: '',
     points: 0,
-    playerType: 'O',
+    boats: [],
   );
 
   Map<String, dynamic> get roomData => _roomData;
   List<String> get displayElements => _displayElement;
   int get filledBoxes => _filledBoxes;
-  PlayerTicTacToe get player1 => _player1;
-  PlayerTicTacToe get player2 => _player2;
+  PlayerBattleShip get player1 => _player1;
+  PlayerBattleShip get player2 => _player2;
 
   void updateRoomData(Map<String, dynamic> data) {
     _roomData = data;
@@ -37,12 +36,12 @@ class RoomGlobal extends ChangeNotifier {
   }
 
   void updatePlayer1(Map<String, dynamic> player1Data) {
-    _player1 = PlayerTicTacToe.fromMap(player1Data);
+    _player1 = PlayerBattleShip.fromMap(player1Data);
     notifyListeners();
   }
 
   void updatePlayer2(Map<String, dynamic> player2Data) {
-    _player2 = PlayerTicTacToe.fromMap(player2Data);
+    _player2 = PlayerBattleShip.fromMap(player2Data);
     notifyListeners();
   }
 
@@ -54,5 +53,13 @@ class RoomGlobal extends ChangeNotifier {
 
   void setFilledBoxesTo0() {
     _filledBoxes = 0;
+  }
+
+  void updatePlayer1Boats(List<String> boats) {
+    _player1.boats = boats;
+  }
+
+  void updatePlayer2Boats(List<String> boats) {
+    _player2.boats = boats;
   }
 }

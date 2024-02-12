@@ -1,4 +1,4 @@
-import 'package:fantom_games/model/tic-tac-toe/global_room.dart';
+import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -6,7 +6,7 @@ import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
 class GameMethods {
   void checkWinner(BuildContext context, Socket socketClient) {
-    RoomGlobal roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
+    RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     String winner = '';
     if(roomGlobal.endRound==false || roomGlobal.endGame==false){
       // Lignes
@@ -72,10 +72,14 @@ class GameMethods {
         winner =roomGlobal.displayElements[2];
         roomGlobal.winner = roomGlobal.displayElements[2];
 
-      } else if (roomGlobal.filledBoxes == 18) {
+      } else if ((roomGlobal.filledBoxes == 18 && roomGlobal.actualPlayer == 'X') || (roomGlobal.filledBoxes == 9 && roomGlobal.actualPlayer == 'O')) {
         winner = '';
         roomGlobal.animation = true;
         roomGlobal.endRound = true;
+        socketClient.emit('winner', {
+          'winnerSocketId': 'none',
+          'roomId':roomGlobal.roomData['id'],
+        });
         showMessagePopUp(
             context, "Résultat :",
             "Égalité ! C'était serré !",
@@ -131,7 +135,7 @@ class GameMethods {
   }
 
   void clearBoard(BuildContext context, Socket socketClient) {
-    RoomGlobal roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
+    RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
@@ -144,7 +148,7 @@ class GameMethods {
   }
 
   void clearGame(BuildContext context, Socket socketClient) {
-    RoomGlobal roomGlobal = Provider.of<RoomGlobal>(context, listen: false);
+    RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
