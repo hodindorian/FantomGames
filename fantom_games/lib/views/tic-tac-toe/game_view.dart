@@ -32,7 +32,6 @@ class _GameViewState extends State<GameView> {
     _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
     _socketMethods.clearBoardListener(context);
-    _socketMethods.clearGameListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
@@ -60,10 +59,10 @@ class _GameViewState extends State<GameView> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     if(roomGlobal.player1.nickname == user.pseudo){
-      roomGlobal.actualPlayer = roomGlobal.player1.playerType;
+      roomGlobal.actualPlayer = roomGlobal.player1;
     }
     if(roomGlobal.player2.nickname == user.pseudo){
-      roomGlobal.actualPlayer = roomGlobal.player2.playerType;
+      roomGlobal.actualPlayer = roomGlobal.player2;
     }
 
     return Scaffold(
@@ -160,7 +159,7 @@ class _GameViewState extends State<GameView> {
                         Visibility(
                           visible: !roomGlobal.endGame,
                           child: Text(
-                            (roomGlobal.player2.points~/2).toString(),
+                            (roomGlobal.player2.points).toString(),
                             style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -186,7 +185,7 @@ class _GameViewState extends State<GameView> {
                       builder: (context, value, child) {
                         if (value) {
                           if(roomGlobal.player1.nickname == user.pseudo){
-                            roomGlobal.actualPlayer = roomGlobal.player1.playerType;
+                            roomGlobal.actualPlayer = roomGlobal.player1;
                             if (roomGlobal.winner == roomGlobal.player1.playerType && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
@@ -194,7 +193,7 @@ class _GameViewState extends State<GameView> {
                             }
                           }
                           if(roomGlobal.player2.nickname == user.pseudo){
-                            roomGlobal.actualPlayer = roomGlobal.player2.playerType;
+                            roomGlobal.actualPlayer = roomGlobal.player2;
                             if (roomGlobal.winner == roomGlobal.player2.playerType && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
@@ -202,7 +201,7 @@ class _GameViewState extends State<GameView> {
                             }
                           }
 
-                          if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer){
+                          if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer.playerType){
                             res = Align(
                               alignment: Alignment.topCenter,
                               child: Container(
@@ -219,7 +218,7 @@ class _GameViewState extends State<GameView> {
                                 ),
                               ),
                             );
-                          }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer){
+                          }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer.playerType){
                             res = Align(
                               alignment: Alignment.topCenter,
                               child: Container(
@@ -325,6 +324,7 @@ class _GameViewState extends State<GameView> {
                   onPressed: () {
                     setState(() {
                       _socketMethods.endGame(context);
+                      roomGlobal.setFilledBoxesTo0();
                     });
                   },
                   child: Text(
@@ -343,6 +343,7 @@ class _GameViewState extends State<GameView> {
                   onPressed: () {
                     setState(() {
                       _socketMethods.endGame(context);
+                      roomGlobal.setFilledBoxesTo0();
                     });
                   },
                   child: Text(

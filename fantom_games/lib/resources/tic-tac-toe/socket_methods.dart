@@ -109,11 +109,13 @@ class SocketMethods {
     _socketClient.on('pointIncrease', (playerData) {
       var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
       if (playerData['socketID'] == roomGlobal.player1.socketID) {
+        playerData['points'] == playerData['points']/2;
         roomGlobal.updatePlayer1(playerData);
       }else if(playerData['socketID'] == roomGlobal.player2.socketID){
         roomGlobal.updatePlayer2(playerData);
       }
     });
+
   }
 
   void endGameListener(BuildContext context) {
@@ -133,13 +135,6 @@ class SocketMethods {
     });
   }
 
-  void clearGameListener(BuildContext context) {
-    _socketClient.on('clearGame', (nothing) {
-      GameMethods().clearGame(context, socketClient, true);
-    });
-  }
-
-
   void nextRound(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     _socketClient.emit('nextRound', {
@@ -151,7 +146,7 @@ class SocketMethods {
   }
 
   void endGame(BuildContext context){
-    GameMethods().clearGame(context, socketClient, false);
+    GameMethods().clearGame(context, socketClient);
     Navigator.push(context,
       MaterialPageRoute(builder: (
           context) => const MainPage(title: "Fin du jeu")

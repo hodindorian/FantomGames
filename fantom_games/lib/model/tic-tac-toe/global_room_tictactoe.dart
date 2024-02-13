@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class RoomGlobalTicTacToe extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
-  final List<String> _displayElement = ['', '', '', '', '', '', '', '', ''];
+  List<String> _displayElement = ['', '', '', '', '', '', '', '', ''];
   int _filledBoxes = 0;
   bool endRound = false;
   bool endGame = false;
   int nbRound = 1;
   String winner = '';
   bool animation = false;
-  String actualPlayer = '';
+  late PlayerTicTacToe actualPlayer;
   PlayerTicTacToe _player1 = PlayerTicTacToe(
     nickname: '',
     socketID: '',
@@ -54,5 +54,29 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
 
   void setFilledBoxesTo0() {
     _filledBoxes = 0;
+  }
+
+  void reset(){
+    _filledBoxes = 0;
+    _roomData = {};
+    _displayElement = ['', '', '', '', '', '', '', '', ''];
+    endRound = false;
+    endGame = false;
+    nbRound = 1;
+    winner = '';
+    animation = false;
+    _player1 = PlayerTicTacToe(
+      nickname: '',
+      socketID: '',
+      points: 0,
+      playerType: 'X',
+    );
+    _player2 = PlayerTicTacToe(
+      nickname: '',
+      socketID: '',
+      points: 0,
+      playerType: 'O',
+    );
+
   }
 }

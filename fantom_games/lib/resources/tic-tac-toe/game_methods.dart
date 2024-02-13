@@ -1,4 +1,5 @@
 import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
+import 'package:fantom_games/model/tic-tac-toe/player_tic_tac_toe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -8,7 +9,6 @@ class GameMethods {
   void checkWinner(BuildContext context, Socket socketClient) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     String winner = '';
-    print(roomGlobal.filledBoxes);
     if(roomGlobal.endRound==false || roomGlobal.endGame==false){
       // Lignes
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[1] &&
@@ -70,17 +70,13 @@ class GameMethods {
           roomGlobal.displayElements[2] == roomGlobal.displayElements[6] &&
           roomGlobal.displayElements[2] != '') {
 
-        winner =roomGlobal.displayElements[2];
+        winner = roomGlobal.displayElements[2];
         roomGlobal.winner = roomGlobal.displayElements[2];
 
-      } else if ((roomGlobal.filledBoxes == 18 && roomGlobal.actualPlayer == 'X') || (roomGlobal.filledBoxes == 9 && roomGlobal.actualPlayer == 'O')) {
+      } else if ((roomGlobal.filledBoxes == 18 && roomGlobal.actualPlayer.playerType == 'X') || (roomGlobal.filledBoxes == 9 && roomGlobal.actualPlayer.playerType == 'O')) {
         winner = '';
         roomGlobal.animation = true;
         roomGlobal.endRound = true;
-        socketClient.emit('winner', {
-          'winnerSocketId': 'none',
-          'roomId':roomGlobal.roomData['id'],
-        });
         showMessagePopUp(
             context, "Résultat :",
             "Égalité ! C'était serré !",
@@ -91,18 +87,21 @@ class GameMethods {
 
       if (winner != '') {
         roomGlobal.animation = true;
-        if (roomGlobal.player1.playerType == winner) {
+        print("actual => "+roomGlobal.actualPlayer.playerType);
+        print("winner => "+winner);
+        print("winner room => "+roomGlobal.winner);
+        if (roomGlobal.actualPlayer.playerType == winner) {
           socketClient.emit('winner', {
-            'winnerSocketId': roomGlobal.player1.socketID,
+            'winnerSocketId': roomGlobal.actualPlayer.socketID,
             'roomId':roomGlobal.roomData['id'],
           });
-          if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
-            roomGlobal.endRound = true;
+          if(roomGlobal.actualPlayer.points < 3 && roomGlobal.endRound==false){
             showMessagePopUp(
                 context, "Résultat :",
-                '${roomGlobal.player1.nickname} a gagné !',
+                '${roomGlobal.actualPlayer.nickname} a gagné !',
                 "FFFFFF"
             );
+            roomGlobal.endRound = true;
           }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
             showMessagePopUp(
@@ -111,23 +110,25 @@ class GameMethods {
                 "FFFFFF"
             );
           }
-        } else if(roomGlobal.player2.playerType == winner) {
-          socketClient.emit('winner', {
-            'winnerSocketId': roomGlobal.player2.socketID,
-            'roomId':roomGlobal.roomData['id'],
-          });
-          if(roomGlobal.player1.points <= 3 && roomGlobal.player2.points <= 3 && roomGlobal.endRound==false){
-            roomGlobal.endRound = true;
+        } else {
+          PlayerTicTacToe winner;
+          if(roomGlobal.actualPlayer.nickname == roomGlobal.player1.nickname){
+            winner = roomGlobal.player2;
+          }else{
+            winner = roomGlobal.player1;
+          }
+          if(winner.points < 3 && roomGlobal.endRound==false){
             showMessagePopUp(
                 context, "Résultat :",
-                '${roomGlobal.player2.nickname} a gagné !',
+                '${winner.nickname} a gagné !',
                 "FFFFFF"
             );
+            roomGlobal.endRound = true;
           }else if(roomGlobal.endRound==false && roomGlobal.endGame==false){
             roomGlobal.endGame = true;
             showMessagePopUp(
                 context, "Résultat :",
-                '${roomGlobal.player2.nickname} a gagné la partie!',
+                '${winner.nickname} a gagné la partie!',
                 "FFFFFF"
             );
           }
@@ -151,18 +152,11 @@ class GameMethods {
     roomGlobal.nbRound = roomGlobal.nbRound+1;
   }
 
-  void clearGame(BuildContext context, Socket socketClient, bool alreadySendSocket) {
+  void clearGame(BuildContext context, Socket socketClient) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
-    if(!alreadySendSocket){
-      socketClient.emit('clearGame', {
-        'roomId': roomGlobal.roomData['id']
-      });
-    }
-    roomGlobal.endGame = false;
-    roomGlobal.setFilledBoxesTo0();
-    roomGlobal.nbRound = 1;
+    roomGlobal.reset();
   }
 }
