@@ -323,8 +323,9 @@ class ProfilState extends State<Profil> {
                                           );
                                         }else {
                                           if (context.mounted) {
-                                            setState(() {
-                                              user.updateAccount(
+                                            getImageInApi(user.pseudo).then((Uint8List? newImage) async {
+                                              setState(() {
+                                                user.updateAccount(
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
@@ -332,16 +333,18 @@ class ProfilState extends State<Profil> {
                                                   myList[5],
                                                   myList[6],
                                                   myList[7],
-                                                  myList[8]
+                                                  newImage,
+                                                );
+                                                lastname = user.lastname!;
+                                              });
+                                              showMessagePopUp(
+                                                  context,
+                                                  "Changement réussi !",
+                                                  "Votre nom a bien été changé !",
+                                                  "FFFFFF"
                                               );
-                                              lastname = user.lastname!;
                                             });
                                           }
-                                          showMessagePopUp(
-                                              context, "Changement réussi !",
-                                              "Votre nom a bien été changé !",
-                                              "FFFFFF"
-                                          );
                                         }
                                       });
                                     },
@@ -430,8 +433,10 @@ class ProfilState extends State<Profil> {
                                           );
                                         }else {
                                           if (context.mounted) {
-                                            setState(() {
-                                              user.updateAccount(
+                                            getImageInApi(user.pseudo).then((
+                                                Uint8List? newImage) async {
+                                              setState(() {
+                                                user.updateAccount(
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
@@ -439,16 +444,18 @@ class ProfilState extends State<Profil> {
                                                   myList[5],
                                                   myList[6],
                                                   myList[7],
-                                                  myList[8]
+                                                  newImage,
+                                                );
+                                                firstname = user.firstname!;
+                                              });
+                                              showMessagePopUp(
+                                                  context,
+                                                  "Changement réussi !",
+                                                  "Votre prénom a bien été changé !",
+                                                  "FFFFFF"
                                               );
-                                              firstname = user.firstname!;
                                             });
                                           }
-                                          showMessagePopUp(
-                                              context, "Changement réussi !",
-                                              "Votre prénom a bien été changé !",
-                                              "FFFFFF"
-                                          );
                                         }
                                       });
                                     },
@@ -537,8 +544,10 @@ class ProfilState extends State<Profil> {
                                           );
                                         }else {
                                           if (context.mounted) {
-                                            setState(() {
-                                              user.updateAccount(
+                                            getImageInApi(user.pseudo).then((
+                                                Uint8List? newImage) async {
+                                              setState(() {
+                                                user.updateAccount(
                                                   myList[1],
                                                   myList[2],
                                                   myList[3],
@@ -546,16 +555,18 @@ class ProfilState extends State<Profil> {
                                                   myList[5],
                                                   myList[6],
                                                   myList[7],
-                                                  myList[8],
+                                                  newImage,
+                                                );
+                                                phoneNumber = user.phoneNumber!;
+                                              });
+                                              showMessagePopUp(
+                                                  context,
+                                                  "Changement réussi !",
+                                                  "Votre numéro de téléphone a bien été changé !",
+                                                  "FFFFFF"
                                               );
-                                              phoneNumber = user.phoneNumber!;
                                             });
                                           }
-                                          showMessagePopUp(
-                                              context, "Changement réussi !",
-                                              "Votre numéro de téléphone a bien été changé !",
-                                              "FFFFFF"
-                                          );
                                         }
                                       });
                                     },

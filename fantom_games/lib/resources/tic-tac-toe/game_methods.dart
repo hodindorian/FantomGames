@@ -8,6 +8,7 @@ class GameMethods {
   void checkWinner(BuildContext context, Socket socketClient) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     String winner = '';
+    print(roomGlobal.filledBoxes);
     if(roomGlobal.endRound==false || roomGlobal.endGame==false){
       // Lignes
       if (roomGlobal.displayElements[0] == roomGlobal.displayElements[1] &&
@@ -85,6 +86,7 @@ class GameMethods {
             "Égalité ! C'était serré !",
             "FFFFFF"
         );
+        roomGlobal.setFilledBoxesTo0();
       }
 
       if (winner != '') {
@@ -134,27 +136,31 @@ class GameMethods {
     }
   }
 
-  void clearBoard(BuildContext context, Socket socketClient) {
+  void clearBoard(BuildContext context, Socket socketClient, bool alreadySendSocket) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
-    socketClient.emit('clearBoard', {
-      'roomId': roomGlobal.roomData['id']
-    });
+    if(!alreadySendSocket){
+      socketClient.emit('clearBoard', {
+        'roomId': roomGlobal.roomData['id']
+      });
+    }
     roomGlobal.endRound = false;
     roomGlobal.setFilledBoxesTo0();
     roomGlobal.nbRound = roomGlobal.nbRound+1;
   }
 
-  void clearGame(BuildContext context, Socket socketClient) {
+  void clearGame(BuildContext context, Socket socketClient, bool alreadySendSocket) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
-    socketClient.emit('clearGame', {
-      'roomId': roomGlobal.roomData['id']
-    });
+    if(!alreadySendSocket){
+      socketClient.emit('clearGame', {
+        'roomId': roomGlobal.roomData['id']
+      });
+    }
     roomGlobal.endGame = false;
     roomGlobal.setFilledBoxesTo0();
     roomGlobal.nbRound = 1;

@@ -31,6 +31,8 @@ class _GameViewState extends State<GameView> {
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
+    _socketMethods.clearBoardListener(context);
+    _socketMethods.clearGameListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);

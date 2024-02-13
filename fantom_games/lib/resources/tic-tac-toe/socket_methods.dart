@@ -127,18 +127,31 @@ class SocketMethods {
     });
   }
 
+  void clearBoardListener(BuildContext context) {
+    _socketClient.on('clearBoard', (nothing) {
+      GameMethods().clearBoard(context, socketClient, true);
+    });
+  }
+
+  void clearGameListener(BuildContext context) {
+    _socketClient.on('clearGame', (nothing) {
+      GameMethods().clearGame(context, socketClient, true);
+    });
+  }
+
+
   void nextRound(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     _socketClient.emit('nextRound', {
       'roomId': roomGlobal.roomData['id'],
     });
     _socketClient.on('nextRound',(room) {
-      GameMethods().clearBoard(context, socketClient);
+      GameMethods().clearBoard(context, socketClient, false);
     });
   }
 
   void endGame(BuildContext context){
-    GameMethods().clearGame(context, socketClient);
+    GameMethods().clearGame(context, socketClient, false);
     Navigator.push(context,
       MaterialPageRoute(builder: (
           context) => const MainPage(title: "Fin du jeu")
