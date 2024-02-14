@@ -1,7 +1,6 @@
 import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/tic-tac-toe/loading.dart';
-import 'package:fantom_games/views/tic-tac-toe/join_room_screen.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
 import 'package:fantom_games/reusable_widget/widget/table_success.dart';
@@ -42,12 +41,6 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
   void accueil(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => const MainPage(title: 'Accueil')
-    ));
-  }
-
-  void joinRoom(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const JoinRoomScreen()
     ));
   }
 
@@ -171,7 +164,7 @@ class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
                               ),
                               SizedBox(height: screenHeight * 0.01),
                               ElevatedButton(
-                                onPressed: () => _socketMethods.joinRoom(user.pseudo, _gameIdController.text.toUpperCase().replaceAll('-', '')),
+                                onPressed: () => _socketMethods.joinRoom(user.pseudo, _gameIdController.text.toUpperCase().replaceAll('-', '').replaceAll(' ', '')),
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: Size(screenWidth * 0.18, screenHeight * 0.08),
                                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
