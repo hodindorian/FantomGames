@@ -1,6 +1,9 @@
+import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/views/menu/profil.dart';
+
+import '../method/disconnect.dart';
 
 class ReusableMenu extends StatefulWidget {
 
@@ -136,6 +139,32 @@ class _ReusableMenuState extends State<ReusableMenu> with SingleTickerProviderSt
                         },
                         child: const Text(
                           'Profil',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black,
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      TextButton(
+                        onPressed: () {
+                          disconnect();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignInScreen(signupInfo: 'Vous avez bien été deconnecté(e)'),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Se Deconnecter',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 32,
