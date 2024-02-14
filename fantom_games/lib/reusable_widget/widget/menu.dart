@@ -71,7 +71,7 @@ class _ReusableMenuState extends State<ReusableMenu> with SingleTickerProviderSt
                             Padding(
                               padding: EdgeInsets.only(left: screenWidth*0.01),
                               child: Text(
-                                height == screenWidth*0.1 ? "Close" : "Menu",
+                                height == screenWidth*0.1 ? "Fermer" : "Menu",
                                 style: TextStyle(color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                     fontSize: screenWidth*0.015),
