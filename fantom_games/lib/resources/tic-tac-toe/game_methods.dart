@@ -87,9 +87,6 @@ class GameMethods {
 
       if (winner != '') {
         roomGlobal.animation = true;
-        print("actual => "+roomGlobal.actualPlayer.playerType);
-        print("winner => "+winner);
-        print("winner room => "+roomGlobal.winner);
         if (roomGlobal.actualPlayer.playerType == winner) {
           socketClient.emit('winner', {
             'winnerSocketId': roomGlobal.actualPlayer.socketID,

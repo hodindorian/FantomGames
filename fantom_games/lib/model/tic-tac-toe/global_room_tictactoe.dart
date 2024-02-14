@@ -53,18 +53,25 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
   }
 
   void setFilledBoxesTo0() {
+    _displayElement =  ['', '', '', '', '', '', '', '', ''];
     _filledBoxes = 0;
   }
 
-  void reset(){
-    _filledBoxes = 0;
+  void reset() {
     _roomData = {};
     _displayElement = ['', '', '', '', '', '', '', '', ''];
+    _filledBoxes = 0;
     endRound = false;
     endGame = false;
     nbRound = 1;
     winner = '';
     animation = false;
+    actualPlayer = PlayerTicTacToe(
+      nickname: '',
+      socketID: '',
+      points: 0,
+      playerType: 'X',
+    );
     _player1 = PlayerTicTacToe(
       nickname: '',
       socketID: '',
@@ -77,6 +84,7 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
       points: 0,
       playerType: 'O',
     );
-
+    notifyListeners();
   }
+
 }

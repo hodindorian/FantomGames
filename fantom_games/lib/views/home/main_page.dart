@@ -36,6 +36,7 @@ class _MainPageState extends State<MainPage> {
     ));
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -60,7 +61,7 @@ class _MainPageState extends State<MainPage> {
                       Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
                 ),
 
-                ...generatePositionedWidgets(3,['games/tictactoe_logo.png', 'games/battleship.png', ''],[const CreateOrJoinRoomScreen(), const CreateOrJoinRoomScreenBattleShip(), const MainPage(title: ''), const MainPage(title: '')],['Morpion', 'Bataille Navale', 'Texte 3'],context),
+                ...generatePositionedWidgets(3,['games/tictactoe_logo.png', 'games/battleship.png', 'games/tictactoe_logo.png'],[const CreateOrJoinRoomScreen(), const CreateOrJoinRoomScreenBattleShip(), const MainPage(title: ''), const MainPage(title: '')],['Morpion', 'Bataille Navale', 'Texte 3'],context),
                 Positioned(
                   top: screenHeight*0.04,
                   left: screenWidth*0.20,

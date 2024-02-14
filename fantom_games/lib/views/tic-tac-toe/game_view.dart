@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:universal_html/html.dart' as html;
 import 'package:confetti/confetti.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
@@ -32,6 +33,7 @@ class _GameViewState extends State<GameView> {
     _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
     _socketMethods.clearBoardListener(context);
+    _socketMethods.leaveGameListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
@@ -57,6 +59,10 @@ class _GameViewState extends State<GameView> {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
+    html.window.onBeforeUnload.listen((event) async {
+      _socketMethods.leaveGame(context);
+    });
 
     if(roomGlobal.player1.nickname == user.pseudo){
       roomGlobal.actualPlayer = roomGlobal.player1;
