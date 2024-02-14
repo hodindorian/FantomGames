@@ -64,7 +64,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
         child: Stack(
           children: [
             const NavigationBarOnTop(title: 'Bataille Navale'),
-            const ReusableMenu(color: Color(0xFF003366)),
+            ReusableMenu(color: const Color(0xFF003366), pseudo: user.pseudo,),
             ProfilIcon(pseudo: user.pseudo, userImage: user.image),
             Positioned(
                 right: screenWidth*0.65,

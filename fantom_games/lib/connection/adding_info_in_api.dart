@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:image/image.dart' as img;
 
 Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
   try {
@@ -162,20 +163,26 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
 
 Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async {
   try {
-    String image = base64Encode(imageUint);
+    img.Image? image = img.decodeImage(imageUint);
+
+    if (image!.lengthInBytes > 2 * 1024 * 1024) {
+      image = img.copyResize(image, width: 800);
+    }
+    String imageBase64 = base64Encode(img.encodeJpg(image));
+
     List<dynamic> result = [];
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
-        '/changeImage'
-    );
+    Uri uri = Uri.https('apiuser.fantomgames.eu', '/changeImage');
     var request = http.MultipartRequest('POST', uri)
       ..fields['pseudo'] = pseudo
       ..files.add(http.MultipartFile.fromBytes(
         'image',
-        base64Decode(image),
+        base64Decode(imageBase64),
         filename: 'image.jpg',
       ));
+
     request.headers['Access-Control-Allow-Origin'] = '*';
     http.Response response = await http.Response.fromStream(await request.send());
+
     if (response.statusCode != 200) {
       result.add('CantChangeImage');
       if (kDebugMode) {
@@ -183,8 +190,10 @@ Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async
       }
       return result;
     }
+
     var rep = jsonDecode(response.body);
     rep = rep[0];
+
     if (rep.length == 0) {
       result.add('Unexpected error');
       return result;

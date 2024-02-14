@@ -121,7 +121,7 @@ class CreateOrJoinRoomScreenBattleShipState extends State<CreateOrJoinRoomScreen
                     ),
                   ),
                 ),
-                const ReusableMenu(color:Color(0xFF003366)),
+                ReusableMenu(color:const Color(0xFF003366), pseudo: user.pseudo,),
                 Stack(
                   children: [
                     Positioned(

@@ -125,7 +125,7 @@ class ProfilState extends State<Profil> {
                 ),
                 const NavigationBarOnTop(title : 'Page de profil'),
                 ProfilIcon(pseudo: user.pseudo, userImage: user.image),
-                const ReusableMenu(color:Color(0xFF003366)),
+                ReusableMenu(color:const Color(0xFF003366), pseudo: user.pseudo),
                 const TableSuccess(),
                 Positioned(
                   top: screenHeight * 0.35,

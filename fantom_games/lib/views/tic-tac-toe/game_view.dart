@@ -77,7 +77,7 @@ class _GameViewState extends State<GameView> {
         child: Stack(
           children: [
             const NavigationBarOnTop(title: 'Jeu du morpion'),
-            const ReusableMenu(color: Color(0xFF003366)),
+            ReusableMenu(color: const Color(0xFF003366), pseudo: user.pseudo,),
             ProfilIcon(pseudo: user.pseudo, userImage: user.image),
             Positioned(
                 right: screenWidth*0.65,

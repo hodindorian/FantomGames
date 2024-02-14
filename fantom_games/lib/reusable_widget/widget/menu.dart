@@ -9,7 +9,9 @@ class ReusableMenu extends StatefulWidget {
 
   final Color color;
 
-  const ReusableMenu({super.key, required this.color});
+  final String pseudo;
+
+  const ReusableMenu({super.key, required this.color, required this.pseudo});
 
   @override
   State<ReusableMenu> createState() => _ReusableMenuState();
@@ -155,7 +157,7 @@ class _ReusableMenuState extends State<ReusableMenu> with SingleTickerProviderSt
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       TextButton(
                         onPressed: () {
-                          disconnect();
+                          disconnect(widget.pseudo);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

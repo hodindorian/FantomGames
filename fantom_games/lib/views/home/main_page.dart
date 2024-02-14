@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                     ],
                   ),
                 ),
-                const ReusableMenu(color:Color(0xFF1B438F)),
+                ReusableMenu(color:const Color(0xFF1B438F), pseudo: user.pseudo,),
                 const TableSuccess(),
                 ProfilIcon(pseudo: user.pseudo,userImage: user.image),
                 Positioned(
