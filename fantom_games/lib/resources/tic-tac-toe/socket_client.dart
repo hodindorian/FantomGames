@@ -3,7 +3,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 class SocketClient {
   io.Socket? socket;
   static SocketClient? _instance;
-/*
+
   SocketClient._internal() {
     socket = io.io('https://sockettictactoe.fantomgames.eu', <String, dynamic>{
       'transports': ['websocket'],
@@ -13,7 +13,7 @@ class SocketClient {
   }
 
 
- */
+  /*
   SocketClient._internal() {
     socket = io.io('http://localhost:3000', <String, dynamic>{
       'transports': ['websocket'],
@@ -21,6 +21,8 @@ class SocketClient {
     });
     socket!.connect();
   }
+
+  */
 
 
 
