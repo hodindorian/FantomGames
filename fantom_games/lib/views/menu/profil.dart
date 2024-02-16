@@ -209,53 +209,50 @@ class ProfilState extends State<Profil> {
                 Positioned(
                   top: screenHeight * 0.68,
                   left: screenWidth * 0.22,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _openFilePicker().then((Object? res) async {
-                        if(res is Uint8List) {
-                          changeImageInApi(user.pseudo, res).then((List<dynamic> myList) async {
-                            if (myList[0] == "Unexpected error") {
-                              showMessagePopUp(
-                                  context,
-                                  "Erreur Innatendue",
-                                  "Votre photo de profil n'as pas pu être changé.",
-                                  "FFFFFF"
-                              );
-                            }else if(myList[0] == "CantChangeImage") {
-                              showMessagePopUp(
-                                context,
-                                "Photo incorrecte",
-                                "Votre photo de profil n'as pas pu être changé, l'image n'est pas pris en charge",
+                  child: TextButton(
+                    onPressed: () async {
+                      Object? res = await _openFilePicker();
+                      if(res is Uint8List) {
+                        List<dynamic> myList = await changeImageInApi(user.pseudo, res);
+                        if(context.mounted){
+                          if (myList[0] == "Unexpected error") {
+                            showMessagePopUp(
+                              context,
+                              "Erreur Innatendue",
+                              "Votre photo de profil n'as pas pu être changé.",
+                              "FFFFFF"
+                            );
+                          } else if (myList[0] == "CantChangeImage") {
+                            showMessagePopUp(
+                              context,
+                              "Photo incorrecte",
+                              "Votre photo de profil n'as pas pu être changé, l'image n'est pas pris en charge",
+                              "FFFFFF"
+                            );
+                          } else {
+                            getImageInApi(user.pseudo).then((Uint8List? newImage) async {
+                              setState(() {
+                                user.updateAccount(
+                                  myList[1],
+                                  myList[2],
+                                  myList[3],
+                                  myList[4],
+                                  myList[5],
+                                  myList[6],
+                                  myList[7],
+                                  newImage,
+                                );
+                                image = user.image!;
+                              });
+                            });
+                            showMessagePopUp(
+                                context, "Changement réussi !",
+                                "Votre photo de profil a bien été changé !",
                                 "FFFFFF"
-                              );
-                            } else {
-                              if (context.mounted) {
-                                getImageInApi(user.pseudo).then((Uint8List? newImage) async {
-                                  setState(() {
-                                    user.updateAccount(
-                                      myList[1],
-                                      myList[2],
-                                      myList[3],
-                                      myList[4],
-                                      myList[5],
-                                      myList[6],
-                                      myList[7],
-                                      newImage,
-                                    );
-                                    image = user.image!;
-                                  });
-                                  showMessagePopUp(
-                                      context, "Changement réussi !",
-                                      "Votre photo de profil a bien été changé !",
-                                      "FFFFFF"
-                                  );
-                                });
-                              }
-                            }
-                          });
+                            );
+                          }
                         }
-                      });
-
+                      }
                     },
                     child: const Text('Changer d\'image'),
                   ),
@@ -311,19 +308,19 @@ class ProfilState extends State<Profil> {
                                 backgroundColor: hexStringToColor("FFFFFF"),
                                 actions: [
                                   TextButton(
-                                    onPressed: () {
-                                      changeLastNameInApi(user.pseudo,_lastNameController.text).then((List<dynamic> myList) async {
-                                        Navigator.of(context).pop();
-                                        if(myList[0] == "Unexpected error"){
+                                    onPressed: () async {
+                                      List<dynamic> myList = await changeLastNameInApi(user.pseudo,_lastNameController.text);
+                                      if(context.mounted){
+                                        if(myList[0] == "Unexpected error") {
                                           showMessagePopUp(
                                               context,
                                               "Erreur Innatendue",
                                               "Votre nom n'as pas pu être changé.",
                                               "FFFFFF"
                                           );
-                                        }else {
-                                          if (context.mounted) {
-                                            getImageInApi(user.pseudo).then((Uint8List? newImage) async {
+                                        } else {
+                                            getImageInApi(user.pseudo).then((
+                                                Uint8List? newImage) async {
                                               setState(() {
                                                 user.updateAccount(
                                                   myList[1],
@@ -346,8 +343,7 @@ class ProfilState extends State<Profil> {
                                             });
                                           }
                                         }
-                                      });
-                                    },
+                                      },
                                     child: const Text(
                                         'Valider',
                                         style: TextStyle(
@@ -421,43 +417,40 @@ class ProfilState extends State<Profil> {
                                 backgroundColor: hexStringToColor("FFFFFF"),
                                 actions: [
                                   TextButton(
-                                    onPressed: () {
-                                      changeFirstNameInApi(user.pseudo,_firstNameController.text).then((List<dynamic> myList) async {
-                                        Navigator.of(context).pop();
-                                        if(myList[0] == "Unexpected error"){
+                                    onPressed: () async {
+                                      List<dynamic> myList = await changeFirstNameInApi(user.pseudo,_firstNameController.text);
+                                      if(context.mounted){
+                                        if(myList[0] == "Unexpected error") {
                                           showMessagePopUp(
-                                              context,
-                                              "Erreur Innatendue",
-                                              "Votre prénom n'as pas pu être changé.",
-                                              "FFFFFF"
+                                            context,
+                                            "Erreur Innatendue",
+                                            "Votre prénom n'as pas pu être changé.",
+                                            "FFFFFF"
                                           );
-                                        }else {
-                                          if (context.mounted) {
-                                            getImageInApi(user.pseudo).then((
-                                                Uint8List? newImage) async {
-                                              setState(() {
-                                                user.updateAccount(
-                                                  myList[1],
-                                                  myList[2],
-                                                  myList[3],
-                                                  myList[4],
-                                                  myList[5],
-                                                  myList[6],
-                                                  myList[7],
-                                                  newImage,
-                                                );
-                                                firstname = user.firstname!;
-                                              });
-                                              showMessagePopUp(
-                                                  context,
-                                                  "Changement réussi !",
-                                                  "Votre prénom a bien été changé !",
-                                                  "FFFFFF"
+                                        } else {
+                                          getImageInApi(user.pseudo).then((Uint8List? newImage) async {
+                                            setState(() {
+                                              user.updateAccount(
+                                                myList[1],
+                                                myList[2],
+                                                myList[3],
+                                                myList[4],
+                                                myList[5],
+                                                myList[6],
+                                                myList[7],
+                                                newImage,
                                               );
+                                              firstname = user.firstname!;
                                             });
-                                          }
+                                            showMessagePopUp(
+                                              context,
+                                              "Changement réussi !",
+                                              "Votre prénom a bien été changé !",
+                                              "FFFFFF"
+                                            );
+                                          });
                                         }
-                                      });
+                                      }
                                     },
                                     child: const Text(
                                         'Valider',
@@ -532,43 +525,40 @@ class ProfilState extends State<Profil> {
                                 backgroundColor: hexStringToColor("FFFFFF"),
                                 actions: [
                                   TextButton(
-                                    onPressed: () {
-                                      changePhoneInApi(user.pseudo,_phoneNumberController.text).then((List<dynamic> myList) async {
-                                        Navigator.of(context).pop();
-                                        if(myList[0] == "Unexpected error"){
+                                    onPressed: () async {
+                                      List<dynamic> myList = await changePhoneInApi(user.pseudo,_phoneNumberController.text, context);
+                                      if(context.mounted){
+                                        if(myList[0] == "Unexpected error") {
+                                          showMessagePopUp(
+                                            context,
+                                            "Erreur Innatendue",
+                                            "Votre numéro de téléphone n'as pas pu être changé.",
+                                            "FFFFFF"
+                                          );
+                                        } else {
+                                          getImageInApi(user.pseudo).then((Uint8List? newImage) async {
+                                            setState(() {
+                                              user.updateAccount(
+                                                myList[1],
+                                                myList[2],
+                                                myList[3],
+                                                myList[4],
+                                                myList[5],
+                                                myList[6],
+                                                myList[7],
+                                                newImage,
+                                              );
+                                              phoneNumber = user.phoneNumber!;
+                                            });
+                                          });
                                           showMessagePopUp(
                                               context,
-                                              "Erreur Innatendue",
-                                              "Votre numéro de téléphone n'as pas pu être changé.",
+                                              "Changement réussi !",
+                                              "Votre numéro de téléphone a bien été changé !",
                                               "FFFFFF"
                                           );
-                                        }else {
-                                          if (context.mounted) {
-                                            getImageInApi(user.pseudo).then((
-                                                Uint8List? newImage) async {
-                                              setState(() {
-                                                user.updateAccount(
-                                                  myList[1],
-                                                  myList[2],
-                                                  myList[3],
-                                                  myList[4],
-                                                  myList[5],
-                                                  myList[6],
-                                                  myList[7],
-                                                  newImage,
-                                                );
-                                                phoneNumber = user.phoneNumber!;
-                                              });
-                                              showMessagePopUp(
-                                                  context,
-                                                  "Changement réussi !",
-                                                  "Votre numéro de téléphone a bien été changé !",
-                                                  "FFFFFF"
-                                              );
-                                            });
-                                          }
                                         }
-                                      });
+                                      }
                                     },
                                     child: const Text(
                                         'Valider',

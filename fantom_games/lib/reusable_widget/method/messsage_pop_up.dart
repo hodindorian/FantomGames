@@ -3,6 +3,7 @@ import 'hex_string_to_color.dart';
 
 void showMessagePopUp(BuildContext context, String message, String content, String hexcolor) {
   Color popUpColor = hexStringToColor(hexcolor);
+  Navigator.of(context).pop();
   showDialog(
     context: context,
     builder: (BuildContext context) {
