@@ -1,3 +1,4 @@
+---
 name: fantom_games
 description: Web app for playing and earnings gain
 
@@ -35,13 +36,13 @@ dev_dependencies:
 flutter_launcher_icons:
   web:
     generate: true
-    image_path:  "./assets/FantomGamesIcon.png"
+    image_path: "./assets/FantomGamesIcon.png"
   windows:
     generate: true
-    image_path:  "./assets/FantomGamesIcon.png"
+    image_path: "./assets/FantomGamesIcon.png"
   macos:
     generate: true
-    image_path:  "./assets/FantomGamesIcon.png"
+    image_path: "./assets/FantomGamesIcon.png"
 
 flutter:
   assets:
@@ -70,5 +71,3 @@ flutter:
     - family: Boog
       fonts:
         - asset: fonts/Boogaloo-Regular.ttf
-
-
