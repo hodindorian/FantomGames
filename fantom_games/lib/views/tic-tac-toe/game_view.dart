@@ -330,7 +330,7 @@ class _GameViewState extends State<GameView> {
                   onPressed: () {
                     setState(() {
                       _socketMethods.endGame(context);
-                      roomGlobal.setFilledBoxesTo0();
+                      roomGlobal.reset();
                     });
                   },
                   child: Text(
@@ -349,7 +349,7 @@ class _GameViewState extends State<GameView> {
                   onPressed: () {
                     setState(() {
                       _socketMethods.endGame(context);
-                      roomGlobal.setFilledBoxesTo0();
+                      roomGlobal.reset();
                     });
                   },
                   child: Text(

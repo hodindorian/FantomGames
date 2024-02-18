@@ -15,7 +15,6 @@ class SocketMethods {
 
   Socket get socketClient => _socketClient;
 
-  // EMITS
   void createRoom(String nickname) {
     if (nickname.isNotEmpty) {
       _socketClient.emit('createRoom', {
@@ -58,7 +57,6 @@ class SocketMethods {
             )
         );
       });
-      //Navigator.pushNamed(context, GameScreen.routeName);
     });
   }
 

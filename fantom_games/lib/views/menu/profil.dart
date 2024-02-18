@@ -79,7 +79,6 @@ class ProfilState extends State<Profil> {
     }
   }
 
-
   void profil(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => const Profil()
@@ -312,6 +311,7 @@ class ProfilState extends State<Profil> {
                                       List<dynamic> myList = await changeLastNameInApi(user.pseudo,_lastNameController.text);
                                       if(context.mounted){
                                         if(myList[0] == "Unexpected error") {
+                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                               context,
                                               "Erreur Innatendue",
@@ -334,6 +334,7 @@ class ProfilState extends State<Profil> {
                                                 );
                                                 lastname = user.lastname!;
                                               });
+                                              Navigator.of(context).pop();
                                               showMessagePopUp(
                                                   context,
                                                   "Changement réussi !",
@@ -421,6 +422,7 @@ class ProfilState extends State<Profil> {
                                       List<dynamic> myList = await changeFirstNameInApi(user.pseudo,_firstNameController.text);
                                       if(context.mounted){
                                         if(myList[0] == "Unexpected error") {
+                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                             context,
                                             "Erreur Innatendue",
@@ -442,6 +444,7 @@ class ProfilState extends State<Profil> {
                                               );
                                               firstname = user.firstname!;
                                             });
+                                            Navigator.of(context).pop();
                                             showMessagePopUp(
                                               context,
                                               "Changement réussi !",
@@ -529,6 +532,7 @@ class ProfilState extends State<Profil> {
                                       List<dynamic> myList = await changePhoneInApi(user.pseudo,_phoneNumberController.text, context);
                                       if(context.mounted){
                                         if(myList[0] == "Unexpected error") {
+                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                             context,
                                             "Erreur Innatendue",
@@ -551,6 +555,7 @@ class ProfilState extends State<Profil> {
                                               phoneNumber = user.phoneNumber!;
                                             });
                                           });
+                                          Navigator.of(context).pop();
                                           showMessagePopUp(
                                               context,
                                               "Changement réussi !",
