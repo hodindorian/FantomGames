@@ -48,7 +48,12 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
 
   void updateDisplayElements(int index, String choice) {
     _displayElement[index] = choice;
-    _filledBoxes += 1;
+    _filledBoxes = 0;
+    for (var item in _displayElement){
+      if (item!=''){
+        _filledBoxes+=1;
+      }
+    }
     notifyListeners();
   }
 
@@ -58,20 +63,12 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
   }
 
   void reset() {
-    _roomData = {};
-    _displayElement = ['', '', '', '', '', '', '', '', ''];
-    _filledBoxes = 0;
+    setFilledBoxesTo0();
     endRound = false;
     endGame = false;
     nbRound = 1;
     winner = '';
     animation = false;
-    actualPlayer = PlayerTicTacToe(
-      nickname: '',
-      socketID: '',
-      points: 0,
-      playerType: 'X',
-    );
     _player1 = PlayerTicTacToe(
       nickname: '',
       socketID: '',

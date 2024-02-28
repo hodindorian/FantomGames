@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
-import '../../reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 import 'game_methods.dart';
 
 class SocketMethods {
@@ -16,6 +16,7 @@ class SocketMethods {
   Socket get socketClient => _socketClient;
 
   void createRoom(String nickname) {
+    _socketClient.open();
     if (nickname.isNotEmpty) {
       _socketClient.emit('createRoom', {
         'nickname': nickname,
@@ -24,6 +25,7 @@ class SocketMethods {
   }
 
   void joinRoom(String nickname, String roomId) {
+    _socketClient.open();
     if (nickname.isNotEmpty && roomId.isNotEmpty) {
       _socketClient.emit('joinRoom', {
         'nickname': nickname,
@@ -117,17 +119,6 @@ class SocketMethods {
 
   }
 
-  void endGameListener(BuildContext context) {
-    _socketClient.on('endgame', (playerData) {
-      var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
-      if (playerData['socketID'] == roomGlobal.player1.socketID) {
-        roomGlobal.updatePlayer1(playerData);
-      }else if(playerData['socketID'] == roomGlobal.player2.socketID){
-        roomGlobal.updatePlayer2(playerData);
-      }
-    });
-  }
-
   void clearBoardListener(BuildContext context) {
     _socketClient.on('clearBoard', (nothing) {
       GameMethods().clearBoard(context, socketClient, true);
@@ -145,6 +136,10 @@ class SocketMethods {
   }
 
   void endGame(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+    _socketClient.emit('endGame', {
+      'roomId': roomGlobal.roomData['id'],
+    });
     GameMethods().clearGame(context, socketClient);
     Navigator.push(context,
       MaterialPageRoute(builder: (
@@ -152,6 +147,24 @@ class SocketMethods {
       ),
     );
   }
+
+  void endGameListener(BuildContext context) {
+    var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
+    roomGlobal.reset();
+    _socketClient.on('endGame', (nothing) {
+      Navigator.push(context,
+        MaterialPageRoute(builder: (
+            context) => const MainPage(title: "Fin du jeu")
+        ),
+      );
+      showMessagePopUp(
+          context, "Fin de partie",
+          'Votre adversaire a quitté la partie !',
+          "FFFFFF"
+      );
+    });
+  }
+
 
   void leaveGame(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);

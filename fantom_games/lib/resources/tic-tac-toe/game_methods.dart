@@ -73,7 +73,7 @@ class GameMethods {
         winner = roomGlobal.displayElements[2];
         roomGlobal.winner = roomGlobal.displayElements[2];
 
-      } else if ((roomGlobal.filledBoxes == 18 && roomGlobal.actualPlayer.playerType == 'X') || (roomGlobal.filledBoxes == 9 && roomGlobal.actualPlayer.playerType == 'O')) {
+      } else if (roomGlobal.filledBoxes == 9) {
         winner = '';
         roomGlobal.animation = true;
         roomGlobal.endRound = true;
@@ -154,6 +154,6 @@ class GameMethods {
     for (int i = 0; i < roomGlobal.displayElements.length; i++) {
       roomGlobal.updateDisplayElements(i, '');
     }
-    roomGlobal.reset();
+    socketClient.close();
   }
 }
