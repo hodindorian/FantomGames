@@ -48,10 +48,12 @@ class RoomGlobalBattleShip extends ChangeNotifier {
 
   void updatePlayer1Boats(List<String> boats) {
     _player1.boats = boats;
+    _player1.actualBoats = boats;
   }
 
   void updatePlayer2Boats(List<String> boats) {
     _player2.boats = boats;
+    _player2.actualBoats = boats;
   }
 
   void updateDisplayElements(int index, String choice) {

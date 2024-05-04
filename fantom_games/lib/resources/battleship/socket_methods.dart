@@ -162,16 +162,19 @@ class SocketMethodsBattleShip {
   void getBoats(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     _socketClient.emit('getBoats', {
-      'roomId': roomGlobal.roomData['id'],
-      'playerId': roomGlobal.actualPlayer.socketID
+      'playerId1': roomGlobal.player1.socketID,
+      'playerId2': roomGlobal.player2.socketID,
+      'roomId': roomGlobal.roomData['id']
     });
   }
 
   void getBoatsListener(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     _socketClient.on('getBoats',(data) {
-      print(data['boats']);
-      roomGlobal.actualPlayer.boats = data['boats'];
+      print("DATA1:${data[0]}");
+      print("DATA2:${data[1]}");
+      roomGlobal.player1.boats = data[0];
+      roomGlobal.player2.boats = data[1];
     });
   }
 }

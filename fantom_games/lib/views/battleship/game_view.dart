@@ -30,6 +30,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
     _socketMethods.endGameListener(context);
+    _socketMethods.getBoatsListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
@@ -55,6 +56,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    _socketMethods.getBoats(context);
 
     return Scaffold(
       body: Container(
