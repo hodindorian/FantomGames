@@ -2,7 +2,7 @@ import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
+//import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'hex_string_to_color.dart';
@@ -28,7 +28,7 @@ class VerifyingIdentityState extends State<VerifyingIdentity> {
   late Uint8List cardVerso;
   late Uint8List cardRecto;
   late Uint8List selfieUint8List;
-  final _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+  //final _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
 
   Future<img.Image> _getRectoCard() async {
     FilePickerResult? recto = await FilePickerWeb.platform.pickFiles(
@@ -151,8 +151,11 @@ class VerifyingIdentityState extends State<VerifyingIdentity> {
                                 try {
                                   _getRectoCard().then((img.Image recto) {
                                     Navigator.of(context).pop();
-                                    print("ici");
                                     verifyIdentity(recto);
+                                  });
+                                  _getVersoCard().then((img.Image verso){
+                                    Navigator.of(context).pop();
+                                    verifyIdentity(verso);
                                   });
                                 }on Exception catch (_) {
                                   Navigator.of(context).pop();

@@ -2,15 +2,15 @@ import 'package:fantom_games/model/tic-tac-toe/global_room_tictactoe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Lobby extends StatefulWidget {
-  const Lobby({super.key, required this.roomID});
+class LobbyTicTacToe extends StatefulWidget {
+  const LobbyTicTacToe({super.key, required this.roomID});
   final String roomID;
 
   @override
-  State<Lobby> createState() => _LobbyState();
+  State<LobbyTicTacToe> createState() => _LobbyStateTicTacToe();
 }
 
-class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin{
+class _LobbyStateTicTacToe extends State<LobbyTicTacToe> with SingleTickerProviderStateMixin{
   late AnimationController _animationController;
   late TextEditingController roomIdController;
   late String roomId1;

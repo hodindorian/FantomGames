@@ -11,24 +11,24 @@ import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/views/menu/profil.dart';
 import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
 
-class CreateOrJoinRoomScreen extends StatefulWidget {
+class CreateOrJoinRoomScreenTicTacToe extends StatefulWidget {
   static String routeName = '/main-menu';
   static bool isSuccessOpened = false;
 
-  const CreateOrJoinRoomScreen({super.key});
+  const CreateOrJoinRoomScreenTicTacToe({super.key});
 
   @override
-  CreateOrJoinRoomScreenState createState() => CreateOrJoinRoomScreenState();
+  CreateOrJoinRoomScreenStateTicTacToe createState() => CreateOrJoinRoomScreenStateTicTacToe();
 }
 
-class CreateOrJoinRoomScreenState extends State<CreateOrJoinRoomScreen> {
+class CreateOrJoinRoomScreenStateTicTacToe extends State<CreateOrJoinRoomScreenTicTacToe> {
   final TextEditingController _gameIdController = TextEditingController();
-  final SocketMethods _socketMethods = SocketMethods();
+  final SocketMethodsTicTacToe _socketMethods = SocketMethodsTicTacToe();
   late AccountGlobal user;
 
   void createRoom(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const Loading()
+        builder: (context) => const LoadingTicTacToe()
     ));
   }
 

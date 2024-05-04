@@ -29,9 +29,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     _socketMethods.tappedListener(context);
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
-    _socketMethods.pointIncreaseListener(context);
     _socketMethods.endGameListener(context);
-    _socketMethods.getBoatsListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
     _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
@@ -105,7 +103,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(screenWidth*0.025),
+                    padding: EdgeInsets.all((screenWidth+screenHeight)*0.015),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -165,12 +163,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                 ],
               ),
               ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: screenHeight * 0.6,
-                  maxWidth: screenWidth * 0.28,
-                  minHeight: screenHeight * 0.6,
-                  minWidth: screenWidth * 0.28,
-                ),
+                constraints: const BoxConstraints(),
                 child: Stack(
                   children: [
                     ValueListenableBuilder<bool>(
@@ -178,29 +171,23 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                       builder: (context, value, child) {
                         if (value) {
                           if(roomGlobal.player1.nickname == user.pseudo){
-                            /*
-                            roomGlobal.actualPlayer = roomGlobal.player1.playerType;
-                            if (roomGlobal.winner == roomGlobal.player1.playerType && roomGlobal.animation) {
+                            roomGlobal.actualPlayer = roomGlobal.player1;
+                            if (roomGlobal.winner == roomGlobal.player1.nickname && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
                               roomGlobal.animation = false;
                             }
-
-                             */
                           }
                           if(roomGlobal.player2.nickname == user.pseudo){
-                            /*
-                            roomGlobal.actualPlayer = roomGlobal.player2.playerType;
-                            if (roomGlobal.winner == roomGlobal.player2.playerType && roomGlobal.animation) {
+                            roomGlobal.actualPlayer = roomGlobal.player2;
+                            if (roomGlobal.winner == roomGlobal.player2.nickname && roomGlobal.animation) {
                               _controllerTopCenterLeft.play();
                               _controllerTopCenterRight.play();
                               roomGlobal.animation = false;
                             }
-
-                             */
                           }
 
-                          if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer){
+                          if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer.nickname){
                             res = Align(
                               alignment: Alignment.topCenter,
                               child: Container(
@@ -217,7 +204,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                 ),
                               ),
                             );
-                          }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer){
+                          }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer.nickname){
                             res = Align(
                               alignment: Alignment.topCenter,
                               child: Container(
@@ -238,10 +225,10 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                         }else{
                           res = ConstrainedBox(
                             constraints: BoxConstraints(
-                                maxHeight: screenHeight * 0.6,
-                                maxWidth: screenWidth * 0.28,
-                                minHeight: screenHeight * 0.6,
-                                minWidth: screenWidth * 0.28
+                                maxHeight: (screenHeight+screenWidth) * 0.22,
+                                maxWidth: (screenHeight+screenWidth) * 0.22,
+                                minHeight: (screenHeight+screenWidth) * 0.22,
+                                minWidth: (screenHeight+screenWidth) * 0.22
                             ),
                             child: AbsorbPointer(
                               absorbing: roomGlobal.roomData['turn']['socketID'] !=
@@ -255,11 +242,11 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                   return GestureDetector(
                                     onTapDown: (_) => tapped(index, roomGlobal),
                                     child: Container(
-                                      margin: EdgeInsets.all(screenWidth*0.001),
+                                      margin: EdgeInsets.all((screenWidth+screenHeight)*0.001),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color: Colors.white,
-                                          width: screenWidth*0.0035,
+                                          width: (screenWidth+screenHeight)*0.00035,
                                         ),
                                       ),
                                       child: Center(
@@ -290,7 +277,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                   ],
                 ),
               ),
-              if(roomGlobal.endRound==false && roomGlobal.endGame==false)
+              if(roomGlobal.endGame==false)
                 Text(
                   'Au tour de ${roomGlobal.roomData['turn']['nickname']}',
                   style: TextStyle(
@@ -300,47 +287,12 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                   ),
                 ),
               Visibility(
-                visible: roomGlobal.endRound,
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _socketMethods.nextRound(context);
-                    });
-                  },
-                  child: Text(
-                    'Recommencer la partie',
-                    style: TextStyle(
-                      fontSize: (screenWidth+screenHeight)*0.015,
-                      fontFamily: 'Boog',
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: roomGlobal.endRound,
-                child: TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _socketMethods.endGame(context);
-                    });
-                  },
-                  child: Text(
-                    'Retourner à la page d\'accueil',
-                    style: TextStyle(
-                      fontSize: (screenWidth+screenHeight)*0.015,
-                      fontFamily: 'Boog',
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
                 visible: roomGlobal.endGame,
                 child: TextButton(
                   onPressed: () {
                     setState(() {
                       _socketMethods.endGame(context);
+                      roomGlobal.reset();
                     });
                   },
                   child: Text(
@@ -354,45 +306,6 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                 ),
               ),
             ],
-          ),
-            Positioned(
-            top: screenHeight * 0.2,
-            right: screenWidth * 0.08,
-            child: Column(
-              children: [
-                Text(
-                  user.pseudo,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: (screenWidth+screenHeight)*0.025,
-                  ),
-                ),
-                Text(
-                  "Argent du compte :",
-                  style: TextStyle(
-                      fontSize: (screenWidth+screenHeight)*0.015,
-                      color: Colors.white
-                  ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      user.cryptoBalance.toString(),
-                      style: TextStyle(
-                        fontSize: (screenWidth + screenHeight) * 0.02,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(width: screenWidth*0.01),
-                    Image.asset(
-                      'assets/FantomGamesIcon.png',
-                      width: screenWidth*0.045,
-                      height: screenWidth*0.045,
-                    ),
-                  ],
-                )
-              ],
-            ),
           ),
         ],
       ),

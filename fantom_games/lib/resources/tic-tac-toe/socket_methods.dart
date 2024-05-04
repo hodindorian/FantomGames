@@ -8,10 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
-import 'game_methods.dart';
+import 'package:fantom_games/resources/tic-tac-toe/game_methods.dart';
 
-class SocketMethods {
-  final _socketClient = SocketClient.instance.socket!;
+class SocketMethodsTicTacToe {
+  final _socketClient = SocketClientTicTacToe.instance.socket!;
 
   Socket get socketClient => _socketClient;
 
@@ -49,13 +49,13 @@ class SocketMethods {
       Provider.of<RoomGlobalTicTacToe>(context, listen: false).updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
-              context) => Lobby(roomID: room['id'])
+              context) => LobbyTicTacToe(roomID: room['id'])
           )
       );
       _socketClient.on('joinRoomSuccess', (room) {
         Navigator.push(context,
             MaterialPageRoute(builder: (
-                context) => const GameView()
+                context) => const GameViewTicTacToe()
             )
         );
       });
@@ -68,7 +68,7 @@ class SocketMethods {
           .updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
-              context) => const GameView()
+              context) => const GameViewTicTacToe()
           ),
       );
     });
@@ -102,7 +102,7 @@ class SocketMethods {
         data['choice'],
       );
       roomGlobal.updateRoomData(data['room']);
-      GameMethods().checkWinner(context, _socketClient);
+      GameMethodsTicTacToe().checkWinner(context, _socketClient);
     });
   }
 
@@ -121,7 +121,7 @@ class SocketMethods {
 
   void clearBoardListener(BuildContext context) {
     _socketClient.on('clearBoard', (nothing) {
-      GameMethods().clearBoard(context, socketClient, true);
+      GameMethodsTicTacToe().clearBoard(context, socketClient, true);
     });
   }
 
@@ -131,7 +131,7 @@ class SocketMethods {
       'roomId': roomGlobal.roomData['id'],
     });
     _socketClient.on('nextRound',(room) {
-      GameMethods().clearBoard(context, socketClient, false);
+      GameMethodsTicTacToe().clearBoard(context, socketClient, false);
     });
   }
 
@@ -140,7 +140,7 @@ class SocketMethods {
     _socketClient.emit('endGame', {
       'roomId': roomGlobal.roomData['id'],
     });
-    GameMethods().clearGame(context, socketClient);
+    GameMethodsTicTacToe().clearGame(context, socketClient);
     Navigator.push(context,
       MaterialPageRoute(builder: (
           context) => const MainPage(title: "Fin du jeu")

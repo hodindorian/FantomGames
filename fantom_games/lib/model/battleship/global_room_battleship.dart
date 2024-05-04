@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class RoomGlobalBattleShip extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
-  final List<String> _displayElement = ['', '', '', '', '', '', '', '', ''];
+  List<String> _displayElement = List<String>.filled(100, '');
   int _filledBoxes = 0;
-  bool endRound = false;
   bool endGame = false;
   String winner = '';
   bool animation = false;
-  String actualPlayer = '';
+  late PlayerBattleShip actualPlayer;
   PlayerBattleShip _player1 = PlayerBattleShip(
     nickname: '',
     socketID: '',
     points: 0,
     boats: [],
+    actualBoats: [],
   );
 
   PlayerBattleShip _player2 = PlayerBattleShip(
@@ -22,6 +22,7 @@ class RoomGlobalBattleShip extends ChangeNotifier {
     socketID: '',
     points: 0,
     boats: [],
+    actualBoats: [],
   );
 
   Map<String, dynamic> get roomData => _roomData;
@@ -45,16 +46,6 @@ class RoomGlobalBattleShip extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateDisplayElements(int index, String choice) {
-    _displayElement[index] = choice;
-    _filledBoxes += 1;
-    notifyListeners();
-  }
-
-  void setFilledBoxesTo0() {
-    _filledBoxes = 0;
-  }
-
   void updatePlayer1Boats(List<String> boats) {
     _player1.boats = boats;
   }
@@ -62,4 +53,43 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   void updatePlayer2Boats(List<String> boats) {
     _player2.boats = boats;
   }
+
+  void updateDisplayElements(int index, String choice) {
+    _displayElement[index] = choice;
+    _filledBoxes = 0;
+    for (var item in _displayElement){
+      if (item!=''){
+        _filledBoxes+=1;
+      }
+    }
+    notifyListeners();
+  }
+
+  void setFilledBoxesTo0() {
+    _displayElement = List<String>.filled(100, '');
+    _filledBoxes = 0;
+  }
+
+  void reset() {
+    setFilledBoxesTo0();
+    endGame = false;
+    winner = '';
+    animation = false;
+    _player1 = PlayerBattleShip(
+      nickname: '',
+      socketID: '',
+      points: 0,
+      boats: [],
+      actualBoats: [],
+    );
+    _player2 = PlayerBattleShip(
+      nickname: '',
+      socketID: '',
+      points: 0,
+      boats: [],
+      actualBoats: [],
+    );
+    notifyListeners();
+  }
+
 }

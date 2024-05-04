@@ -3,15 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 
-class Loading extends StatefulWidget {
-  const Loading({super.key});
+class LoadingTicTacToe extends StatefulWidget {
+  const LoadingTicTacToe({super.key});
 
   @override
-  State<Loading> createState() => _LoadingState();
+  State<LoadingTicTacToe> createState() => _LoadingStateTicTacToe();
 }
 
-class _LoadingState extends State<Loading> {
-  final SocketMethods _socketMethods = SocketMethods();
+class _LoadingStateTicTacToe extends State<LoadingTicTacToe> {
+  final SocketMethodsTicTacToe _socketMethods = SocketMethodsTicTacToe();
   late AccountGlobal user;
 
 

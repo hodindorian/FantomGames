@@ -1,6 +1,5 @@
 import 'package:fantom_games/resources/battleship/socket_methods.dart';
 import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
-import 'package:fantom_games/views/battleship/join_room_screen.dart';
 import 'package:fantom_games/views/battleship/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
@@ -45,18 +44,13 @@ class CreateOrJoinRoomScreenBattleShipState extends State<CreateOrJoinRoomScreen
     ));
   }
 
-  void joinRoom(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const JoinRoomScreenBattleShip()
-    ));
-  }
-
   @override
   void initState() {
     super.initState();
     _socketMethods.joinRoomSuccessListener(context);
     _socketMethods.errorOccuredListener(context);
     _socketMethods.updatePlayersStateListener(context);
+    _socketMethods.getBoatsListener(context);
     user = Provider.of<AccountGlobal>(context, listen: false);
 
   }

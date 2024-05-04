@@ -3,12 +3,14 @@ class PlayerBattleShip {
   final String socketID;
   final double points;
   late final List<String> boats;
+  late final List<String> actualBoats;
 
   PlayerBattleShip({
     required this.nickname,
     required this.socketID,
     required this.points,
-    required this.boats
+    required this.boats,
+    required this.actualBoats
   });
 
   Map<String, dynamic> toMap() {
@@ -28,7 +30,8 @@ class PlayerBattleShip {
       nickname: map['nickname'] ?? '',
       socketID: map['socketID'] ?? '',
       points: map['points']?.toInt() ?? 0.0,
-      boats: map['boat'] ??  []
+      boats: map['boat'] ??  [],
+      actualBoats: map['actualBoats'] ?? []
     );
   }
 
@@ -38,12 +41,14 @@ class PlayerBattleShip {
     double? points,
     String? playerType,
     List<String>? boats,
+    List<String>? actualBoats
   }) {
     return PlayerBattleShip(
       nickname: nickname ?? this.nickname,
       socketID: socketID ?? this.socketID,
       points: points ?? this.points,
-      boats: boats ?? this.boats
+      boats: boats ?? this.boats,
+      actualBoats: actualBoats ?? this.actualBoats
     );
   }
 }

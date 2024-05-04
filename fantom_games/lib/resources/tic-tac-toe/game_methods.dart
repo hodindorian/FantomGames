@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
-class GameMethods {
+class GameMethodsTicTacToe {
   void checkWinner(BuildContext context, Socket socketClient) {
     RoomGlobalTicTacToe roomGlobal = Provider.of<RoomGlobalTicTacToe>(context, listen: false);
     String winner = '';

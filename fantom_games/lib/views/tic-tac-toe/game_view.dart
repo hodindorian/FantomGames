@@ -10,15 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 
-class GameView extends StatefulWidget {
-  const GameView({super.key});
+class GameViewTicTacToe extends StatefulWidget {
+  const GameViewTicTacToe({super.key});
 
   @override
-  State<GameView> createState() => _GameViewState();
+  State<GameViewTicTacToe> createState() => _GameViewStateTicTacToe();
 }
 
-class _GameViewState extends State<GameView> {
-  final SocketMethods _socketMethods = SocketMethods();
+class _GameViewStateTicTacToe extends State<GameViewTicTacToe> {
+  final SocketMethodsTicTacToe _socketMethods = SocketMethodsTicTacToe();
   late AccountGlobal user;
   late ConfettiController _controllerTopCenterLeft;
   late ConfettiController _controllerTopCenterRight;

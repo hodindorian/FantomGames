@@ -1,21 +1,22 @@
 import 'package:fantom_games/model/battleship/global_room_battleship.dart';
+import 'package:fantom_games/resources/battleship/game_methods.dart';
 import 'package:fantom_games/resources/battleship/socket_client.dart';
+import 'package:fantom_games/views/battleship/game_view.dart';
+import 'package:fantom_games/views/battleship/lobby.dart';
 import 'package:fantom_games/views/home/main_page.dart';
-import 'package:fantom_games/views/tic-tac-toe/game_view.dart';
-import 'package:fantom_games/views/tic-tac-toe/lobby.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
-import 'game_methods.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
 class SocketMethodsBattleShip {
   final _socketClient = SocketClientBattleShip.instance.socket!;
 
   Socket get socketClient => _socketClient;
 
-  // EMITS
   void createRoom(String nickname) {
+    _socketClient.open();
     if (nickname.isNotEmpty) {
       _socketClient.emit('createRoom', {
         'nickname': nickname,
@@ -24,6 +25,7 @@ class SocketMethodsBattleShip {
   }
 
   void joinRoom(String nickname, String roomId) {
+    _socketClient.open();
     if (nickname.isNotEmpty && roomId.isNotEmpty) {
       _socketClient.emit('joinRoom', {
         'nickname': nickname,
@@ -47,13 +49,13 @@ class SocketMethodsBattleShip {
       Provider.of<RoomGlobalBattleShip>(context, listen: false).updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
-              context) => Lobby(roomID: room['id'])
+              context) => LobbyBattleShip(roomID: room['id'])
           )
       );
       _socketClient.on('joinRoomSuccess', (room) {
         Navigator.push(context,
             MaterialPageRoute(builder: (
-                context) => const GameView()
+                context) => const GameViewBattleShip()
             )
         );
       });
@@ -66,7 +68,7 @@ class SocketMethodsBattleShip {
           .updateRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
-              context) => const GameView()
+              context) => const GameViewBattleShip()
           ),
       );
     });
@@ -100,44 +102,16 @@ class SocketMethodsBattleShip {
         data['choice'],
       );
       roomGlobal.updateRoomData(data['room']);
-      //GameMethods().checkWinner(context, _socketClient);
-    });
-  }
-
-  void pointIncreaseListener(BuildContext context) {
-    _socketClient.on('pointIncrease', (playerData) {
-      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-      if (playerData['socketID'] == roomGlobal.player1.socketID) {
-        roomGlobal.updatePlayer1(playerData);
-      }else if(playerData['socketID'] == roomGlobal.player2.socketID){
-        roomGlobal.updatePlayer2(playerData);
-      }
-    });
-  }
-
-  void endGameListener(BuildContext context) {
-    _socketClient.on('endgame', (playerData) {
-      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-      if (playerData['socketID'] == roomGlobal.player1.socketID) {
-        roomGlobal.updatePlayer1(playerData);
-      }else if(playerData['socketID'] == roomGlobal.player2.socketID){
-        roomGlobal.updatePlayer2(playerData);
-      }
-    });
-  }
-
-  void nextRound(BuildContext context){
-    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    _socketClient.emit('nextRound', {
-      'roomId': roomGlobal.roomData['id'],
-    });
-    _socketClient.on('nextRound',(room) {
-    GameMethodsBattleShip().clearBoard(context, socketClient);
+      GameMethodsBattleship().checkWinner(context, _socketClient);
     });
   }
 
   void endGame(BuildContext context){
-    GameMethodsBattleShip().clearGame(context, socketClient);
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.emit('endGame', {
+      'roomId': roomGlobal.roomData['id'],
+    });
+    GameMethodsBattleship().clearGame(context, socketClient);
     Navigator.push(context,
       MaterialPageRoute(builder: (
           context) => const MainPage(title: "Fin du jeu")
@@ -145,23 +119,59 @@ class SocketMethodsBattleShip {
     );
   }
 
+  void endGameListener(BuildContext context) {
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    roomGlobal.reset();
+    _socketClient.on('endGame', (nothing) {
+      Navigator.push(context,
+        MaterialPageRoute(builder: (
+            context) => const MainPage(title: "Fin du jeu")
+        ),
+      );
+      showMessagePopUp(
+          context, "Fin de partie",
+          'Votre adversaire a quitté la partie !',
+          "FFFFFF"
+      );
+    });
+  }
 
-  void getBoatsListener(BuildContext context) {
-    _socketClient.on('getBoats', (boats) {
-      var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-      if (boats['playerID'] == roomGlobal.player1.socketID) {
-        roomGlobal.updatePlayer1Boats(boats['boats']);
-      }else if(boats['playerID'] == roomGlobal.player2.socketID){
-        roomGlobal.updatePlayer2Boats(boats['boats']);
-      }
+
+  void leaveGame(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.emit('leaveGame', {
+      'roomId': roomGlobal.roomData['id'],
+    });
+  }
+
+  void leaveGameListener(BuildContext context){
+    _socketClient.on('leaveGame',(nothing) {
+      Navigator.push(context,
+        MaterialPageRoute(builder: (
+            context) => const MainPage(title: "Fin du jeu")
+        ),
+      );
+      showMessagePopUp(
+          context, "Abandon",
+          'Votre adversaire a abandonné la partie !',
+          "FFFFFF"
+      );
     });
   }
 
   void getBoats(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     _socketClient.emit('getBoats', {
-      'playerID': roomGlobal.player1.socketID,
       'roomId': roomGlobal.roomData['id'],
+      'playerId': roomGlobal.actualPlayer.socketID
+    });
+  }
+
+  void getBoatsListener(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.on('getBoats',(data) {
+      print(data['boats']);
+      roomGlobal.actualPlayer.boats = data['boats'];
     });
   }
 }

@@ -1,9 +1,9 @@
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-class SocketClient {
+class SocketClientTicTacToe {
   io.Socket? socket;
-  static SocketClient? _instance;
-  SocketClient._internal() {
+  static SocketClientTicTacToe? _instance;
+  SocketClientTicTacToe._internal() {
     socket = io.io('https://sockettictactoe.fantomgames.eu', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
@@ -27,8 +27,8 @@ class SocketClient {
 
 
 
-  static SocketClient get instance {
-    _instance ??= SocketClient._internal();
+  static SocketClientTicTacToe get instance {
+    _instance ??= SocketClientTicTacToe._internal();
     return _instance!;
   }
 }
