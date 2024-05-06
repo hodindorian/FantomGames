@@ -2,8 +2,8 @@ class PlayerBattleShip {
   final String nickname;
   final String socketID;
   final double points;
-  late final List<String> boats;
-  late final List<String> actualBoats;
+  late final List<dynamic> boats;
+  late final List<dynamic> actualBoats;
 
   PlayerBattleShip({
     required this.nickname,
@@ -18,6 +18,8 @@ class PlayerBattleShip {
       'nickname': nickname,
       'socketID': socketID,
       'points': points,
+      'boat': boats,
+      'actualBoats': actualBoats
     };
   }
 
@@ -30,8 +32,8 @@ class PlayerBattleShip {
       nickname: map['nickname'] ?? '',
       socketID: map['socketID'] ?? '',
       points: map['points']?.toInt() ?? 0.0,
-      boats: map['boat'] ??  [],
-      actualBoats: map['actualBoats'] ?? []
+      boats: [],
+      actualBoats: []
     );
   }
 
@@ -39,16 +41,23 @@ class PlayerBattleShip {
     String? nickname,
     String? socketID,
     double? points,
-    String? playerType,
-    List<String>? boats,
-    List<String>? actualBoats
+    String? playerType
   }) {
     return PlayerBattleShip(
       nickname: nickname ?? this.nickname,
       socketID: socketID ?? this.socketID,
       points: points ?? this.points,
-      boats: boats ?? this.boats,
-      actualBoats: actualBoats ?? this.actualBoats
+      boats: [],
+      actualBoats: []
     );
+  }
+
+  void setBoatsStart(List<dynamic> newBoats){
+    boats.add(newBoats);
+    actualBoats.add(newBoats);
+  }
+
+  void updateBoats(List<dynamic> updatedBoats){
+    actualBoats.add(updatedBoats);
   }
 }

@@ -10,6 +10,8 @@ import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
+import '../../model/global_account.dart';
+
 class SocketMethodsBattleShip {
   final _socketClient = SocketClientBattleShip.instance.socket!;
 
@@ -53,6 +55,7 @@ class SocketMethodsBattleShip {
           )
       );
       _socketClient.on('joinRoomSuccess', (room) {
+        getBoats(context);
         Navigator.push(context,
             MaterialPageRoute(builder: (
                 context) => const GameViewBattleShip()
@@ -66,6 +69,7 @@ class SocketMethodsBattleShip {
     _socketClient.on('joinRoomSuccess', (room) {
       Provider.of<RoomGlobalBattleShip>(context, listen: false)
           .updateRoomData(room);
+      getBoats(context);
       Navigator.push(context,
           MaterialPageRoute(builder: (
               context) => const GameViewBattleShip()
@@ -161,20 +165,27 @@ class SocketMethodsBattleShip {
 
   void getBoats(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    var user = Provider.of<AccountGlobal>(context, listen: false);
     _socketClient.emit('getBoats', {
-      'playerId1': roomGlobal.player1.socketID,
-      'playerId2': roomGlobal.player2.socketID,
+      'player': user.pseudo,
       'roomId': roomGlobal.roomData['id']
     });
   }
 
   void getBoatsListener(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    var user = Provider.of<AccountGlobal>(context, listen: false);
     _socketClient.on('getBoats',(data) {
-      print("DATA1:${data[0]}");
-      print("DATA2:${data[1]}");
-      roomGlobal.player1.boats = data[0];
-      roomGlobal.player2.boats = data[1];
+      if(data[0]==user.pseudo && roomGlobal.player1.boats.isEmpty && roomGlobal.player2.boats.isEmpty) {
+        if (roomGlobal.player1.nickname == user.pseudo) {
+          roomGlobal.player1.setBoatsStart(data[1]);
+        } else {
+          roomGlobal.player2.setBoatsStart(data[1]);
+        }
+      }
+      print("player1${roomGlobal.player1.boats}");
+      print("player2${roomGlobal.player2.boats}");
+
     });
   }
 }
