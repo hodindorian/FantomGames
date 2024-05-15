@@ -24,6 +24,15 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
   late Widget res;
   bool getBoats = false;
 
+  final List<Color> boatColors = [
+    Colors.red, // Boat 5
+    Colors.blue, // Boat 4
+    Colors.green, // Boat 3
+    Colors.yellow, // Boat 2
+    Colors.orange, // Boat 10
+    Colors.purple, // Boat 11
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +66,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context);
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    List<int> actualCase = [1,1];
 
     return Scaffold(
       body: Container(
@@ -241,6 +251,8 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                     crossAxisCount: 10,
                                   ),
                                   itemBuilder: (BuildContext context, int index) {
+                                    actualCase[0]=(index~/10)+1;
+                                    actualCase[1]=(index%10)+1;
                                     return GestureDetector(
                                       onTapDown: (_) => tapped(index, roomGlobal),
                                       child: Container(

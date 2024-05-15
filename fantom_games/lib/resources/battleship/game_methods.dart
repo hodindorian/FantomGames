@@ -10,7 +10,7 @@ class GameMethodsBattleship {
     RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     String winner = '';
     if(roomGlobal.endGame==false){
-      if(roomGlobal.player1.actualBoats.isEmpty) {
+      if(roomGlobal.player1.actualBoats.isEmpty()) {
         winner = roomGlobal.player2.nickname;
       }else {
         winner = roomGlobal.player1.nickname;

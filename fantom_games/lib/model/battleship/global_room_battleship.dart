@@ -1,6 +1,8 @@
 import 'package:fantom_games/model/battleship/player_battleship.dart';
 import 'package:flutter/material.dart';
 
+import 'boats.dart';
+
 class RoomGlobalBattleShip extends ChangeNotifier {
   Map<String, dynamic> _roomData = {};
   List<String> _displayElement = List<String>.filled(100, '');
@@ -12,17 +14,13 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   PlayerBattleShip _player1 = PlayerBattleShip(
     nickname: '',
     socketID: '',
-    points: 0,
-    boats: [],
-    actualBoats: [],
+    points: 0
   );
 
   PlayerBattleShip _player2 = PlayerBattleShip(
     nickname: '',
     socketID: '',
-    points: 0,
-    boats: [],
-    actualBoats: [],
+    points: 0
   );
 
   Map<String, dynamic> get roomData => _roomData;
@@ -46,12 +44,12 @@ class RoomGlobalBattleShip extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePlayer1Boats(List<String> boats) {
+  void updatePlayer1Boats(Boats boats) {
     _player1.boats = boats;
     _player1.actualBoats = boats;
   }
 
-  void updatePlayer2Boats(List<String> boats) {
+  void updatePlayer2Boats(Boats boats) {
     _player2.boats = boats;
     _player2.actualBoats = boats;
   }
@@ -80,16 +78,12 @@ class RoomGlobalBattleShip extends ChangeNotifier {
     _player1 = PlayerBattleShip(
       nickname: '',
       socketID: '',
-      points: 0,
-      boats: [],
-      actualBoats: [],
+      points: 0
     );
     _player2 = PlayerBattleShip(
       nickname: '',
       socketID: '',
-      points: 0,
-      boats: [],
-      actualBoats: [],
+      points: 0
     );
     notifyListeners();
   }

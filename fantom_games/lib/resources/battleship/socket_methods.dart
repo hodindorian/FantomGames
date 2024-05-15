@@ -10,6 +10,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
+import '../../model/battleship/boats.dart';
 import '../../model/global_account.dart';
 
 class SocketMethodsBattleShip {
@@ -56,11 +57,6 @@ class SocketMethodsBattleShip {
       );
       _socketClient.on('joinRoomSuccess', (room) {
         getBoats(context);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (
-                context) => const GameViewBattleShip()
-            )
-        );
       });
     });
   }
@@ -70,11 +66,6 @@ class SocketMethodsBattleShip {
       Provider.of<RoomGlobalBattleShip>(context, listen: false)
           .updateRoomData(room);
       getBoats(context);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (
-              context) => const GameViewBattleShip()
-          ),
-      );
     });
   }
 
@@ -175,16 +166,43 @@ class SocketMethodsBattleShip {
   void getBoatsListener(BuildContext context){
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
     var user = Provider.of<AccountGlobal>(context, listen: false);
+    Boats boatPlayer = Boats();
     _socketClient.on('getBoats',(data) {
-      if(data[0]==user.pseudo && roomGlobal.player1.boats.isEmpty && roomGlobal.player2.boats.isEmpty) {
+      if(data[0]==user.pseudo && roomGlobal.player1.boats.isEmpty() && roomGlobal.player2.boats.isEmpty()) {
         if (roomGlobal.player1.nickname == user.pseudo) {
-          roomGlobal.player1.setBoatsStart(data[1]);
+          boatPlayer.createBoats(data[1][0]);
+          roomGlobal.player1.setBoatsStart(boatPlayer);
         } else {
-          roomGlobal.player2.setBoatsStart(data[1]);
+          boatPlayer.createBoats(data[1][0]);
+          roomGlobal.player2.setBoatsStart(boatPlayer);
         }
       }
-      print("player1${roomGlobal.player1.boats}");
-      print("player2${roomGlobal.player2.boats}");
+
+      if(roomGlobal.player1.boats.isEmpty()|| roomGlobal.player2.boats.isEmpty()){
+        if(roomGlobal.player1.nickname == user.pseudo){
+          roomGlobal.actualPlayer = roomGlobal.player1;
+        }
+        if(roomGlobal.player2.nickname == user.pseudo){
+          roomGlobal.actualPlayer = roomGlobal.player2;
+        }
+        print("actualBoats:");
+        print("  Nickname: ${roomGlobal.actualPlayer.nickname}");
+        print("  Socket ID: ${roomGlobal.actualPlayer.socketID}");
+        print("  Points: ${roomGlobal.actualPlayer.points}");
+        print("  Boats:");
+        print("    Boat 5: ${roomGlobal.actualPlayer.boats.boat5}");
+        print("    Boat 4: ${roomGlobal.actualPlayer.boats.boat4}");
+        print("    Boat 3: ${roomGlobal.actualPlayer.boats.boat3}");
+        print("    Boat 2: ${roomGlobal.actualPlayer.boats.boat2}");
+        print("    Boat 10: ${roomGlobal.actualPlayer.boats.boat10}");
+        print("    Boat 11: ${roomGlobal.actualPlayer.boats.boat11}");
+
+        Navigator.push(context,
+          MaterialPageRoute(builder: (
+              context) => const GameViewBattleShip()
+          ),
+        );
+      }
 
     });
   }

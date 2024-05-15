@@ -1,25 +1,33 @@
+import 'boats.dart';
+
 class PlayerBattleShip {
   final String nickname;
   final String socketID;
   final double points;
-  late final List<dynamic> boats;
-  late final List<dynamic> actualBoats;
+  late final Boats boats;
+  late final Boats actualBoats;
+
+  PlayerBattleShip.initialize({
+    required this.nickname,
+    required this.socketID,
+    required this.points,
+    required this.boats,
+    required this.actualBoats,
+  });
 
   PlayerBattleShip({
     required this.nickname,
     required this.socketID,
     required this.points,
-    required this.boats,
-    required this.actualBoats
-  });
-
+  }) : boats = Boats(),
+        actualBoats = Boats();
   Map<String, dynamic> toMap() {
     return {
       'nickname': nickname,
       'socketID': socketID,
       'points': points,
-      'boat': boats,
-      'actualBoats': actualBoats
+      'boats': null,
+      'actualBoats': null
     };
   }
 
@@ -29,11 +37,9 @@ class PlayerBattleShip {
 
   factory PlayerBattleShip.fromMap(Map<String, dynamic> map) {
     return PlayerBattleShip(
-      nickname: map['nickname'] ?? '',
-      socketID: map['socketID'] ?? '',
-      points: map['points']?.toInt() ?? 0.0,
-      boats: [],
-      actualBoats: []
+        nickname: map['nickname'] ?? '',
+        socketID: map['socketID'] ?? '',
+        points: map['points']?.toInt() ?? 0.0
     );
   }
 
@@ -44,20 +50,18 @@ class PlayerBattleShip {
     String? playerType
   }) {
     return PlayerBattleShip(
-      nickname: nickname ?? this.nickname,
-      socketID: socketID ?? this.socketID,
-      points: points ?? this.points,
-      boats: [],
-      actualBoats: []
+        nickname: nickname ?? this.nickname,
+        socketID: socketID ?? this.socketID,
+        points: points ?? this.points
     );
   }
 
-  void setBoatsStart(List<dynamic> newBoats){
-    boats.add(newBoats);
-    actualBoats.add(newBoats);
+  void setBoatsStart(Boats newBoats){
+    boats.setBoats(newBoats);
+    actualBoats.setBoats(newBoats);
   }
 
-  void updateBoats(List<dynamic> updatedBoats){
-    actualBoats.add(updatedBoats);
+  void updateBoats(Boats updatedBoats){
+    actualBoats=updatedBoats;
   }
 }
