@@ -178,25 +178,13 @@ class SocketMethodsBattleShip {
         }
       }
 
-      if(roomGlobal.player1.boats.isEmpty()|| roomGlobal.player2.boats.isEmpty()){
+      if(!roomGlobal.player1.boats.isEmpty() || !roomGlobal.player2.boats.isEmpty()){
         if(roomGlobal.player1.nickname == user.pseudo){
           roomGlobal.actualPlayer = roomGlobal.player1;
         }
         if(roomGlobal.player2.nickname == user.pseudo){
           roomGlobal.actualPlayer = roomGlobal.player2;
         }
-        print("actualBoats:");
-        print("  Nickname: ${roomGlobal.actualPlayer.nickname}");
-        print("  Socket ID: ${roomGlobal.actualPlayer.socketID}");
-        print("  Points: ${roomGlobal.actualPlayer.points}");
-        print("  Boats:");
-        print("    Boat 5: ${roomGlobal.actualPlayer.boats.boat5}");
-        print("    Boat 4: ${roomGlobal.actualPlayer.boats.boat4}");
-        print("    Boat 3: ${roomGlobal.actualPlayer.boats.boat3}");
-        print("    Boat 2: ${roomGlobal.actualPlayer.boats.boat2}");
-        print("    Boat 10: ${roomGlobal.actualPlayer.boats.boat10}");
-        print("    Boat 11: ${roomGlobal.actualPlayer.boats.boat11}");
-
         Navigator.push(context,
           MaterialPageRoute(builder: (
               context) => const GameViewBattleShip()

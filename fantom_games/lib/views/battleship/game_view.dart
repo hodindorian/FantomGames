@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:confetti/confetti.dart';
+import 'package:fantom_games/model/battleship/boats.dart';
 import 'package:fantom_games/model/battleship/global_room_battleship.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/resources/battleship/socket_methods.dart';
@@ -24,14 +25,6 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
   late Widget res;
   bool getBoats = false;
 
-  final List<Color> boatColors = [
-    Colors.red, // Boat 5
-    Colors.blue, // Boat 4
-    Colors.green, // Boat 3
-    Colors.yellow, // Boat 2
-    Colors.orange, // Boat 10
-    Colors.purple, // Boat 11
-  ];
 
   @override
   void initState() {
@@ -251,13 +244,14 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                     crossAxisCount: 10,
                                   ),
                                   itemBuilder: (BuildContext context, int index) {
-                                    actualCase[0]=(index~/10)+1;
-                                    actualCase[1]=(index%10)+1;
+                                    actualCase = [(index ~/ 10), (index % 10)];
+                                    BoatsAndColor boatsAndColor = roomGlobal.actualPlayer.boats.isBoatAtPosition(actualCase);
                                     return GestureDetector(
                                       onTapDown: (_) => tapped(index, roomGlobal),
                                       child: Container(
                                         margin: EdgeInsets.all((screenWidth+screenHeight)*0.001),
                                         decoration: BoxDecoration(
+                                          color:boatsAndColor.isBoatHere ? boatsAndColor.colorOfTheBoat : Colors.transparent,
                                           border: Border.all(
                                             color: Colors.white,
                                             width: (screenWidth+screenHeight)*0.00035,

@@ -1,3 +1,12 @@
+import 'package:flutter/material.dart';
+
+class BoatsAndColor{
+  bool isBoatHere;
+  Color colorOfTheBoat;
+  BoatsAndColor(this.isBoatHere, this.colorOfTheBoat);
+}
+
+
 class Boats {
   List<dynamic> boat5 = [];
   List<dynamic> boat4 = [];
@@ -31,5 +40,46 @@ class Boats {
     boat2 = boats.boat2;
     boat10 = boats.boat10;
     boat11 = boats.boat11;
+  }
+
+  BoatsAndColor isBoatAtPosition(List<int> position) {
+    BoatsAndColor result = BoatsAndColor(false, Colors.white);
+    for(var coo1 in boat5){
+      if (coo1[0] == position[0] && coo1[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.red;
+      }
+    }
+    for(var coo2 in boat4){
+      if (coo2[0] == position[0] && coo2[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.orange;
+      }
+    }
+    for(var coo3 in boat3){
+      if (coo3[0] == position[0] && coo3[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.purple;
+      }
+    }
+    for(var coo4 in boat2){
+      if (coo4[0] == position[0] && coo4[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.green;
+      }
+    }
+    for(var coo5 in boat10){
+      if (coo5[0] == position[0] && coo5[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.yellow;
+      }
+    }
+    for(var coo6 in boat11){
+      if (coo6[0] == position[0] && coo6[1] == position[1]) {
+        result.isBoatHere=true;
+        result.colorOfTheBoat=Colors.grey;
+      }
+    }
+    return result;
   }
 }
