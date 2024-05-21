@@ -228,56 +228,111 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                               );
                             }
                           }else{
-                            res = ConstrainedBox(
-                              constraints: BoxConstraints(
-                                  maxHeight: (screenHeight+screenWidth) * 0.22,
-                                  maxWidth: (screenHeight+screenWidth) * 0.22,
-                                  minHeight: (screenHeight+screenWidth) * 0.22,
-                                  minWidth: (screenHeight+screenWidth) * 0.22
-                              ),
-                              child: AbsorbPointer(
-                                absorbing: roomGlobal.roomData['turn']['socketID'] !=
-                                    _socketMethods.socketClient.id,
-                                child: GridView.builder(
-                                  itemCount: 100,
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 10,
-                                  ),
-                                  itemBuilder: (BuildContext context, int index) {
-                                    actualCase = [(index ~/ 10), (index % 10)];
-                                    BoatsAndColor boatsAndColor = roomGlobal.actualPlayer.boats.isBoatAtPosition(actualCase);
-                                    return GestureDetector(
-                                      onTapDown: (_) => tapped(index, roomGlobal),
-                                      child: Container(
-                                        margin: EdgeInsets.all((screenWidth+screenHeight)*0.001),
-                                        decoration: BoxDecoration(
-                                          color:boatsAndColor.isBoatHere ? boatsAndColor.colorOfTheBoat : Colors.transparent,
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: (screenWidth+screenHeight)*0.00035,
-                                          ),
+                            res = Padding(
+                                padding: EdgeInsets.symmetric(horizontal: (screenWidth+screenHeight) * 0.05),
+                                child: Row(
+                                  children : [
+                                    ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                        maxHeight: (screenHeight+screenWidth) * 0.22,
+                                        maxWidth: (screenHeight+screenWidth) * 0.22,
+                                        minHeight: (screenHeight+screenWidth) * 0.22,
+                                        minWidth: (screenHeight+screenWidth) * 0.22
+                                    ),
+                                    child: AbsorbPointer(
+                                      absorbing: roomGlobal.roomData['turn']['socketID'] !=
+                                          _socketMethods.socketClient.id,
+                                      child: GridView.builder(
+                                        itemCount: 100,
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 10,
                                         ),
-                                        child: Center(
-                                          child: AnimatedSize(
-                                            duration: const Duration(milliseconds: 200),
-                                            child: Text(
-                                              roomGlobal.displayElements[index],
-                                              style: TextStyle(
-                                                color: roomGlobal.displayElements[index].replaceAll(' ', '') == 'O'
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: (screenWidth+screenHeight)*0.04,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          actualCase = [(index ~/ 10), (index % 10)];
+                                          BoatsAndColor boatsAndColor = roomGlobal.actualPlayer.boats.isBoatAtPosition(actualCase);
+                                          return GestureDetector(
+                                            child: Container(
+                                              margin: EdgeInsets.all((screenWidth+screenHeight)*0.001),
+                                              decoration: BoxDecoration(
+                                                color:boatsAndColor.isBoatHere ? boatsAndColor.colorOfTheBoat : Colors.transparent,
+                                                border: Border.all(
+                                                  color: Colors.white,
+                                                  width: (screenWidth+screenHeight)*0.00035,
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: AnimatedSize(
+                                                  duration: const Duration(milliseconds: 200),
+                                                  child: Text(
+                                                    roomGlobal.displayElements[index],
+                                                    style: TextStyle(
+                                                      color: roomGlobal.displayElements[index].replaceAll(' ', '') == 'O'
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: (screenWidth+screenHeight)*0.04,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                    SizedBox(width: (screenWidth + screenHeight) * 0.05),
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                          maxHeight: (screenHeight+screenWidth) * 0.22,
+                                          maxWidth: (screenHeight+screenWidth) * 0.22,
+                                          minHeight: (screenHeight+screenWidth) * 0.22,
+                                          minWidth: (screenHeight+screenWidth) * 0.22
+                                      ),
+                                      child: AbsorbPointer(
+                                        absorbing: roomGlobal.roomData['turn']['socketID'] !=
+                                            _socketMethods.socketClient.id,
+                                        child: GridView.builder(
+                                          itemCount: 100,
+                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 10,
                                           ),
+                                          itemBuilder: (BuildContext context, int index) {
+                                            actualCase = [(index ~/ 10), (index % 10)];
+                                            return GestureDetector(
+                                              onTapDown: (_) => tapped(index, roomGlobal),
+                                              child: Container(
+                                                margin: EdgeInsets.all((screenWidth+screenHeight)*0.001),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                    color: Colors.white,
+                                                    width: (screenWidth+screenHeight)*0.00035,
+                                                  ),
+                                                ),
+                                                child: Center(
+                                                  child: AnimatedSize(
+                                                    duration: const Duration(milliseconds: 200),
+                                                    child: Text(
+                                                      roomGlobal.displayElements[index],
+                                                      style: TextStyle(
+                                                        color: roomGlobal.displayElements[index].replaceAll(' ', '') == 'O'
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: (screenWidth+screenHeight)*0.04,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            );
+                              );
                           }
                           return res;
                         },

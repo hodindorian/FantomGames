@@ -94,7 +94,7 @@ class SocketMethodsBattleShip {
       RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
       roomGlobal.updateDisplayElements(
         data['index'],
-        data['choice'],
+        data['hit'],
       );
       roomGlobal.updateRoomData(data['room']);
       GameMethodsBattleship().checkWinner(context, _socketClient);

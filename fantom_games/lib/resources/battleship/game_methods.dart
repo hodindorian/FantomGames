@@ -12,7 +12,7 @@ class GameMethodsBattleship {
     if(roomGlobal.endGame==false){
       if(roomGlobal.player1.actualBoats.isEmpty()) {
         winner = roomGlobal.player2.nickname;
-      }else {
+      }else if(roomGlobal.player2.actualBoats.isEmpty()) {
         winner = roomGlobal.player1.nickname;
       }
       if (roomGlobal.actualPlayer.nickname == winner) {
@@ -24,22 +24,7 @@ class GameMethodsBattleship {
           roomGlobal.endGame = true;
           showMessagePopUp(
               context, "Résultat :",
-              '${roomGlobal.actualPlayer.nickname} a gagné la partie!',
-              "FFFFFF"
-          );
-        }
-      } else {
-        PlayerBattleShip winner;
-        if(roomGlobal.actualPlayer.nickname == roomGlobal.player1.nickname){
-          winner = roomGlobal.player2;
-        }else{
-          winner = roomGlobal.player1;
-        }
-        if(roomGlobal.endGame==false){
-          roomGlobal.endGame = true;
-          showMessagePopUp(
-              context, "Résultat :",
-              '${winner.nickname} a gagné la partie!',
+              '$winner a gagné la partie!',
               "FFFFFF"
           );
         }

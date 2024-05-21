@@ -16,7 +16,7 @@ class Boats {
   List<dynamic> boat11 = [];
 
   bool isEmpty(){
-    if(boat5.isEmpty || boat4.isEmpty || boat3.isEmpty || boat2.isEmpty || boat10.isEmpty || boat11.isEmpty){
+    if(boat5.isEmpty && boat4.isEmpty && boat3.isEmpty && boat2.isEmpty && boat10.isEmpty && boat11.isEmpty){
       return true;
     }else{
       return false;

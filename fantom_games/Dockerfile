@@ -18,7 +18,8 @@ RUN flutter channel master
 RUN flutter config --enable-web
 RUN flutter doctor
 WORKDIR /app
-RUN flutter build web --release
+RUN flutter build web
+RUN flutter run -d web-server --web-port 3334 &
 
 RUN ["chmod", "+x", "/app/server/server.sh"]
 ENTRYPOINT [ "/app/server/server.sh"]
