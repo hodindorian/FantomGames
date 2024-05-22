@@ -92,10 +92,23 @@ class SocketMethodsBattleShip {
   void tappedListener(BuildContext context) {
     _socketClient.on('tapped', (data) {
       RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-      roomGlobal.updateDisplayElements(
-        data['index'],
-        data['hit'],
-      );
+      if(data['actualPlayer']==1){
+        roomGlobal.updateDisplayElements1(
+            data['index'],
+            data['hit']
+        );
+        if(data['hit']=='X'){
+          roomGlobal.hitPlayer2(data['index']);
+        }
+      }else if(data['actualPlayer']==2){
+        roomGlobal.updateDisplayElements2(
+            data['index'],
+            data['hit']
+        );
+        if(data['hit']=='X'){
+          roomGlobal.hitPlayer1(data['index']);
+        }
+      }
       roomGlobal.updateRoomData(data['room']);
       GameMethodsBattleship().checkWinner(context, _socketClient);
     });

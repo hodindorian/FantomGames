@@ -3,14 +3,14 @@ import 'boats.dart';
 class PlayerBattleShip {
   final String nickname;
   final String socketID;
-  final double points;
+  final int nbPlayer;
   late final Boats boats;
   late final Boats actualBoats;
 
   PlayerBattleShip.initialize({
     required this.nickname,
     required this.socketID,
-    required this.points,
+    required this.nbPlayer,
     required this.boats,
     required this.actualBoats,
   });
@@ -18,41 +18,49 @@ class PlayerBattleShip {
   PlayerBattleShip({
     required this.nickname,
     required this.socketID,
-    required this.points,
+    required this.nbPlayer,
   }) : boats = Boats(),
         actualBoats = Boats();
   Map<String, dynamic> toMap() {
     return {
       'nickname': nickname,
       'socketID': socketID,
-      'points': points,
+      'nbPlayer': nbPlayer,
       'boats': null,
       'actualBoats': null
     };
   }
 
-  set points(double newPoints) {
-    points = newPoints;
+  set nbPlayer(int newNbPlayer) {
+    nbPlayer = newNbPlayer;
   }
 
-  factory PlayerBattleShip.fromMap(Map<String, dynamic> map) {
+  factory PlayerBattleShip.fromMap1(Map<String, dynamic> map) {
     return PlayerBattleShip(
         nickname: map['nickname'] ?? '',
         socketID: map['socketID'] ?? '',
-        points: map['points']?.toInt() ?? 0.0
+        nbPlayer: 1
+    );
+  }
+
+  factory PlayerBattleShip.fromMap2(Map<String, dynamic> map) {
+    return PlayerBattleShip(
+        nickname: map['nickname'] ?? '',
+        socketID: map['socketID'] ?? '',
+        nbPlayer: 2
     );
   }
 
   PlayerBattleShip copyWith({
     String? nickname,
     String? socketID,
-    double? points,
+    int? nbPlayer,
     String? playerType
   }) {
     return PlayerBattleShip(
         nickname: nickname ?? this.nickname,
         socketID: socketID ?? this.socketID,
-        points: points ?? this.points
+        nbPlayer: nbPlayer ?? this.nbPlayer
     );
   }
 
