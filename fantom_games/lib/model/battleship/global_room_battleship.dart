@@ -80,12 +80,37 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   }
 
   void hitPlayer1(int index) {
-
+    List<int> actualCase = [(index ~/ 10), (index % 10)];
+    _hitBoat(actualCase, player1.boats);
   }
 
   void hitPlayer2(int index) {
-
+    List<int> actualCase = [(index ~/ 10), (index % 10)];
+    _hitBoat(actualCase, player2.boats);
   }
+
+  void _hitBoat(List<int> actualCase, Boats boats) {
+    print("boat5 : ${boats.boat5}");
+    print("boat5 : ${boats.boat4}");
+    print("boat5 : ${boats.boat3}");
+    print("boat5 : ${boats.boat2}");
+    print("boat5 : ${boats.boat10}");
+    print("boat5 : ${boats.boat11}");
+
+    // Check and remove from boat5
+    boats.boat5.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat4
+    boats.boat4.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat3
+    boats.boat3.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat2
+    boats.boat2.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat10
+    boats.boat10.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat11
+    boats.boat11.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+  }
+
 
 
 }
