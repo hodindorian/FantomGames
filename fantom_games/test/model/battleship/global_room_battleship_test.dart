@@ -27,7 +27,7 @@ void main() {
       final player1Data = {
         'nickname': 'Player1',
         'socketID': '123',
-        'nbPlayer': 1
+        'boats' : [[[0,1],[1,1],[1,2],[1,3],[1,4],[1,5]]],
       };
       bool notified = false;
 
@@ -47,7 +47,7 @@ void main() {
       final player2Data = {
         'nickname': 'Player2',
         'socketID': '456',
-        'nbPlayer': 2
+        'boats' : [[[0,1],[1,1],[1,2],[1,3],[1,4],[1,5]]],
       };
       bool notified = false;
 

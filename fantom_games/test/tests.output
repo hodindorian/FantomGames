@@ -1,0 +1,132 @@
+{"protocolVersion":"0.1.1","runnerVersion":"1.24.3","pid":23029,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/change_password_in_api_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/change_password_in_api_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":1}
+{"suite":{"id":2,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/adding_info_in_api_test.dart"},"type":"suite","time":6}
+{"test":{"id":3,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/adding_info_in_api_test.dart","suiteID":2,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":6}
+{"suite":{"id":4,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart"},"type":"suite","time":6}
+{"test":{"id":5,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart","suiteID":4,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":6}
+{"suite":{"id":6,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"suite","time":7}
+{"test":{"id":7,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart","suiteID":6,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":7}
+{"suite":{"id":8,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart"},"type":"suite","time":7}
+{"test":{"id":9,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart","suiteID":8,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":7}
+{"suite":{"id":10,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/account_test.dart"},"type":"suite","time":8}
+{"test":{"id":11,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/account_test.dart","suiteID":10,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":8}
+{"count":10,"time":9,"type":"allSuites"}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:41443/oQLm_K713FA=/","observatoryUri":"http://127.0.0.1:41443/oQLm_K713FA=/"}}]
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1649}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:44563/xi2MPa_YPOQ=/","observatoryUri":"http://127.0.0.1:44563/xi2MPa_YPOQ=/"}}]
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:35719/4QqMYYlKdkQ=/","observatoryUri":"http://127.0.0.1:35719/4QqMYYlKdkQ=/"}}]
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1830}
+{"group":{"id":12,"suiteID":2,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":2,"line":null,"column":null,"url":null},"type":"group","time":1832}
+{"test":{"id":13,"name":"Test gettingInfo with valid response","suiteID":2,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":9,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/adding_info_in_api_test.dart"},"type":"testStart","time":1832}
+{"testID":13,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":1860}
+{"test":{"id":14,"name":"Test addingInfo with valid URI and JSON","suiteID":2,"groupIDs":[12],"metadata":{"skip":false,"skipReason":null},"line":28,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/connection/adding_info_in_api_test.dart"},"type":"testStart","time":1884}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:42723/jopb9LvcB1A=/","observatoryUri":"http://127.0.0.1:42723/jopb9LvcB1A=/"}}]
+{"testID":5,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1979}
+{"group":{"id":15,"suiteID":4,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":1979}
+{"group":{"id":16,"suiteID":4,"parentID":15,"name":"GlobalObject tests","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":5,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart"},"type":"group","time":1979}
+{"test":{"id":17,"name":"GlobalObject tests Initial values","suiteID":4,"groupIDs":[15,16],"metadata":{"skip":false,"skipReason":null},"line":6,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart"},"type":"testStart","time":1979}
+{"testID":17,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2004}
+{"test":{"id":18,"name":"GlobalObject tests Setting stayConnected","suiteID":4,"groupIDs":[15,16],"metadata":{"skip":false,"skipReason":null},"line":13,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart"},"type":"testStart","time":2005}
+{"testID":18,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2008}
+{"test":{"id":19,"name":"GlobalObject tests Setting alreadyConnected","suiteID":4,"groupIDs":[15,16],"metadata":{"skip":false,"skipReason":null},"line":21,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_object_test.dart"},"type":"testStart","time":2009}
+{"testID":19,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2012}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:41193/v8zuw4xImg0=/","observatoryUri":"http://127.0.0.1:41193/v8zuw4xImg0=/"}}]
+{"testID":14,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2098}
+{"testID":7,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2100}
+{"group":{"id":20,"suiteID":6,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":null,"column":null,"url":null},"type":"group","time":2100}
+{"group":{"id":21,"suiteID":6,"parentID":20,"name":"RoomGlobalTicTacToe tests","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":5,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"group","time":2101}
+{"test":{"id":22,"name":"RoomGlobalTicTacToe tests Updating room data","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":6,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2101}
+{"suite":{"id":23,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_account_test.dart"},"type":"suite","time":2108}
+{"test":{"id":24,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_account_test.dart","suiteID":23,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2108}
+{"testID":22,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2141}
+{"test":{"id":25,"name":"RoomGlobalTicTacToe tests Updating player 1","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":15,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2144}
+{"testID":25,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2148}
+{"test":{"id":26,"name":"RoomGlobalTicTacToe tests Updating player 2","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":32,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2148}
+{"testID":26,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2150}
+{"test":{"id":27,"name":"RoomGlobalTicTacToe tests Updating display elements","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":49,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2151}
+{"testID":27,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2154}
+{"test":{"id":28,"name":"RoomGlobalTicTacToe tests Setting filled boxes to 0","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":60,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2155}
+{"testID":28,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2157}
+{"test":{"id":29,"name":"RoomGlobalTicTacToe tests Resetting room","suiteID":6,"groupIDs":[20,21],"metadata":{"skip":false,"skipReason":null},"line":71,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/global_room_tictactoe_test.dart"},"type":"testStart","time":2162}
+{"testID":29,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2165}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:44917/suLqgSi1Ek0=/","observatoryUri":"http://127.0.0.1:44917/suLqgSi1Ek0=/"}}]
+{"testID":9,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2241}
+{"group":{"id":30,"suiteID":8,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":2242}
+{"group":{"id":31,"suiteID":8,"parentID":30,"name":"PlayerTicTacToe tests","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":5,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart"},"type":"group","time":2242}
+{"test":{"id":32,"name":"PlayerTicTacToe tests Creating PlayerTicTacToe instance","suiteID":8,"groupIDs":[30,31],"metadata":{"skip":false,"skipReason":null},"line":6,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart"},"type":"testStart","time":2242}
+{"testID":32,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2265}
+{"test":{"id":33,"name":"PlayerTicTacToe tests Creating PlayerTicTacToe from map","suiteID":8,"groupIDs":[30,31],"metadata":{"skip":false,"skipReason":null},"line":20,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart"},"type":"testStart","time":2265}
+{"testID":33,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2268}
+{"test":{"id":34,"name":"PlayerTicTacToe tests Copying PlayerTicTacToe","suiteID":8,"groupIDs":[30,31],"metadata":{"skip":false,"skipReason":null},"line":36,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/tic-tac-toe/player_tic_tac_toe_test.dart"},"type":"testStart","time":2268}
+{"testID":34,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2272}
+{"testID":11,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2302}
+{"group":{"id":35,"suiteID":10,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":2,"line":null,"column":null,"url":null},"type":"group","time":2302}
+{"group":{"id":36,"suiteID":10,"parentID":35,"name":"Account tests","metadata":{"skip":false,"skipReason":null},"testCount":2,"line":6,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/account_test.dart"},"type":"group","time":2302}
+{"test":{"id":37,"name":"Account tests Creating Account instance","suiteID":10,"groupIDs":[35,36],"metadata":{"skip":false,"skipReason":null},"line":7,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/account_test.dart"},"type":"testStart","time":2302}
+{"testID":37,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2319}
+{"test":{"id":38,"name":"Account tests Creating Account instance with default values","suiteID":10,"groupIDs":[35,36],"metadata":{"skip":false,"skipReason":null},"line":31,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/account_test.dart"},"type":"testStart","time":2320}
+{"testID":38,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2323}
+{"suite":{"id":39,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"suite","time":2374}
+{"test":{"id":40,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart","suiteID":39,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2374}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:41165/RoGAQJACgd8=/","observatoryUri":"http://127.0.0.1:41165/RoGAQJACgd8=/"}}]
+{"testID":24,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2562}
+{"group":{"id":41,"suiteID":23,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":2562}
+{"group":{"id":42,"suiteID":23,"parentID":41,"name":"AccountGlobal tests","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":6,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_account_test.dart"},"type":"group","time":2562}
+{"test":{"id":43,"name":"AccountGlobal tests Updating account","suiteID":23,"groupIDs":[41,42],"metadata":{"skip":false,"skipReason":null},"line":7,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/global_account_test.dart"},"type":"testStart","time":2562}
+{"testID":43,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2584}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:45643/L_vmI0dkLyQ=/","observatoryUri":"http://127.0.0.1:45643/L_vmI0dkLyQ=/"}}]
+{"suite":{"id":44,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart"},"type":"suite","time":2664}
+{"test":{"id":45,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart","suiteID":44,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2664}
+{"suite":{"id":46,"platform":"vm","path":"/home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"suite","time":2715}
+{"test":{"id":47,"name":"loading /home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart","suiteID":46,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2715}
+{"testID":40,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":2802}
+{"group":{"id":48,"suiteID":39,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":5,"line":null,"column":null,"url":null},"type":"group","time":2803}
+{"group":{"id":49,"suiteID":39,"parentID":48,"name":"Boats","metadata":{"skip":false,"skipReason":null},"testCount":5,"line":7,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"group","time":2803}
+{"test":{"id":50,"name":"Boats isEmpty should return true when all boats are empty","suiteID":39,"groupIDs":[48,49],"metadata":{"skip":false,"skipReason":null},"line":8,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"testStart","time":2803}
+{"testID":50,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2818}
+{"test":{"id":51,"name":"Boats isEmpty should return false when at least one boat is not empty","suiteID":39,"groupIDs":[48,49],"metadata":{"skip":false,"skipReason":null},"line":13,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"testStart","time":2819}
+{"testID":51,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2821}
+{"test":{"id":52,"name":"Boats createBoats should correctly assign boat data","suiteID":39,"groupIDs":[48,49],"metadata":{"skip":false,"skipReason":null},"line":19,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"testStart","time":2821}
+{"testID":52,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2825}
+{"test":{"id":53,"name":"Boats setBoats should correctly copy boat data from another instance","suiteID":39,"groupIDs":[48,49],"metadata":{"skip":false,"skipReason":null},"line":38,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"testStart","time":2825}
+{"testID":53,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2827}
+{"test":{"id":54,"name":"Boats isBoatAtPosition should correctly identify boats and colors","suiteID":39,"groupIDs":[48,49],"metadata":{"skip":false,"skipReason":null},"line":56,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/boats_test.dart"},"type":"testStart","time":2827}
+{"testID":54,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":2831}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:45731/6bC7hPAFY1c=/","observatoryUri":"http://127.0.0.1:45731/6bC7hPAFY1c=/"}}]
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:45231/A5vJNRJUT1Y=/","observatoryUri":"http://127.0.0.1:45231/A5vJNRJUT1Y=/"}}]
+{"testID":45,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3073}
+{"group":{"id":55,"suiteID":44,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":null,"column":null,"url":null},"type":"group","time":3073}
+{"group":{"id":56,"suiteID":44,"parentID":55,"name":"PlayerBattleShip tests","metadata":{"skip":false,"skipReason":null},"testCount":3,"line":7,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart"},"type":"group","time":3073}
+{"test":{"id":57,"name":"PlayerBattleShip tests Creating PlayerBattleShip with initialize constructor","suiteID":44,"groupIDs":[55,56],"metadata":{"skip":false,"skipReason":null},"line":8,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart"},"type":"testStart","time":3074}
+{"testID":57,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3088}
+{"test":{"id":58,"name":"PlayerBattleShip tests Creating PlayerBattleShip with regular constructor","suiteID":44,"groupIDs":[55,56],"metadata":{"skip":false,"skipReason":null},"line":23,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart"},"type":"testStart","time":3088}
+{"testID":58,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3090}
+{"test":{"id":59,"name":"PlayerBattleShip tests Copying PlayerBattleShip","suiteID":44,"groupIDs":[55,56],"metadata":{"skip":false,"skipReason":null},"line":37,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/player_battleship_test.dart"},"type":"testStart","time":3090}
+{"testID":59,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3092}
+{"testID":47,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":3165}
+{"group":{"id":60,"suiteID":46,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":null,"column":null,"url":null},"type":"group","time":3165}
+{"group":{"id":61,"suiteID":46,"parentID":60,"name":"RoomGlobalBattleShip","metadata":{"skip":false,"skipReason":null},"testCount":6,"line":5,"column":3,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"group","time":3165}
+{"test":{"id":62,"name":"RoomGlobalBattleShip updateRoomData should update _roomData and notify listeners","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":12,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3165}
+{"testID":62,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3187}
+{"test":{"id":63,"name":"RoomGlobalBattleShip updatePlayer1 should update player1 data and notify listeners","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":26,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3187}
+{"testID":63,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3190}
+{"test":{"id":64,"name":"RoomGlobalBattleShip updatePlayer2 should update player2 data and notify listeners","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":46,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3190}
+{"testID":64,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3192}
+{"test":{"id":65,"name":"RoomGlobalBattleShip updateDisplayElements1 should update display elements for player1 and notify listeners","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":66,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3192}
+{"testID":65,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3193}
+{"test":{"id":66,"name":"RoomGlobalBattleShip updateDisplayElements2 should update display elements for player2 and notify listeners","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":79,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3194}
+{"testID":66,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3195}
+{"test":{"id":67,"name":"RoomGlobalBattleShip reset should reset game state","suiteID":46,"groupIDs":[60,61],"metadata":{"skip":false,"skipReason":null},"line":92,"column":5,"url":"file:///home/dorian/Documents/Fantom_Games/FantomGames/fantom_games/test/model/battleship/global_room_battleship_test.dart"},"type":"testStart","time":3195}
+{"testID":67,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":3197}
+{"success":true,"type":"done","time":3513}
