@@ -7,14 +7,17 @@ import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 class GameMethodsBattleship {
   void checkWinner(BuildContext context, Socket socketClient) {
     RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    String winner = '';
-    if(roomGlobal.endGame==false){
-      if(roomGlobal.player1.actualBoats.isEmpty()) {
-        winner = roomGlobal.player2.nickname;
-      }else if(roomGlobal.player2.actualBoats.isEmpty()) {
-        winner = roomGlobal.player1.nickname;
+    print('winner?');
+    int winner = 0;
+
+    if(roomGlobal.endGame==false || roomGlobal.player1.boats.isGameStarted || roomGlobal.player2.boats.isGameStarted){
+      if(roomGlobal.player1.boats.isEmpty()) {
+        winner = 2;
+      }else if(roomGlobal.player2.boats.isEmpty()) {
+        winner = 1;
       }
-      if (roomGlobal.actualPlayer.nickname == winner) {
+      print("Winner: $winner");
+      if (roomGlobal.actualPlayer.nbPlayer == winner) {
         socketClient.emit('winner', {
           'winnerSocketId': roomGlobal.actualPlayer.socketID,
           'roomId':roomGlobal.roomData['id'],

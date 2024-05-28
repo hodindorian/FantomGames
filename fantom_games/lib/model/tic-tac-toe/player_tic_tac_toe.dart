@@ -27,7 +27,7 @@ class PlayerTicTacToe {
     return PlayerTicTacToe(
       nickname: map['nickname'] ?? '',
       socketID: map['socketID'] ?? '',
-      points: map['points']?.toInt() ?? 0.0,
+      points: map['points']?.toDouble() ?? 0.0,
       playerType: map['playerType'] ?? '',
     );
   }

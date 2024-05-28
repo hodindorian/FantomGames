@@ -49,7 +49,7 @@ class SocketMethodsBattleShip {
   // LISTENERS
   void createRoomSuccessListener(BuildContext context) {
     _socketClient.on('createRoomSuccess', (room) {
-      Provider.of<RoomGlobalBattleShip>(context, listen: false).updateRoomData(room);
+      Provider.of<RoomGlobalBattleShip>(context, listen: false).initRoomData(room);
       Navigator.push(context,
           MaterialPageRoute(builder: (
               context) => LobbyBattleShip(roomID: room['id'])
@@ -64,7 +64,7 @@ class SocketMethodsBattleShip {
   void joinRoomSuccessListener(BuildContext context) {
     _socketClient.on('joinRoomSuccess', (room) {
       Provider.of<RoomGlobalBattleShip>(context, listen: false)
-          .updateRoomData(room);
+          .initRoomData(room);
       getBoats(context);
     });
   }
@@ -72,13 +72,6 @@ class SocketMethodsBattleShip {
   void errorOccuredListener(BuildContext context) {
     _socketClient.on('errorOccurred', (data) {
       showMessageBar(context, data);
-    });
-  }
-
-  void updatePlayersStateListener(BuildContext context) {
-    _socketClient.on('updatePlayers', (playerData) {
-      Provider.of<RoomGlobalBattleShip>(context, listen: false).updatePlayer1(playerData[0]);
-      Provider.of<RoomGlobalBattleShip>(context, listen: false).updatePlayer2(playerData[1]);
     });
   }
 
@@ -92,13 +85,23 @@ class SocketMethodsBattleShip {
   void tappedListener(BuildContext context) {
     _socketClient.on('tapped', (data) {
       RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+
+      if(!roomGlobal.player1.boats.isGameStarted){
+        roomGlobal.player1.boats.createBoats(data['boats1'][0]);
+        roomGlobal.player1.boats.isGameStarted = true;
+      }
+      if(!roomGlobal.player2.boats.isGameStarted){
+        roomGlobal.player2.boats.createBoats(data['boats2'][0]);
+        roomGlobal.player2.boats.isGameStarted = true;
+      }
+
       if(data['actualPlayer']==1){
         roomGlobal.updateDisplayElements1(
             data['index'],
             data['hit']
         );
         if(data['hit']=='X'){
-          roomGlobal.hitPlayer2(data['index']);
+          _hitBoat(data['index'], roomGlobal.player2.boats, context, roomGlobal);
         }
       }else if(data['actualPlayer']==2){
         roomGlobal.updateDisplayElements2(
@@ -106,11 +109,10 @@ class SocketMethodsBattleShip {
             data['hit']
         );
         if(data['hit']=='X'){
-          roomGlobal.hitPlayer1(data['index']);
+          _hitBoat(data['index'], roomGlobal.player1.boats, context, roomGlobal);
         }
       }
       roomGlobal.updateRoomData(data['room']);
-      GameMethodsBattleship().checkWinner(context, _socketClient);
     });
   }
 
@@ -204,7 +206,27 @@ class SocketMethodsBattleShip {
           ),
         );
       }
-
     });
   }
+
+  void _hitBoat(int index, Boats boats, BuildContext context, RoomGlobalBattleShip roomGlobal) {
+    List<int> actualCase = [(index ~/ 10), (index % 10)];
+    // Check and remove from boat5
+    boats.boat5.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat4
+    boats.boat4.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat3
+    boats.boat3.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat2
+    boats.boat2.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat10
+    boats.boat10.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat11
+    boats.boat11.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+
+    roomGlobal.player1.boats.boatSinkMessage(context);
+    roomGlobal.player2.boats.boatSinkMessage(context);
+    GameMethodsBattleship().checkWinner(context, _socketClient);
+  }
+
 }

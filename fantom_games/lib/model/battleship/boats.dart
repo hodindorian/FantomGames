@@ -1,3 +1,4 @@
+import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'package:flutter/material.dart';
 
 class BoatsAndColor{
@@ -14,12 +15,59 @@ class Boats {
   List<dynamic> boat2 = [];
   List<dynamic> boat10 = [];
   List<dynamic> boat11 = [];
+  bool isGameStarted = false;
+  bool isBoat5Sink = false;
+  bool isBoat4Sink = false;
+  bool isBoat3Sink = false;
+  bool isBoat2Sink = false;
+  bool isBoat10Sink = false;
+  bool isBoat11Sink = false;
+
 
   bool isEmpty(){
     if(boat5.isEmpty && boat4.isEmpty && boat3.isEmpty && boat2.isEmpty && boat10.isEmpty && boat11.isEmpty){
       return true;
     }else{
       return false;
+    }
+  }
+
+  void boatSinkMessage(BuildContext context){
+    if(boat5.isEmpty && !isBoat5Sink){
+      showMessageBar(
+          context,'Un bâteau de taille 5 a été coulé !',
+      );
+      isBoat5Sink=true;
+    }
+    if(boat4.isEmpty && !isBoat4Sink){
+      showMessageBar(
+        context,'Un bâteau de taille 4 a été coulé !',
+      );
+      isBoat4Sink=true;
+    }
+    if(boat3.isEmpty && !isBoat3Sink){
+      showMessageBar(
+        context,'Un bâteau de taille 3 a été coulé !',
+      );
+      isBoat3Sink=true;
+    }
+    if(boat2.isEmpty && !isBoat2Sink){
+      showMessageBar(
+        context,'Un bâteau de taille 2 a été coulé !',
+      );
+      isBoat2Sink=true;
+    }
+    if(boat10.isEmpty && !isBoat10Sink){
+      showMessageBar(
+        context,'Un bâteau de taille 1 a été coulé !',
+      );
+      isBoat10Sink=true;
+    }
+    if(boat11.isEmpty && !isBoat11Sink){
+      showMessageBar(
+        context,'Un bâteau de taille 1 a été coulé !',
+      );
+      isBoat11Sink=true;
     }
   }
 
@@ -30,7 +78,6 @@ class Boats {
     boat2 = boatsData[3];
     boat10 = boatsData[4];
     boat11 = boatsData[5];
-
   }
 
   void setBoats(Boats boats){

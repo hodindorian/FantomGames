@@ -49,7 +49,6 @@ class CreateOrJoinRoomScreenBattleShipState extends State<CreateOrJoinRoomScreen
     super.initState();
     _socketMethods.joinRoomSuccessListener(context);
     _socketMethods.errorOccuredListener(context);
-    _socketMethods.updatePlayersStateListener(context);
     _socketMethods.getBoatsListener(context);
     user = Provider.of<AccountGlobal>(context, listen: false);
 

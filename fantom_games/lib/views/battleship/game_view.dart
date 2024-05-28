@@ -31,7 +31,6 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     super.initState();
     _socketMethods.tappedListener(context);
     _socketMethods.updateRoomListener(context);
-    _socketMethods.updatePlayersStateListener(context);
     _socketMethods.endGameListener(context);
     _socketMethods.getBoatsListener(context);
     _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
@@ -124,26 +123,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                           Visibility(
                             visible: !roomGlobal.endGame,
                             child: Text(
-                              roomGlobal.player1.nickname,
-                              style: TextStyle(
-                                  fontSize: (screenWidth+screenHeight)*0.015,
-                                  fontFamily: 'Boog',
-                                  color: Colors.white
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Visibility(
-                            visible: !roomGlobal.endGame,
-                            child: Text(
-                              roomGlobal.player2.nickname,
+                              '',
                               style: TextStyle(
                                   fontSize: (screenWidth+screenHeight)*0.015,
                                   fontFamily: 'Boog',

@@ -5,29 +5,26 @@ class PlayerBattleShip {
   final String socketID;
   final int nbPlayer;
   late final Boats boats;
-  late final Boats actualBoats;
 
   PlayerBattleShip.initialize({
     required this.nickname,
     required this.socketID,
     required this.nbPlayer,
     required this.boats,
-    required this.actualBoats,
   });
 
   PlayerBattleShip({
     required this.nickname,
     required this.socketID,
     required this.nbPlayer,
-  }) : boats = Boats(),
-        actualBoats = Boats();
+    required this.boats
+  });
   Map<String, dynamic> toMap() {
     return {
       'nickname': nickname,
       'socketID': socketID,
       'nbPlayer': nbPlayer,
       'boats': null,
-      'actualBoats': null
     };
   }
 
@@ -36,40 +33,42 @@ class PlayerBattleShip {
   }
 
   factory PlayerBattleShip.fromMap1(Map<String, dynamic> map) {
-    return PlayerBattleShip(
+    PlayerBattleShip player1 = PlayerBattleShip(
         nickname: map['nickname'] ?? '',
         socketID: map['socketID'] ?? '',
-        nbPlayer: 1
+        nbPlayer: 1,
+        boats: Boats()
     );
+    player1.boats.createBoats(map['boats'][0]);
+    return player1;
   }
 
   factory PlayerBattleShip.fromMap2(Map<String, dynamic> map) {
-    return PlayerBattleShip(
+    PlayerBattleShip player2 = PlayerBattleShip(
         nickname: map['nickname'] ?? '',
         socketID: map['socketID'] ?? '',
-        nbPlayer: 2
+        nbPlayer: 2,
+        boats: Boats()
     );
+    player2.boats.createBoats(map['boats'][0]);
+    return player2;
   }
 
   PlayerBattleShip copyWith({
     String? nickname,
     String? socketID,
     int? nbPlayer,
-    String? playerType
+    Boats? boats
   }) {
     return PlayerBattleShip(
         nickname: nickname ?? this.nickname,
         socketID: socketID ?? this.socketID,
-        nbPlayer: nbPlayer ?? this.nbPlayer
+        nbPlayer: nbPlayer ?? this.nbPlayer,
+        boats: boats ?? this.boats
     );
   }
 
   void setBoatsStart(Boats newBoats){
     boats.setBoats(newBoats);
-    actualBoats.setBoats(newBoats);
-  }
-
-  void updateBoats(Boats updatedBoats){
-    actualBoats=updatedBoats;
   }
 }

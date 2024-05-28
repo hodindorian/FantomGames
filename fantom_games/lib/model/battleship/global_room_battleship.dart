@@ -13,13 +13,15 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   PlayerBattleShip _player1 = PlayerBattleShip(
     nickname: '',
     socketID: '',
-    nbPlayer: 1
+    nbPlayer: 1,
+    boats: Boats()
   );
 
   PlayerBattleShip _player2 = PlayerBattleShip(
     nickname: '',
     socketID: '',
-    nbPlayer: 2
+    nbPlayer: 2,
+    boats: Boats()
   );
 
   Map<String, dynamic> get roomData => _roomData;
@@ -30,6 +32,18 @@ class RoomGlobalBattleShip extends ChangeNotifier {
 
   void updateRoomData(Map<String, dynamic> data) {
     _roomData = data;
+    notifyListeners();
+  }
+
+  void initRoomData(Map<String, dynamic> data) {
+    _roomData = data;
+    for (Map<String, dynamic> player in data['players']){
+      if(player['nbPlayer']==1){
+        updatePlayer1(player);
+      }else if(player['nbPlayer']==2){
+        updatePlayer2(player);
+      }
+    }
     notifyListeners();
   }
 
@@ -45,12 +59,10 @@ class RoomGlobalBattleShip extends ChangeNotifier {
 
   void updatePlayer1Boats(Boats boats) {
     _player1.boats = boats;
-    _player1.actualBoats = boats;
   }
 
   void updatePlayer2Boats(Boats boats) {
     _player2.boats = boats;
-    _player2.actualBoats = boats;
   }
 
   void updateDisplayElements1(int index, String hit) {
@@ -69,48 +81,28 @@ class RoomGlobalBattleShip extends ChangeNotifier {
     _player1 = PlayerBattleShip(
       nickname: '',
       socketID: '',
-      nbPlayer: 1
+      nbPlayer: 1,
+      boats: Boats()
     );
     _player2 = PlayerBattleShip(
       nickname: '',
       socketID: '',
-      nbPlayer: 2
+      nbPlayer: 2,
+      boats: Boats()
     );
     notifyListeners();
   }
 
-  void hitPlayer1(int index) {
-    List<int> actualCase = [(index ~/ 10), (index % 10)];
-    _hitBoat(actualCase, player1.boats);
+  @override
+  String toString() {
+    return '''
+      RoomGlobalBattleShip(
+        roomData: $_roomData,
+        endGame: $endGame,
+        winner: $winner,
+        animation: $animation,
+      )
+    ''';
   }
-
-  void hitPlayer2(int index) {
-    List<int> actualCase = [(index ~/ 10), (index % 10)];
-    _hitBoat(actualCase, player2.boats);
-  }
-
-  void _hitBoat(List<int> actualCase, Boats boats) {
-    print("boat5 : ${boats.boat5}");
-    print("boat5 : ${boats.boat4}");
-    print("boat5 : ${boats.boat3}");
-    print("boat5 : ${boats.boat2}");
-    print("boat5 : ${boats.boat10}");
-    print("boat5 : ${boats.boat11}");
-
-    // Check and remove from boat5
-    boats.boat5.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat4
-    boats.boat4.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat3
-    boats.boat3.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat2
-    boats.boat2.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat10
-    boats.boat10.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat11
-    boats.boat11.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-  }
-
-
-
 }
+
