@@ -9,15 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
 import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
-
-import '../../model/battleship/boats.dart';
-import '../../model/global_account.dart';
+import 'package:fantom_games/model/battleship/boats.dart';
+import 'package:fantom_games/model/global_account.dart';
 
 class SocketMethodsBattleShip {
   final _socketClient = SocketClientBattleShip.instance.socket!;
 
   Socket get socketClient => _socketClient;
 
+  // METHODS
   void createRoom(String nickname) {
     _socketClient.open();
     if (nickname.isNotEmpty) {
@@ -44,6 +44,54 @@ class SocketMethodsBattleShip {
         'roomId': roomId,
       });
     }
+  }
+
+  void endGame(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.emit('endGame', {
+      'roomId': roomGlobal.roomData['id'],
+    });
+    Navigator.push(context,
+      MaterialPageRoute(builder: (
+          context) => const MainPage(title: "Fin du jeu")
+      ),
+    );
+  }
+
+  void leaveGame(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    _socketClient.emit('leaveGame', {
+      'roomId': roomGlobal.roomData['id'],
+    });
+  }
+
+  void getBoats(BuildContext context){
+    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
+    var user = Provider.of<AccountGlobal>(context, listen: false);
+    _socketClient.emit('getBoats', {
+      'player': user.pseudo,
+      'roomId': roomGlobal.roomData['id']
+    });
+  }
+
+  void _hitBoat(int index, Boats boats, BuildContext context, RoomGlobalBattleShip roomGlobal) {
+    List<int> actualCase = [(index ~/ 10), (index % 10)];
+    // Check and remove from boat5
+    boats.boat5.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat4
+    boats.boat4.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat3
+    boats.boat3.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat2
+    boats.boat2.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat10
+    boats.boat10.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+    // Check and remove from boat11
+    boats.boat11.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
+
+    roomGlobal.player1.boats.boatSinkMessage(context);
+    roomGlobal.player2.boats.boatSinkMessage(context);
+    GameMethodsBattleship().checkWinner(context, _socketClient);
   }
 
   // LISTENERS
@@ -116,41 +164,15 @@ class SocketMethodsBattleShip {
     });
   }
 
-  void endGame(BuildContext context){
-    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    _socketClient.emit('endGame', {
-      'roomId': roomGlobal.roomData['id'],
-    });
-    GameMethodsBattleship().clearGame(context, socketClient);
-    Navigator.push(context,
-      MaterialPageRoute(builder: (
-          context) => const MainPage(title: "Fin du jeu")
-      ),
-    );
-  }
-
   void endGameListener(BuildContext context) {
     var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    roomGlobal.reset();
     _socketClient.on('endGame', (nothing) {
+      roomGlobal.reset();
       Navigator.push(context,
         MaterialPageRoute(builder: (
             context) => const MainPage(title: "Fin du jeu")
         ),
       );
-      showMessagePopUp(
-          context, "Fin de partie",
-          'Votre adversaire a quitté la partie !',
-          "FFFFFF"
-      );
-    });
-  }
-
-
-  void leaveGame(BuildContext context){
-    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    _socketClient.emit('leaveGame', {
-      'roomId': roomGlobal.roomData['id'],
     });
   }
 
@@ -166,15 +188,6 @@ class SocketMethodsBattleShip {
           'Votre adversaire a abandonné la partie !',
           "FFFFFF"
       );
-    });
-  }
-
-  void getBoats(BuildContext context){
-    var roomGlobal = Provider.of<RoomGlobalBattleShip>(context, listen: false);
-    var user = Provider.of<AccountGlobal>(context, listen: false);
-    _socketClient.emit('getBoats', {
-      'player': user.pseudo,
-      'roomId': roomGlobal.roomData['id']
     });
   }
 
@@ -208,25 +221,4 @@ class SocketMethodsBattleShip {
       }
     });
   }
-
-  void _hitBoat(int index, Boats boats, BuildContext context, RoomGlobalBattleShip roomGlobal) {
-    List<int> actualCase = [(index ~/ 10), (index % 10)];
-    // Check and remove from boat5
-    boats.boat5.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat4
-    boats.boat4.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat3
-    boats.boat3.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat2
-    boats.boat2.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat10
-    boats.boat10.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-    // Check and remove from boat11
-    boats.boat11.removeWhere((coo) => coo[0] == actualCase[0] && coo[1] == actualCase[1]);
-
-    roomGlobal.player1.boats.boatSinkMessage(context);
-    roomGlobal.player2.boats.boatSinkMessage(context);
-    GameMethodsBattleship().checkWinner(context, _socketClient);
-  }
-
 }

@@ -7,7 +7,7 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   final List<String> _displayElementPlayer1 = List<String>.filled(100, '');
   final List<String> _displayElementPlayer2 = List<String>.filled(100, '');
   bool endGame = false;
-  String winner = '';
+  int winner = 0;
   bool animation = false;
   late PlayerBattleShip actualPlayer;
   PlayerBattleShip _player1 = PlayerBattleShip(
@@ -76,7 +76,7 @@ class RoomGlobalBattleShip extends ChangeNotifier {
 
   void reset() {
     endGame = false;
-    winner = '';
+    winner = 0;
     animation = false;
     _player1 = PlayerBattleShip(
       nickname: '',

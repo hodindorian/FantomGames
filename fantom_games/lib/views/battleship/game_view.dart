@@ -146,7 +146,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                           if (value) {
                             if(roomGlobal.player1.nickname == user.pseudo){
                               roomGlobal.actualPlayer = roomGlobal.player1;
-                              if (roomGlobal.winner == roomGlobal.player1.nickname && roomGlobal.animation) {
+                              if (roomGlobal.winner == roomGlobal.player1.nbPlayer && roomGlobal.animation) {
                                 _controllerTopCenterLeft.play();
                                 _controllerTopCenterRight.play();
                                 roomGlobal.animation = false;
@@ -154,14 +154,14 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                             }
                             if(roomGlobal.player2.nickname == user.pseudo){
                               roomGlobal.actualPlayer = roomGlobal.player2;
-                              if (roomGlobal.winner == roomGlobal.player2.nickname && roomGlobal.animation) {
+                              if (roomGlobal.winner == roomGlobal.player2.nbPlayer && roomGlobal.animation) {
                                 _controllerTopCenterLeft.play();
                                 _controllerTopCenterRight.play();
                                 roomGlobal.animation = false;
                               }
                             }
 
-                            if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer.nickname){
+                            if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer.nbPlayer){
                               res = Align(
                                 alignment: Alignment.topCenter,
                                 child: Container(
@@ -178,7 +178,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                   ),
                                 ),
                               );
-                            }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer.nickname){
+                            }else if (roomGlobal.endGame && roomGlobal.winner != roomGlobal.actualPlayer.nbPlayer){
                               res = Align(
                                 alignment: Alignment.topCenter,
                                 child: Container(
@@ -236,11 +236,11 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                                     child: Text(
                                                       roomGlobal.displayElementsPlayer1[index],
                                                       style: TextStyle(
-                                                        color: roomGlobal.displayElementsPlayer1[index].replaceAll(' ', '') == 'O'
-                                                            ? Colors.white
+                                                        color: roomGlobal.displayElementsPlayer1[index].replaceAll(' ', '') == 'X'
+                                                            ? Colors.purpleAccent
                                                             : Colors.black,
                                                         fontWeight: FontWeight.bold,
-                                                        fontSize: (screenWidth+screenHeight)*0.01,
+                                                        fontSize: (screenWidth+screenHeight)*0.014,
                                                       ),
                                                     ),
                                                   ),
@@ -289,7 +289,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                                             ? Colors.red
                                                             : Colors.black,
                                                         fontWeight: FontWeight.bold,
-                                                        fontSize: (screenWidth+screenHeight)*0.01,
+                                                        fontSize: (screenWidth+screenHeight)*0.014,
                                                       ),
                                                     ),
                                                   ),
@@ -365,14 +365,12 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                                         color: roomGlobal
                                                             .displayElementsPlayer2[index]
                                                             .replaceAll(
-                                                            ' ', '') == 'O'
-                                                            ? Colors.white
+                                                            ' ', '') == 'X'
+                                                            ? Colors.purpleAccent
                                                             : Colors.black,
                                                         fontWeight: FontWeight
                                                             .bold,
-                                                        fontSize: (screenWidth +
-                                                            screenHeight) *
-                                                            0.01,
+                                                        fontSize:(screenWidth+screenHeight)*0.014,
                                                       ),
                                                     ),
                                                   ),
@@ -440,9 +438,7 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                                                             : Colors.black,
                                                         fontWeight: FontWeight
                                                             .bold,
-                                                        fontSize: (screenWidth +
-                                                            screenHeight) *
-                                                            0.01,
+                                                        fontSize: (screenWidth+screenHeight)*0.014,
                                                       ),
                                                     ),
                                                   ),
