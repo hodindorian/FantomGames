@@ -49,5 +49,5 @@ steps:
       - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
       - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
       - export SONAR_SCANNER_OPTS="-server"
-      - sonar-scanner -Dsonar.projectKey=FantomGames -Dsonar.sources=lib,pubspec.yaml -Dsonar.host.url=https://sonar.fantomgames.eu -Dsonar.tests=test -Dsonar.inclusions=**/*.dart,test.output -Dsonar.test.inclusions=test/**/*.dart
+      - sonar-scanner -Dsonar.projectKey=FantomGames -Dsonar.sources=lib,pubspec.yaml -Dsonar.host.url=https://sonar.fantomgames.eu -Dsonar.tests=test -Dsonar.inclusions=**/*.dart,fantom_games/test/tests.output -Dsonar.test.inclusions=test/**/*.dart
     depends_on: [ flutter-test ]
