@@ -24,6 +24,7 @@ steps:
       - cd ./fantom_games
       - flutter pub get
       - flutter test
+      - flutter test --machine --coverage > fantom_games/test/tests.output
     depends_on: [ flutter-web-build ]
 
   # deploy sonar
