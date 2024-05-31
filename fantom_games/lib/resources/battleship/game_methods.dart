@@ -2,8 +2,7 @@ import 'package:fantom_games/model/battleship/global_room_battleship.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-
-import '../../reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
 
 class GameMethodsBattleship {
   void checkWinner(BuildContext context, Socket socketClient) {
