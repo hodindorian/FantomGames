@@ -46,7 +46,7 @@ class _LoadingStateTicTacToe extends State<LoadingTicTacToe> {
                   child: Padding(
                     padding: EdgeInsets.only(left: screenWidth * 0.21, top: screenHeight*0.025),
                     child: Text(
-                      "Veuillez Patientez...",
+                      "Veuillez Patienter...",
                       style: TextStyle(
                         fontFamily: 'Boog',
                         color: Colors.white,
