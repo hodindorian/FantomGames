@@ -11,22 +11,6 @@ class SocketClientTicTacToe {
     socket!.connect();
   }
 
-  /*
-  SocketClient._internal() {
-    socket = io.io('http://localhost:3000', <String, dynamic>{
-      'transports': ['websocket'],
-      'autoConnect': false,
-    });
-    socket!.connect();
-  }
-
-   */
-
-
-
-
-
-
   static SocketClientTicTacToe get instance {
     _instance ??= SocketClientTicTacToe._internal();
     return _instance!;
