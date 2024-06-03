@@ -386,7 +386,7 @@ class _GameViewStateTicTacToe extends State<GameViewTicTacToe> {
                 Row(
                   children: [
                     Text(
-                      user.cryptoBalance.toString(),
+                      user.gameLevel.toString(),
                       style: TextStyle(
                         fontSize: (screenWidth + screenHeight) * 0.02,
                         color: Colors.white,

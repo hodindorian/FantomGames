@@ -6,12 +6,12 @@ class Account {
   final String ?_lastname;
   final String ?_firstname;
   final String ?_phoneNumber;
-  final double _cryptoBalance; 
+  final String ?_cryptoAddress;
   final int _gameLevel;
   final Uint8List? _image;
   final List<String> _transactionHistory;
 
-  Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber, this._gameLevel, this._cryptoBalance, this._image,{List<String>? transactionHistory}) :
+  Account(this._email, this._pseudo, this._lastname, this._firstname, this._phoneNumber, this._gameLevel, this._cryptoAddress, this._image,{List<String>? transactionHistory}) :
     _transactionHistory = transactionHistory ?? [];
   
 
@@ -21,7 +21,7 @@ class Account {
   String? get firstname => _firstname;
   String? get phoneNumber => _phoneNumber;
   int get gameLevel => _gameLevel;
-  double get cryptoBalance => _cryptoBalance;
+  String? get cryptoAddress => _cryptoAddress;
   Uint8List? get image => _image;
   List<String> get transactionHistory => _transactionHistory;
 
@@ -51,15 +51,14 @@ class Account {
     image = newImage;
   }
 
-  /*
-  set gameLevel(int newGameLevel) {
-    _gameLevel = newGameLevel;
+  set cryptoAddress(String? newCryptoAddress) {
+    cryptoAddress = newCryptoAddress;
   }
 
-  set cryptoBalance(double newCryptoBalance){
-    _cryptoBalance=newCryptoBalance;
+  set gameLevel(int newGameLevel) {
+    gameLevel = newGameLevel;
   }
-  */
+
 
   void displayAccountInfo() {
     if (kDebugMode) {
@@ -68,7 +67,7 @@ class Account {
       print('Nom: $_lastname');
       print('Prénom: $_firstname');
       print('Numéro de téléphone: $_phoneNumber');
-      print('Solde de crypto-monnaie: $_cryptoBalance');
+      print('Adresse crypto : $_cryptoAddress');
       print('Niveau de jeu: $_gameLevel');
       print('Historique des transactions: $_transactionHistory');
     }

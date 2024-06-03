@@ -14,7 +14,7 @@ void main() {
         'testFirstname',
         '123456789',
         1,
-        100.0,
+        "21212",
         Uint8List.fromList([0, 1, 2, 3]),
       );
 
@@ -24,7 +24,7 @@ void main() {
       expect(accountGlobal.firstname, 'testFirstname');
       expect(accountGlobal.phoneNumber, '123456789');
       expect(accountGlobal.gameLevel, 1);
-      expect(accountGlobal.cryptoBalance, 100.0);
+      expect(accountGlobal.cryptoAddress, "21212");
       expect(accountGlobal.image, Uint8List.fromList([0, 1, 2, 3]));
     });
   });

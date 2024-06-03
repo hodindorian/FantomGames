@@ -12,7 +12,7 @@ void main() {
         'testFirstname',
         '123456789',
         1,
-        100.0,
+        "15151",
         Uint8List.fromList([0, 1, 2, 3]),
         transactionHistory: ['transaction1', 'transaction2'],
       );
@@ -23,7 +23,7 @@ void main() {
       expect(account.firstname, 'testFirstname');
       expect(account.phoneNumber, '123456789');
       expect(account.gameLevel, 1);
-      expect(account.cryptoBalance, 100.0);
+      expect(account.cryptoAddress, "15151");
       expect(account.image, Uint8List.fromList([0, 1, 2, 3]));
       expect(account.transactionHistory, ['transaction1', 'transaction2']);
     });
@@ -36,7 +36,7 @@ void main() {
         null,
         null,
         1,
-        100.0,
+        null,
         null,
       );
 
@@ -44,6 +44,7 @@ void main() {
       expect(account.firstname, null);
       expect(account.phoneNumber, null);
       expect(account.image, null);
+      expect(account.cryptoAddress, null);
       expect(account.transactionHistory, []);
     });
   });
