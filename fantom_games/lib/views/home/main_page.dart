@@ -60,8 +60,7 @@ class _MainPageState extends State<MainPage> {
                   child:
                       Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
                 ),
-
-                ...generatePositionedWidgets(3,['assets/games/tictactoe_logo.png', 'assets/games/battleship.png', 'assets/games/tictactoe_logo.png'],[const CreateOrJoinRoomScreenTicTacToe(), const CreateOrJoinRoomScreenBattleShip(), const MainPage(title: ''), const MainPage(title: '')],['Morpion', 'Bataille Navale', 'Texte 3'],context),
+                ...generatePositionedWidgets(2,['assets/games/tictactoe_logo.png', 'assets/games/battleship.png'],[const CreateOrJoinRoomScreenTicTacToe(), const CreateOrJoinRoomScreenBattleShip()],['Morpion', 'Bataille Navale'],context),
                 Positioned(
                   top: screenHeight*0.04,
                   left: screenWidth*0.20,
