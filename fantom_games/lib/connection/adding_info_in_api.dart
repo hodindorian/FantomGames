@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -62,7 +61,7 @@ Future<Response> addingInfo(Uri uri, String requestBodyJson) async{
   }
 }
 
-Future<List<dynamic>> changePhoneInApi(String pseudo, String phone, BuildContext context) async {
+Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
   Map<String, String> requestBody = {
     'pseudo': pseudo,
     'phone': phone,

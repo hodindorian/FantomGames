@@ -529,7 +529,7 @@ class ProfilState extends State<Profil> {
                                 actions: [
                                   TextButton(
                                     onPressed: () async {
-                                      List<dynamic> myList = await changePhoneInApi(user.pseudo,_phoneNumberController.text, context);
+                                      List<dynamic> myList = await changePhoneInApi(user.pseudo,_phoneNumberController.text);
                                       if(context.mounted){
                                         if(myList[0] == "Unexpected error") {
                                           Navigator.of(context).pop();
