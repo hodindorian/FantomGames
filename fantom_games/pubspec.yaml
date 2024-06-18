@@ -21,13 +21,13 @@ dependencies:
   socket_io_client: ^2.0.3+1
   flutter_launcher_icons: ^0.13.1
   mailer: ^6.0.1
-  file_picker: ^8.0.5
   image: ^4.1.4
   google_ml_kit: ^0.18.0
   confetti: ^0.7.0
   visibility_detector: ^0.4.0+2
   universal_html: ^2.2.4
   mockito: ^5.4.4
+  file_picker: ^8.0.0+1
 
 dev_dependencies:
   flutter_test:
