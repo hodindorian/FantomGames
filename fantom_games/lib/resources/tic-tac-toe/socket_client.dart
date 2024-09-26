@@ -4,7 +4,7 @@ class SocketClientTicTacToe {
   io.Socket? socket;
   static SocketClientTicTacToe? _instance;
   SocketClientTicTacToe._internal() {
-    socket = io.io('https://sockettictactoe.fantomgames.eu', <String, dynamic>{
+    socket = io.io('https://sockettictactoe.hodindorian.com', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

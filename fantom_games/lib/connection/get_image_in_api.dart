@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 Future<Uint8List?> getImageInApi(String pseudo) async {
-  Uri uri = Uri.https('apiuser.fantomgames.eu',
+  Uri uri = Uri.https('apiuser.hodindorian.com',
       '/getImage/$pseudo'
   );
   http.Response response = await http.get(

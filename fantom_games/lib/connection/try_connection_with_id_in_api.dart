@@ -10,7 +10,7 @@ Future<List<dynamic>> tryConnectionWithSession(String id, String pseudo, String 
     'idComputer': idComputer
   };
   try {
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
+    Uri uri = Uri.https('apiuser.hodindorian.com',
         '/userForId',
     );
     String requestBodyJson = jsonEncode(requestBody);

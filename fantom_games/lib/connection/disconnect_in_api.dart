@@ -8,7 +8,7 @@ Future<String> disconnectInApi(String pseudo) async {
       'pseudo': pseudo,
     };
     String requestBodyJson = jsonEncode(requestBody);
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
+    Uri uri = Uri.https('apiuser.hodindorian.com',
         'disconnected'
     );
     http.Response response = await http.post(

@@ -13,7 +13,7 @@ Future<String> creatingUserInApi(String email,String pseudo, String password) as
       'password': hashSaltPassword
     };
     String requestBodyJson = jsonEncode(requestBody);
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
+    Uri uri = Uri.https('apiuser.hodindorian.com',
       'addUser');
     http.Response response = await http.post(
       uri,

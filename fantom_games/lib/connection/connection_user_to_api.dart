@@ -28,7 +28,7 @@ Future<List<dynamic>> connectingUserToApi(String pseudo, String password, bool s
       };
     }
     String requestBodyJson = jsonEncode(requestBody);
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
+    Uri uri = Uri.https('apiuser.hodindorian.com',
         '/userConnection',
     );
     http.Response response = await http.post(

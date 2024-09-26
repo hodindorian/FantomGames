@@ -67,7 +67,7 @@ Future<List<dynamic>> changePhoneInApi(String pseudo, String phone) async {
     'phone': phone,
   };
   String requestBodyJson = jsonEncode(requestBody);
-  Uri uri = Uri.https('apiuser.fantomgames.eu', '/changePhone');
+  Uri uri = Uri.https('apiuser.hodindorian.com', '/changePhone');
 
   Response response = await addingInfo(uri, requestBodyJson);
   List<dynamic> result = await gettingInfo(response, pseudo);
@@ -81,7 +81,7 @@ Future<List<dynamic>> changeFirstNameInApi(String pseudo, String firstName) asyn
     'firstName': firstName,
   };
   String requestBodyJson = jsonEncode(requestBody);
-  Uri uri = Uri.https('apiuser.fantomgames.eu', '/changeFirstName');
+  Uri uri = Uri.https('apiuser.hodindorian.com', '/changeFirstName');
 
   Response response = await addingInfo(uri, requestBodyJson);
   List<dynamic> result = await gettingInfo(response, pseudo);
@@ -95,7 +95,7 @@ Future<List<dynamic>> changeLastNameInApi(String pseudo, String lastName) async 
     'lastName': lastName,
   };
   String requestBodyJson = jsonEncode(requestBody);
-  Uri uri = Uri.https('apiuser.fantomgames.eu',
+  Uri uri = Uri.https('apiuser.hodindorian.com',
       '/changeLastName'
   );
 
@@ -114,7 +114,7 @@ Future<List<dynamic>> changeImageInApi(String pseudo, Uint8List imageUint) async
   }
   String imageBase64 = base64Encode(img.encodeJpg(image));
 
-  Uri uri = Uri.https('apiuser.fantomgames.eu', '/changeImage');
+  Uri uri = Uri.https('apiuser.hodindorian.com', '/changeImage');
   var request = http.MultipartRequest('POST', uri)
     ..fields['pseudo'] = pseudo
     ..files.add(http.MultipartFile.fromBytes(

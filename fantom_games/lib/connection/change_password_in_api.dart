@@ -10,7 +10,7 @@ Future<String> changePasswordInApi(String email, String pseudo) async {
       'pseudo': pseudo,
     };
     String requestBodyJson = jsonEncode(requestBody);
-    Uri uri = Uri.https('apiuser.fantomgames.eu',
+    Uri uri = Uri.https('apiuser.hodindorian.com',
         '/forgotPassword'
     );
     http.Response response = await http.post(

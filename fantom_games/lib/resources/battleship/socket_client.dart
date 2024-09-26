@@ -6,7 +6,7 @@ class SocketClientBattleShip {
 
 
   SocketClientBattleShip._internal() {
-    socket = io.io('https://socketbattleship.fantomgames.eu', <String, dynamic>{
+    socket = io.io('https://socketbattleship.hodindorian.com', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
