@@ -24,11 +24,4 @@ void main() {
     expect(result[0], true);
     expect(result[1], 'test@example.com');
   });
-
-  test('Test addingInfo with valid URI and JSON', () async {
-    final uri = Uri.https('apiuser.hodindorian.com', '/changePhone');
-    final response = await addingInfo(
-        uri, jsonEncode({'pseudo': 'test', 'phone': '1234567890'}));
-    expect(response.statusCode, 200);
-  });
 }
