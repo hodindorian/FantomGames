@@ -1,6 +1,6 @@
 <div align = center>
 
-<img src="fantom_games/assets/favicon.png" width="50%" height="50%" alt="fg logo">
+<img src="fantom_games/assets/favicon.png" width="30%" height="30%" alt="fg logo">
 
 </div>
 
