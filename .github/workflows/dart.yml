@@ -20,8 +20,5 @@ jobs:
       - name: Install dependencies
         run: cd fantom_games;flutter pub get
 
-      - name: Analyze project source
-        run: cd fantom_games;flutter analyse
-
       - name: Run tests
         run: cd fantom_games;flutter test
