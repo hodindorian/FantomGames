@@ -1,8 +1,6 @@
 import 'package:fantom_games/connection/adding_info_in_api.dart';
 import 'package:fantom_games/connection/get_image_in_api.dart';
-import 'package:fantom_games/reusable_widget/method/verify_identity.dart';
 import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
-import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,21 +35,16 @@ class ProfilState extends State<Profil> {
   final TextEditingController _phoneNumberController = TextEditingController();
 
   Future<Object?> _openFilePicker() async {
-
-    FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png'],
     );
     if (result != null) {
-      image = result.files.single.bytes!;
-      return image;
+      final imageBytes = result.files.single.bytes;
+      return imageBytes;
     } else {
-      if (kDebugMode) {
-        print("Sélection annulée");
-      }
-      return false;
+      return null;
     }
-
   }
 
   @override
@@ -587,7 +580,6 @@ class ProfilState extends State<Profil> {
                     child: const Text('Modifier'),
                   ),
                 ),
-                const VerifyingIdentity(isAlreadyVerified: false),
               ],
             );
           },

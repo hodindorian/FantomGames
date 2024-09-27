@@ -44,7 +44,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                         TextButton(
                           style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
+                              foregroundColor: WidgetStateProperty.all<Color>(
                                   Colors.red)
                           ),
                           onPressed: () async {

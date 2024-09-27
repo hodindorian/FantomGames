@@ -30,8 +30,6 @@ Nous avons pour objectif de développer une application internet permettant de c
 
 Nous avons mis en place des outils de communication et de rapport de l’activité au sein de différentes plateformes. Discord pour les fichiers et les sondages, message pour la communication rapide et CodeFirst pour noter notre temps de travail.
 
-# Conception 
-
 # :construction: Développeurs
 
 - Dorian HODIN : dorian.hodin@etu.uca.fr

@@ -192,7 +192,7 @@ class SignInScreenState extends State<SignInScreen> {
                                           //Bouton "Mot de passe oublié"
                                           TextButton(
                                             style: ButtonStyle(
-                                                foregroundColor: MaterialStateProperty.all<Color>(Colors.red)
+                                                foregroundColor: WidgetStateProperty.all<Color>(Colors.red)
                                             ),
                                             onPressed: () async {
                                               Navigator.push(context,
@@ -225,9 +225,9 @@ class SignInScreenState extends State<SignInScreen> {
                                               );
                                             },
                                             style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent,),
-                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.08, screenHeight*0.05)),
-                                              side: MaterialStateProperty.all(
+                                              backgroundColor: WidgetStateProperty.all<Color>(Colors.lightBlueAccent,),
+                                              minimumSize: WidgetStateProperty.all<Size>(Size(screenWidth*0.08, screenHeight*0.05)),
+                                              side: WidgetStateProperty.all(
                                                 const BorderSide(
                                                   color: Colors.black,
                                                 ),
@@ -243,10 +243,10 @@ class SignInScreenState extends State<SignInScreen> {
                                           //Bouton de connexion
                                           TextButton(
                                             style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                                              minimumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
-                                              maximumSize: MaterialStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
-                                              side: MaterialStateProperty.all(
+                                              backgroundColor: WidgetStateProperty.all<Color>(Colors.lightBlueAccent),
+                                              minimumSize: WidgetStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
+                                              maximumSize: WidgetStateProperty.all<Size>(Size(screenWidth*0.17, screenHeight*0.07)),
+                                              side: WidgetStateProperty.all(
                                               const BorderSide(
                                                 color: Colors.black,
                                                 )

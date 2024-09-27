@@ -103,10 +103,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 TextButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(
+                                    backgroundColor: WidgetStateProperty.all<Color>(
                                       Colors.lightBlueAccent,
                                     ),
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                       const BorderSide(
                                         color: Colors.black,
                                         width: 2.0,
