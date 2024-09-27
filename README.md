@@ -37,7 +37,7 @@ Nous avons mis en place des outils de communication et de rapport de l’activit
 - Dorian HODIN : dorian.hodin@etu.uca.fr
 
 <div align="center">
-<a href = "https://codefirst.iut.uca.fr/git/dorian.hodin">
-<img src="https://codefirst.iut.uca.fr/git/avatars/d6f97dbdf66352b0b66685e144aa1ee5?size=870" width="50" >
+<a href = "https://github.com/hodindorian">
+<img src="https://avatars.githubusercontent.com/u/87948099?v=4" width="50" >
 </a>
 </div>
