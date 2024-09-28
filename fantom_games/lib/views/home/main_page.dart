@@ -2,7 +2,6 @@ import 'package:fantom_games/views/battleship/create_or_join_room_screen.dart';
 import 'package:fantom_games/views/tic-tac-toe/create_or_join_room_screen.dart';
 import 'package:fantom_games/views/menu/profil.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
-import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
@@ -79,7 +78,6 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 ReusableMenu(color:const Color(0xFF1B438F), pseudo: user.pseudo,),
-                const TableSuccess(),
                 ProfilIcon(pseudo: user.pseudo,userImage: user.image),
                 Positioned(
                   top: screenHeight * 0.45,

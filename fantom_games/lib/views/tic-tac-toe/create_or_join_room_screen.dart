@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fantom_games/views/tic-tac-toe/loading.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
-import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:fantom_games/resources/tic-tac-toe/socket_methods.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
@@ -215,7 +214,6 @@ class CreateOrJoinRoomScreenStateTicTacToe extends State<CreateOrJoinRoomScreenT
                 ),
               ],
             ),
-            const TableSuccess(),
           ],
         ),
       ),

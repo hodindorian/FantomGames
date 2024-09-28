@@ -4,7 +4,6 @@ import 'package:fantom_games/views/battleship/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
-import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/views/home/main_page.dart';
@@ -215,7 +214,6 @@ class CreateOrJoinRoomScreenBattleShipState extends State<CreateOrJoinRoomScreen
                 ),
               ],
             ),
-            const TableSuccess(),
           ],
         ),
       ),

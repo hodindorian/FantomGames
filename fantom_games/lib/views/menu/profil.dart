@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 import 'package:fantom_games/reusable_widget/widget/menu.dart';
-import 'package:fantom_games/reusable_widget/widget/table_success.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/reusable_widget/method/hex_string_to_color.dart';
@@ -118,7 +117,6 @@ class ProfilState extends State<Profil> {
                 const NavigationBarOnTop(title : 'Page de profil'),
                 ProfilIcon(pseudo: user.pseudo, userImage: user.image),
                 ReusableMenu(color:const Color(0xFF003366), pseudo: user.pseudo),
-                const TableSuccess(),
                 Positioned(
                   top: screenHeight * 0.35,
                   left: screenWidth * 0.2,
