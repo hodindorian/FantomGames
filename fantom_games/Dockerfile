@@ -1,4 +1,4 @@
-FROM ghcr.io/cirruslabs/flutter:3.13.5
+FROM ghcr.io/cirruslabs/flutter:3.26.0
 
 COPY . /app
 RUN flutter doctor
