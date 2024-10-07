@@ -1,14 +1,12 @@
-import 'dart:math';
-import 'package:confetti/confetti.dart';
 import 'package:fantom_games/model/battleship/boats.dart';
 import 'package:fantom_games/model/battleship/global_room_battleship.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/resources/battleship/socket_methods.dart';
-import 'package:fantom_games/reusable_widget/widget/menu.dart';
 import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
-import 'package:fantom_games/reusable_widget/widget/profil_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_html/html.dart' as html;
+
 
 class GameViewBattleShip extends StatefulWidget {
   const GameViewBattleShip({super.key});
@@ -20,8 +18,6 @@ class GameViewBattleShip extends StatefulWidget {
 class _GameViewStateBattleShip extends State<GameViewBattleShip> {
   final SocketMethodsBattleShip _socketMethods = SocketMethodsBattleShip();
   late AccountGlobal user;
-  late ConfettiController _controllerTopCenterLeft;
-  late ConfettiController _controllerTopCenterRight;
   late Widget res;
   bool getBoats = false;
 
@@ -33,8 +29,6 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     _socketMethods.updateRoomListener(context);
     _socketMethods.endGameListener(context);
     _socketMethods.getBoatsListener(context);
-    _controllerTopCenterLeft = ConfettiController(duration: const Duration(seconds: 2));
-    _controllerTopCenterRight = ConfettiController(duration: const Duration(seconds: 2));
     user = Provider.of<AccountGlobal>(context, listen: false);
   }
 
@@ -54,14 +48,6 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     }
 
   }
-
-  @override
-  void dispose() {
-    _controllerTopCenterLeft.dispose();
-    _controllerTopCenterRight.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     RoomGlobalBattleShip roomGlobal = Provider.of<RoomGlobalBattleShip>(context);
@@ -69,46 +55,23 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
     double screenWidth = MediaQuery.of(context).size.width;
     List<int> actualCase = [1,1];
 
+    html.window.onBeforeUnload.listen((event) async {
+      _socketMethods.leaveGame(context);
+    });
+
     return Scaffold(
       body: Container(
         color: const Color(0xFF1B438F),
         child: Stack(
           children: [
             const NavigationBarOnTop(title: 'Bataille Navale'),
-            ReusableMenu(color: const Color(0xFF003366), pseudo: user.pseudo,),
-            ProfilIcon(pseudo: user.pseudo, userImage: user.image),
             Positioned(
                 right: screenWidth*0.65,
                 top : screenHeight*0.02,
                 child:
                 Image.asset('assets/FantomGamesIcon.png', opacity: const AlwaysStoppedAnimation(.3))
             ),
-            Positioned(
-              top : (screenWidth+screenHeight)*0.01,
-              left : (screenWidth+screenHeight)*0.1,
-              child: ConfettiWidget(
-                confettiController: _controllerTopCenterLeft,
-                blastDirection: 1/4*pi ,
-                maxBlastForce: 1.1,
-                minBlastForce: 1,
-                emissionFrequency: 0.05,
-                numberOfParticles: 10,
-                gravity: 0.1,
-              ),
-            ),
-            Positioned(
-              top : (screenWidth+screenHeight)*0.01,
-              right : (screenWidth+screenHeight)*0.1,
-              child: ConfettiWidget(
-                confettiController: _controllerTopCenterRight,
-                blastDirection: 1/4*pi ,
-                maxBlastForce: 1.1,
-                minBlastForce: 1,
-                emissionFrequency: 0.05,
-                numberOfParticles: 10,
-                gravity: 0.1,
-              ),
-            ),
+
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -146,19 +109,9 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
                           if (value) {
                             if(roomGlobal.player1.nickname == user.pseudo){
                               roomGlobal.actualPlayer = roomGlobal.player1;
-                              if (roomGlobal.winner == roomGlobal.player1.nbPlayer && roomGlobal.animation) {
-                                _controllerTopCenterLeft.play();
-                                _controllerTopCenterRight.play();
-                                roomGlobal.animation = false;
-                              }
                             }
                             if(roomGlobal.player2.nickname == user.pseudo){
                               roomGlobal.actualPlayer = roomGlobal.player2;
-                              if (roomGlobal.winner == roomGlobal.player2.nbPlayer && roomGlobal.animation) {
-                                _controllerTopCenterLeft.play();
-                                _controllerTopCenterRight.play();
-                                roomGlobal.animation = false;
-                              }
                             }
 
                             if (roomGlobal.endGame && roomGlobal.winner == roomGlobal.actualPlayer.nbPlayer){
@@ -495,4 +448,5 @@ class _GameViewStateBattleShip extends State<GameViewBattleShip> {
       ),
     );
   }
+
 }

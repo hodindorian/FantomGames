@@ -8,7 +8,6 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   final List<String> _displayElementPlayer2 = List<String>.filled(100, '');
   bool endGame = false;
   int winner = 0;
-  bool animation = false;
   late PlayerBattleShip actualPlayer;
   PlayerBattleShip _player1 = PlayerBattleShip(
     nickname: '',
@@ -77,7 +76,6 @@ class RoomGlobalBattleShip extends ChangeNotifier {
   void reset() {
     endGame = false;
     winner = 0;
-    animation = false;
     _player1 = PlayerBattleShip(
       nickname: '',
       socketID: '',
@@ -100,7 +98,6 @@ class RoomGlobalBattleShip extends ChangeNotifier {
         roomData: $_roomData,
         endGame: $endGame,
         winner: $winner,
-        animation: $animation,
       )
     ''';
   }

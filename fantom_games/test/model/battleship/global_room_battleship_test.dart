@@ -92,13 +92,11 @@ void main() {
     test('reset should reset game state', () {
       room.endGame = true;
       room.winner = 1;
-      room.animation = true;
 
       room.reset();
 
       expect(room.endGame, isFalse);
       expect(room.winner, 0);
-      expect(room.animation, isFalse);
       expect(room.player1.nickname, isEmpty);
       expect(room.player2.nickname, isEmpty);
     });

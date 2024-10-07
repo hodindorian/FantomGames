@@ -75,7 +75,7 @@ class GameMethodsTicTacToe {
 
       } else if (roomGlobal.filledBoxes == 9) {
         winner = '';
-        roomGlobal.animation = true;
+
         roomGlobal.endRound = true;
         showMessagePopUp(
             context, "Résultat :",
@@ -86,7 +86,6 @@ class GameMethodsTicTacToe {
       }
 
       if (winner != '') {
-        roomGlobal.animation = true;
         if (roomGlobal.actualPlayer.playerType == winner) {
           socketClient.emit('winner', {
             'winnerSocketId': roomGlobal.actualPlayer.socketID,

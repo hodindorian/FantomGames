@@ -9,7 +9,6 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
   bool endGame = false;
   int nbRound = 1;
   String winner = '';
-  bool animation = false;
   late PlayerTicTacToe actualPlayer;
   PlayerTicTacToe _player1 = PlayerTicTacToe(
     nickname: '',
@@ -68,7 +67,6 @@ class RoomGlobalTicTacToe extends ChangeNotifier {
     endGame = false;
     nbRound = 1;
     winner = '';
-    animation = false;
     _player1 = PlayerTicTacToe(
       nickname: '',
       socketID: '',
