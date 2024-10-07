@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:fantom_games/reusable_widget/method/message_bar.dart';
-import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/message_pop_up.dart';
 import 'package:fantom_games/resources/tic-tac-toe/game_methods.dart';
 
 class SocketMethodsTicTacToe {

@@ -9,7 +9,7 @@ import 'package:fantom_games/reusable_widget/widget/menu.dart';
 import 'package:provider/provider.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/reusable_widget/method/hex_string_to_color.dart';
-import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/message_pop_up.dart';
 import 'package:fantom_games/reusable_widget/widget/navigation_bar_on_top.dart';
 
 class Profil extends StatefulWidget {

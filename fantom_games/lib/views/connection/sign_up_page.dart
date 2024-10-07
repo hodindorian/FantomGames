@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:fantom_games/views/connection/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fantom_games/connection/creating_user_in_api.dart';
-import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/message_pop_up.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -146,7 +146,22 @@ class SignUpScreenState extends State<SignUpScreen> {
                                             context, "Mot de passe non identiques",
                                             "Les deux mots de passe ne sont pas identiques",
                                             "FFFFFF");
-                                      } else {
+                                      } else if (_pseudoTextController.text.length > 100){
+                                        showMessagePopUp(
+                                            context, "Pseudo trop long",
+                                            "Votre pseudo ne peut pas dépasser 100 caractères",
+                                            "FFFFFF");
+                                      } else if(_passwordVerifyTextController.text.length > 400){
+                                        showMessagePopUp(
+                                            context, "Mot de passe trop long",
+                                            "Votre mot de passe ne peut pas dépasser 400 caractères",
+                                            "FFFFFF");
+                                      } else if(_emailTextController.text.length > 200){
+                                        showMessagePopUp(
+                                            context, "Email trop long",
+                                            "Votre email ne peut pas dépasser 200 caractères",
+                                            "FFFFFF");
+                                      }else {
                                         String response = await creatingUserInApi(
                                             _emailTextController.text,
                                             _pseudoTextController.text,

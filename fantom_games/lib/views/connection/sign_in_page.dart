@@ -11,7 +11,7 @@ import 'package:fantom_games/connection/get_image_in_api.dart';
 import 'package:fantom_games/connection/try_connection_with_id_in_api.dart';
 import 'package:fantom_games/model/global_account.dart';
 import 'package:fantom_games/model/global_object.dart';
-import 'package:fantom_games/reusable_widget/method/messsage_pop_up.dart';
+import 'package:fantom_games/reusable_widget/method/message_pop_up.dart';
 import 'package:fantom_games/reusable_widget/widget/text_field.dart';
 import 'package:fantom_games/views/home/main_page.dart';
 
